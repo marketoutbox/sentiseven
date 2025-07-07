@@ -1534,9 +1534,120 @@ const SentimentDashboard = () => {
 
 
             {/* Footer */}
-            <div className="mt-8 pt-6 border-t text-center text-muted-foreground text-sm">
-              <p>© 2025 Sentiment Analysis Dashboard. Data refreshes every 15 minutes.</p>
-            </div>
+            <footer className="mt-12 bg-card border-t border-border">
+              <div className="max-w-7xl mx-auto px-6 py-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                  {/* Brand Section */}
+                  <div className="col-span-1 md:col-span-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <BarChart3 className="h-6 w-6 text-primary" />
+                      <span className="font-neuropol text-xl text-foreground">SENTIBOARD</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-4 max-w-md">
+                      Advanced sentiment analysis platform combining social media, news, and market data to provide 
+                      comprehensive investment insights and portfolio management tools.
+                    </p>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                        <span>Live Data</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <RotateCw className="h-3 w-3" />
+                        <span>Updates every 15 min</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Platform Section */}
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-3 text-sm">Platform</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          Dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/performance" className="hover:text-foreground transition-colors">
+                          Performance
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/twitter-signals" className="hover:text-foreground transition-colors">
+                          Twitter Signals
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/news-signals" className="hover:text-foreground transition-colors">
+                          News Signals
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/google-trend-signals" className="hover:text-foreground transition-colors">
+                          Google Trends
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Resources Section */}
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-3 text-sm">Resources</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          API Documentation
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          User Guide
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          Data Sources
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          Support
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="hover:text-foreground transition-colors">
+                          Privacy Policy
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Bottom Section */}
+                <div className="mt-8 pt-6 border-t border-border">
+                  <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div className="flex items-center gap-6 text-xs text-muted-foreground">
+                      <span>© 2025 SentiBoard. All rights reserved.</span>
+                      <div className="flex items-center gap-4">
+                        <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+                        <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Badge variant="outline" className="text-xs">
+                        <Activity className="h-3 w-3 mr-1" />
+                        Market Data Provider: Yahoo Finance
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        v2.1.0
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </footer>
 
             {/* Modals */}
             <AddBasketModal
