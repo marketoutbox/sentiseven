@@ -162,37 +162,32 @@ export function StockSelector({
                     <Table>
                       <TableHeader className="sticky top-0 bg-card z-10">
                         <TableRow className="border-border">
-                          <TableHead className="w-[60px] sm:w-[80px] text-muted-foreground text-xs sm:text-sm">Symbol</TableHead>
-                          <TableHead className="text-muted-foreground text-xs sm:text-sm min-w-[120px]">Name</TableHead>
-                          <TableHead className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm">Sector</TableHead>
-                          <TableHead className="text-right text-muted-foreground text-xs sm:text-sm w-[70px] sm:w-[80px]">Price</TableHead>
-                          <TableHead className="w-[70px] sm:w-[90px] text-center text-muted-foreground text-xs sm:text-sm">Action</TableHead>
+                          <TableHead className="w-[80px] text-muted-foreground text-xs sm:text-sm">Symbol</TableHead>
+                          <TableHead className="text-right text-muted-foreground text-xs sm:text-sm w-[80px]">Price</TableHead>
+                          <TableHead className="w-[90px] text-center text-muted-foreground text-xs sm:text-sm">Action</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {displayStocks.length === 0 ? (
                           <TableRow>
-                            <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                            <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
                               {searchTerm ? 'No stocks found matching your search criteria' : 'No stocks available'}
                             </TableCell>
                           </TableRow>
                         ) : (
                           displayStocks.map((stock) => (
                             <TableRow key={stock.id} className="group border-border hover:bg-accent">
-                              <TableCell className="font-medium text-card-foreground text-xs sm:text-sm">{stock.symbol}</TableCell>
-                              <TableCell className="text-card-foreground text-xs sm:text-sm">
-                                <div className="truncate max-w-[150px] sm:max-w-none" title={stock.name}>
-                                  {stock.name}
-                                </div>
-                              </TableCell>
-                              <TableCell className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm">
-                                <div className="truncate max-w-[100px]" title={stock.sector}>
-                                  {stock.sector}
+                              <TableCell className="font-medium text-card-foreground text-xs sm:text-sm">
+                                <div>
+                                  <div className="font-medium">{stock.symbol}</div>
+                                  <div className="text-xs text-muted-foreground truncate max-w-[120px]" title={stock.name}>
+                                    {stock.name}
+                                  </div>
                                 </div>
                               </TableCell>
                               <TableCell className="text-right">
                                 <div className="flex flex-col items-end">
-                                  <span className={stock.change >= 0 ? "text-emerald-600" : "text-red-600"}>
+                                  <span className={`font-medium text-xs sm:text-sm ${stock.change >= 0 ? "text-emerald-600" : "text-red-600"}`}>
                                     ${stock.price.toFixed(2)}
                                   </span>
                                   <span className={`text-xs ${stock.change >= 0 ? "text-emerald-500" : "text-red-500"}`}>
@@ -204,7 +199,7 @@ export function StockSelector({
                                 <Button
                                   variant={isSelected(stock.id) ? "default" : "outline"}
                                   size="sm"
-                                  className={`w-full text-xs sm:text-sm px-2 sm:px-3 ${
+                                  className={`w-full text-xs px-2 py-1 ${
                                     isSelected(stock.id)
                                       ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                                       : "bg-background border-border text-foreground hover:bg-accent"
