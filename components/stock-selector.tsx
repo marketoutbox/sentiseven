@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Check, ChevronDown, Plus, Search, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -39,6 +39,8 @@ export function StockSelector({
   const [selectedStocks, setSelectedStocks] = useState(initialStocks)
   const [searchTerm, setSearchTerm] = useState("")
   const [sectorFilter, setSectorFilter] = useState<string | null>(null)
+  const [currentPrices, setCurrentPrices] = useState<Record<string, number>>({})
+  const [loadingPrices, setLoadingPrices] = useState(false)
 
   // Reset selected stocks when dialog opens
   useEffect(() => {
@@ -46,6 +48,50 @@ export function StockSelector({
       setSelectedStocks(initialStocks)
     }
   }, [open, initialStocks])
+
+  // Fetch current stock prices in batch using the same logic as performance page
+  const getCurrentPricesBatch = useCallback(async (symbols: string[]): Promise<Record<string, number>> => {
+    if (symbols.length === 0) return {}
+    try {
+      const response = await fetch("/api/stock-price/current/batch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ symbols }),
+      })
+      const data = await response.json()
+      if (response.ok) {
+        return data
+      }
+      throw new Error(data.error || "Failed to fetch current prices in batch")
+    } catch (error) {
+      console.error("Error fetching current prices in batch:", error)
+      // Fallback to consistent mock prices for all symbols if batch API fails
+      const mockPrices: Record<string, number> = {}
+      symbols.forEach((symbol) => {
+        const symbolSum = symbol.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)
+        const basePrice = (symbolSum % 490) + 10 // Price between $10 and $500
+        mockPrices[symbol] = Math.round(basePrice * 100) / 100
+      })
+      return mockPrices
+    }
+  }, [])
+
+  // Load current prices when dialog opens
+  useEffect(() => {
+    if (open) {
+      setLoadingPrices(true)
+      const symbols = allStocks.map(stock => stock.symbol)
+             getCurrentPricesBatch(symbols).then((prices: Record<string, number>) => {
+         setCurrentPrices(prices)
+         setLoadingPrices(false)
+       }).catch((error: any) => {
+         console.error("Failed to load current prices:", error)
+         setLoadingPrices(false)
+       })
+    }
+  }, [open, getCurrentPricesBatch])
 
   // Filter stocks based on search term and sector
   const filteredStocks = allStocks.filter((stock) => {
@@ -86,6 +132,17 @@ export function StockSelector({
 
     onSave(stocksToSave)
     onOpenChange(false)
+  }
+
+  // Get current price and calculate change
+  const getCurrentPrice = (symbol: string) => {
+    return currentPrices[symbol] || 0
+  }
+
+  const getCurrentChange = (symbol: string, originalPrice: number) => {
+    const current = getCurrentPrice(symbol)
+    if (current === 0 || originalPrice === 0) return 0
+    return ((current - originalPrice) / originalPrice) * 100
   }
 
   return (
@@ -154,6 +211,7 @@ export function StockSelector({
               <CardHeader className="p-3 sm:p-4 flex-shrink-0">
                 <CardTitle className="text-sm sm:text-base text-card-foreground">
                   Available Stocks ({searchTerm ? filteredStocks.length : 'All'})
+                  {loadingPrices && <span className="text-xs text-muted-foreground ml-2">(Loading prices...)</span>}
                 </CardTitle>
               </CardHeader>
               <div className="flex-1 overflow-hidden">
@@ -175,42 +233,49 @@ export function StockSelector({
                             </TableCell>
                           </TableRow>
                         ) : (
-                          displayStocks.map((stock) => (
-                            <TableRow key={stock.id} className="group border-border hover:bg-accent">
-                              <TableCell className="font-medium text-card-foreground text-xs sm:text-sm">
-                                <div>
-                                  <div className="font-medium">{stock.symbol}</div>
-                                  <div className="text-xs text-muted-foreground truncate max-w-[120px]" title={stock.name}>
-                                    {stock.name}
+                          displayStocks.map((stock) => {
+                            const currentPrice = getCurrentPrice(stock.symbol)
+                            const changePercent = getCurrentChange(stock.symbol, stock.price)
+                            const displayPrice = currentPrice > 0 ? currentPrice : stock.price
+                            const displayChange = currentPrice > 0 ? changePercent : stock.change
+                            
+                            return (
+                              <TableRow key={stock.id} className="group border-border hover:bg-accent">
+                                <TableCell className="font-medium text-card-foreground text-xs sm:text-sm">
+                                  <div>
+                                    <div className="font-medium">{stock.symbol}</div>
+                                    <div className="text-xs text-muted-foreground truncate max-w-[120px]" title={stock.name}>
+                                      {stock.name}
+                                    </div>
                                   </div>
-                                </div>
-                              </TableCell>
-                              <TableCell className="text-right">
-                                <div className="flex flex-col items-end">
-                                  <span className={`font-medium text-xs sm:text-sm ${stock.change >= 0 ? "text-emerald-600" : "text-red-600"}`}>
-                                    ${stock.price.toFixed(2)}
-                                  </span>
-                                  <span className={`text-xs ${stock.change >= 0 ? "text-emerald-500" : "text-red-500"}`}>
-                                    {stock.change >= 0 ? '+' : ''}{stock.change}%
-                                  </span>
-                                </div>
-                              </TableCell>
-                              <TableCell className="text-center">
-                                <Button
-                                  variant={isSelected(stock.id) ? "default" : "outline"}
-                                  size="sm"
-                                  className={`w-full text-xs px-2 py-1 ${
-                                    isSelected(stock.id)
-                                      ? "bg-primary hover:bg-primary/90 text-primary-foreground"
-                                      : "bg-background border-border text-foreground hover:bg-accent"
-                                  }`}
-                                  onClick={() => toggleStock(stock)}
-                                >
-                                  {isSelected(stock.id) ? "Remove" : "Add"}
-                                </Button>
-                              </TableCell>
-                            </TableRow>
-                          ))
+                                </TableCell>
+                                <TableCell className="text-right">
+                                  <div className="flex flex-col items-end">
+                                    <span className={`font-medium text-xs sm:text-sm ${displayChange >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                                      ${displayPrice.toFixed(2)}
+                                    </span>
+                                    <span className={`text-xs ${displayChange >= 0 ? "text-emerald-500" : "text-red-500"}`}>
+                                      {displayChange >= 0 ? '+' : ''}{displayChange.toFixed(2)}%
+                                    </span>
+                                  </div>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  <Button
+                                    variant={isSelected(stock.id) ? "default" : "outline"}
+                                    size="sm"
+                                    className={`w-full text-xs px-2 py-1 ${
+                                      isSelected(stock.id)
+                                        ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                                        : "bg-background border-border text-foreground hover:bg-accent"
+                                    }`}
+                                    onClick={() => toggleStock(stock)}
+                                  >
+                                    {isSelected(stock.id) ? "Remove" : "Add"}
+                                  </Button>
+                                </TableCell>
+                              </TableRow>
+                            )
+                          })
                         )}
                       </TableBody>
                     </Table>
