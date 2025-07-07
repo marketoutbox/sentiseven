@@ -960,8 +960,8 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="bg-background min-h-screen flex flex-col">
+      <div className="max-w-7xl mx-auto p-6 flex-1">
         {isLoading && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-card p-6 rounded-lg shadow-xl flex items-center gap-3">
@@ -1523,7 +1523,7 @@ const SentimentDashboard = () => {
 
 
             {/* Footer */}
-            <footer className="mt-12 bg-card border-t border-border">
+            <footer className="mt-12 bg-card border-t border-border rounded-t-lg">
               <div className="max-w-7xl mx-auto px-6 py-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                   {/* Brand Section */}
