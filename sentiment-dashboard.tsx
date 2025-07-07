@@ -975,23 +975,12 @@ const SentimentDashboard = () => {
         ) : (
           <>
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+            <div className="mb-6">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                   Sentiment Analysis Dashboard
                 </h1>
                 <p className="text-muted-foreground mt-1">Track market sentiment across multiple data sources</p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Badge className={`${overallSentiment.color} px-3 py-1.5 text-white`}>{overallSentiment.text}</Badge>
-                <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[200px]">
-                  <TabsList className="grid grid-cols-3">
-                    <TabsTrigger value="1d">1D</TabsTrigger>
-                    <TabsTrigger value="1w">1W</TabsTrigger>
-                    <TabsTrigger value="1m">1M</TabsTrigger>
-                  </TabsList>
-                </Tabs>
               </div>
             </div>
 
