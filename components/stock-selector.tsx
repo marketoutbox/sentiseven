@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { Check, ChevronDown, Plus, Search, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -39,13 +39,11 @@ export function StockSelector({
   const [selectedStocks, setSelectedStocks] = useState(initialStocks)
   const [searchTerm, setSearchTerm] = useState("")
   const [sectorFilter, setSectorFilter] = useState<string | null>(null)
-  const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Reset selected stocks when dialog opens
   useEffect(() => {
     if (open) {
       setSelectedStocks(initialStocks)
-      setSearchTerm("") // Clear search when opening
     }
   }, [open, initialStocks])
 
@@ -60,8 +58,8 @@ export function StockSelector({
     return matchesSearch && matchesSector
   })
 
-  // Show all stocks when no search term, otherwise show filtered results
-  const displayStocks = filteredStocks
+  // Show at least 5 stocks by default (when no search term)
+  const displayStocks = searchTerm ? filteredStocks : filteredStocks.slice(0, Math.max(5, filteredStocks.length))
 
   // Check if a stock is selected
   const isSelected = (stockId: number) => {
@@ -92,28 +90,25 @@ export function StockSelector({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl h-[100dvh] sm:h-[90vh] sm:max-h-[90vh] w-[100vw] sm:w-[90vw] flex flex-col bg-card border-border p-0 sm:p-6">
-        <DialogHeader className="flex-shrink-0 p-4 sm:p-0">
+      <DialogContent className="max-w-6xl max-h-[95vh] w-[95vw] sm:w-[90vw] flex flex-col bg-card border-border">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle className="text-card-foreground">Edit Stock Basket</DialogTitle>
           <DialogDescription className="text-muted-foreground">
             Select stocks to include in your sentiment analysis basket.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col lg:flex-row gap-3 sm:gap-6 flex-1 overflow-hidden min-h-0 p-4 sm:p-0">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 flex-1 overflow-hidden min-h-0">
           {/* Left side - Available stocks */}
           <div className="flex-1 flex flex-col min-h-0">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-3 sm:mb-4 flex-shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4 flex-shrink-0">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  ref={searchInputRef}
                   placeholder="Search by symbol or name..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 bg-background border-input text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  autoComplete="off"
-                  inputMode="none"
                 />
               </div>
 
@@ -155,23 +150,23 @@ export function StockSelector({
               </Popover>
             </div>
 
-            <Card className="flex-1 overflow-hidden bg-card border-border min-h-0">
-              <CardHeader className="p-3 sm:p-4 flex-shrink-0 border-b border-border">
+            <Card className="flex-1 overflow-hidden bg-card border-border">
+              <CardHeader className="p-3 sm:p-4 flex-shrink-0">
                 <CardTitle className="text-sm sm:text-base text-card-foreground">
-                  Available Stocks ({searchTerm ? filteredStocks.length : allStocks.length})
+                  Available Stocks ({searchTerm ? filteredStocks.length : 'All'})
                 </CardTitle>
               </CardHeader>
-              <div className="flex-1 min-h-0">
-                <ScrollArea className="h-[300px] sm:h-[350px] lg:h-[400px]">
+              <div className="flex-1 overflow-hidden">
+                <ScrollArea className="h-[200px] sm:h-[250px] lg:h-[400px]">
                   <div className="overflow-x-auto">
                     <Table>
-                      <TableHeader className="sticky top-0 bg-card z-10 border-b border-border">
+                      <TableHeader className="sticky top-0 bg-card z-10">
                         <TableRow className="border-border">
-                          <TableHead className="w-[60px] sm:w-[80px] text-muted-foreground text-xs sm:text-sm font-medium">Symbol</TableHead>
-                          <TableHead className="text-muted-foreground text-xs sm:text-sm min-w-[120px] font-medium">Name</TableHead>
-                          <TableHead className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm font-medium">Sector</TableHead>
-                          <TableHead className="text-right text-muted-foreground text-xs sm:text-sm w-[80px] sm:w-[90px] font-medium">Price</TableHead>
-                          <TableHead className="w-[70px] sm:w-[90px] text-center text-muted-foreground text-xs sm:text-sm font-medium">Action</TableHead>
+                          <TableHead className="w-[60px] sm:w-[80px] text-muted-foreground text-xs sm:text-sm">Symbol</TableHead>
+                          <TableHead className="text-muted-foreground text-xs sm:text-sm min-w-[120px]">Name</TableHead>
+                          <TableHead className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm">Sector</TableHead>
+                          <TableHead className="text-right text-muted-foreground text-xs sm:text-sm w-[70px] sm:w-[80px]">Price</TableHead>
+                          <TableHead className="w-[70px] sm:w-[90px] text-center text-muted-foreground text-xs sm:text-sm">Action</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -183,23 +178,21 @@ export function StockSelector({
                           </TableRow>
                         ) : (
                           displayStocks.map((stock) => (
-                            <TableRow key={stock.id} className="group border-border hover:bg-accent/50">
-                              <TableCell className="font-medium text-card-foreground text-xs sm:text-sm py-3">
-                                {stock.symbol}
-                              </TableCell>
-                              <TableCell className="text-card-foreground text-xs sm:text-sm py-3">
-                                <div className="truncate max-w-[120px] sm:max-w-none" title={stock.name}>
+                            <TableRow key={stock.id} className="group border-border hover:bg-accent">
+                              <TableCell className="font-medium text-card-foreground text-xs sm:text-sm">{stock.symbol}</TableCell>
+                              <TableCell className="text-card-foreground text-xs sm:text-sm">
+                                <div className="truncate max-w-[150px] sm:max-w-none" title={stock.name}>
                                   {stock.name}
                                 </div>
                               </TableCell>
-                              <TableCell className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm py-3">
+                              <TableCell className="hidden sm:table-cell text-muted-foreground text-xs sm:text-sm">
                                 <div className="truncate max-w-[100px]" title={stock.sector}>
                                   {stock.sector}
                                 </div>
                               </TableCell>
-                              <TableCell className="text-right py-3">
+                              <TableCell className="text-right">
                                 <div className="flex flex-col items-end">
-                                  <span className={`font-medium text-xs sm:text-sm ${stock.change >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                                  <span className={stock.change >= 0 ? "text-emerald-600" : "text-red-600"}>
                                     ${stock.price.toFixed(2)}
                                   </span>
                                   <span className={`text-xs ${stock.change >= 0 ? "text-emerald-500" : "text-red-500"}`}>
@@ -207,11 +200,11 @@ export function StockSelector({
                                   </span>
                                 </div>
                               </TableCell>
-                              <TableCell className="text-center py-3">
+                              <TableCell className="text-center">
                                 <Button
                                   variant={isSelected(stock.id) ? "default" : "outline"}
                                   size="sm"
-                                  className={`w-full text-xs px-2 h-7 sm:h-8 ${
+                                  className={`w-full text-xs sm:text-sm px-2 sm:px-3 ${
                                     isSelected(stock.id)
                                       ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                                       : "bg-background border-border text-foreground hover:bg-accent"
@@ -234,8 +227,8 @@ export function StockSelector({
 
           {/* Right side - Selected stocks */}
           <div className="w-full lg:w-[280px] xl:w-[320px] flex flex-col min-h-0">
-            <Card className="flex-1 bg-card border-border overflow-hidden min-h-0">
-              <CardHeader className="p-3 sm:p-4 flex-shrink-0 border-b border-border">
+            <Card className="flex-1 bg-card border-border overflow-hidden">
+              <CardHeader className="p-3 sm:p-4 flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm sm:text-base text-card-foreground">Selected Stocks</CardTitle>
                   <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
@@ -243,10 +236,10 @@ export function StockSelector({
                   </Badge>
                 </div>
               </CardHeader>
-              <div className="flex-1 min-h-0">
-                <ScrollArea className="h-[200px] sm:h-[250px] lg:h-[400px]">
+              <div className="flex-1 overflow-hidden">
+                <ScrollArea className="h-[150px] sm:h-[200px] lg:h-[400px]">
                   {selectedStocks.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-6 sm:py-8 px-4 text-center text-muted-foreground h-full">
+                    <div className="flex flex-col items-center justify-center py-6 sm:py-8 px-4 text-center text-muted-foreground">
                       <div className="rounded-full bg-muted p-3 mb-3">
                         <Plus className="h-6 w-6" />
                       </div>
@@ -284,7 +277,7 @@ export function StockSelector({
           </div>
         </div>
 
-        <DialogFooter className="mt-3 sm:mt-6 flex-shrink-0 flex flex-col sm:flex-row gap-2 p-4 sm:p-0">
+        <DialogFooter className="mt-4 sm:mt-6 flex-shrink-0 flex flex-col sm:flex-row gap-2">
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
