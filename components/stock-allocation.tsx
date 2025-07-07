@@ -213,7 +213,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
 
         <div className="grid gap-4 py-4">
           {localStocks.map((stock) => (
-            <div key={stock.id} className="grid grid-cols-12 items-center gap-4">
+            <div key={stock.id} className="grid grid-cols-12 items-center gap-3">
               <Label htmlFor={`stock-${stock.id}`} className="col-span-3 truncate text-foreground">
                 {stock.symbol ? `${stock.symbol} - ${stock.name}` : stock.name}
               </Label>
@@ -234,7 +234,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
                   max="100"
                 />
               </div>
-              <div className="col-span-5">
+              <div className="col-span-4 px-2">
                 <Slider
                   value={[stock.allocation]}
                   max={100}
@@ -242,10 +242,11 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
                   onValueChange={(value) => {
                     handleAllocationChange(stock.id, value[0])
                   }}
+                  className="w-full"
                 />
               </div>
-              <div className="col-span-2 flex items-center justify-end gap-2">
-                <span className="text-sm text-muted-foreground">{stock.locked ? "Locked" : "Unlocked"}</span>
+              <div className="col-span-3 flex items-center justify-end gap-2 pl-2">
+                <span className="text-sm text-muted-foreground whitespace-nowrap">{stock.locked ? "Locked" : "Unlocked"}</span>
                 <Switch checked={stock.locked} onCheckedChange={() => handleLockChange(stock.id)} />
               </div>
             </div>
