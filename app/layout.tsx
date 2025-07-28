@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/context/theme-context"
 import { UserNav } from "@/components/user-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Toaster } from "@/components/ui/toaster"
+import { Footer } from "@/components/footer"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown, Menu } from "lucide-react" // Import Menu icon
 import localFont from "next/font/local"
@@ -36,7 +37,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${neuropol.variable}`}>
         <ThemeProvider>
           <AuthProvider>
-            <div className="min-h-screen bg-background text-foreground">
+            <div className="min-h-screen bg-background text-foreground flex flex-col">
               <nav className="border-b border-border bg-white dark:bg-card">
                 <div className="max-w-7xl mx-auto px-6 py-4">
                   <div className="flex justify-between items-center">
@@ -157,7 +158,10 @@ export default function RootLayout({
                   </div>
                 </div>
               </nav>
-              {children}
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
             </div>
             <Toaster />
           </AuthProvider>
