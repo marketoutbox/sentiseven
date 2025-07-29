@@ -38,7 +38,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <div className="min-h-screen bg-background text-foreground flex flex-col">
-              <nav className="border-b border-border bg-white dark:bg-card">
+              <nav className="nav-premium border-b border-border/50">
                 <div className="max-w-7xl mx-auto px-6 py-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
@@ -53,7 +53,7 @@ export default function RootLayout({
                           </SheetTrigger>
                           <SheetContent side="left" className="w-[250px] sm:w-[300px] bg-background p-6">
                             <div className="flex flex-col space-y-4">
-                              <span className="font-neuropol text-foreground text-lg mb-4">SENTIBOARD</span>
+                              <span className="font-neuropol text-gradient text-xl font-bold tracking-wider mb-4">SENTIBOARD</span>
                               <Link href="/" className="text-foreground hover:text-primary transition-colors w-full">
                                 Home
                               </Link>
@@ -100,7 +100,7 @@ export default function RootLayout({
                         </Sheet>
                       </div>
                       {/* SENTIBOARD Logo - stays on left */}
-                      <span className="font-neuropol text-foreground text-lg">SENTIBOARD</span>
+                      <span className="font-neuropol text-gradient text-xl font-bold tracking-wider">SENTIBOARD</span>
                     </div>
 
                     <div className="hidden xl:flex items-center space-x-4">

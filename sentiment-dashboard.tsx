@@ -1007,7 +1007,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Stock Allocation */}
-                  <Card className="mb-6">
+                  <Card className="mb-6 card-premium">
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
                         <div>
@@ -1142,7 +1142,7 @@ const SentimentDashboard = () => {
                   {/* Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     {/* Source Weighting Controls */}
-                    <Card>
+                    <Card className="card-premium">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
                           <Activity className="h-5 w-5 text-primary" />
@@ -1268,7 +1268,7 @@ const SentimentDashboard = () => {
                   </div>
 
                   {/* Simplified Basket Management */}
-                  <Card className="mb-6">
+                  <Card className="mb-6 card-premium">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
                         <BarChart3 className="h-5 w-5 text-primary" />
@@ -1413,7 +1413,7 @@ const SentimentDashboard = () => {
                           ) => (
                             <Card
                               key={stock.id}
-                              className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                              className="cursor-pointer card-premium hover:scale-102 transition-all duration-300 hover:shadow-glow-purple"
                               onClick={() => handleStockClick(stock)}
                             >
                               <CardHeader className="pb-2">
@@ -1471,7 +1471,7 @@ const SentimentDashboard = () => {
                     </Button>
                   </div>
                   {!sectionsCollapsed.tracking && (
-                    <Card>
+                    <Card className="card-premium">
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <div>

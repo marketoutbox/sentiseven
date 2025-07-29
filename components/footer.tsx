@@ -3,13 +3,13 @@ import { Github, Twitter, Linkedin, Mail, Globe, Clock } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <footer className="border-t border-border/50 glass-morphism">
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <div>
-              <span className="font-neuropol text-foreground text-xl">SENTIBOARD</span>
+              <span className="font-neuropol text-gradient text-xl font-bold tracking-wider">SENTIBOARD</span>
               <p className="text-muted-foreground text-sm mt-2">
                 Advanced sentiment analysis for informed investment decisions.
               </p>
@@ -83,7 +83,7 @@ export function Footer() {
               </Link>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 status-indicator status-online"></div>
               <span className="text-muted-foreground">All systems operational</span>
             </div>
           </div>
