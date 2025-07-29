@@ -960,13 +960,17 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 min-h-screen">
+      {/* Premium Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(59,130,246,0.05)_50%,transparent_70%)] pointer-events-none" />
+      
+      <div className="relative max-w-7xl mx-auto p-6">
         {isLoading && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-card p-6 rounded-lg shadow-xl flex items-center gap-3">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              <span className="text-card-foreground">{isLoadingBaskets ? "Loading baskets..." : "Processing..."}</span>
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/50 p-8 rounded-2xl shadow-2xl flex items-center gap-4">
+              <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+              <span className="text-slate-200 text-lg font-medium">{isLoadingBaskets ? "Loading baskets..." : "Processing..."}</span>
             </div>
           </div>
         )}
@@ -974,135 +978,218 @@ const SentimentDashboard = () => {
           <StockDetailView stock={selectedStock} onBack={() => setSelectedStock(null)} timePeriod={timePeriod} />
         ) : (
           <>
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                  Sentiment Analysis Dashboard
-                </h1>
-                <p className="text-muted-foreground mt-1">Track market sentiment across multiple data sources</p>
-              </div>
+            {/* Premium Header */}
+            <div className="relative mb-12">
+              {/* Glass morphism header container */}
+              <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 rounded-3xl p-8 shadow-2xl">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                  <div className="space-y-3">
+                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+                      Sentiment Analytics
+                    </h1>
+                    <p className="text-slate-400 text-lg font-medium">
+                      Advanced market intelligence across multiple data sources
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-slate-500">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                      <span>Real-time data • Last updated {new Date().toLocaleTimeString()}</span>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <Badge className={`${overallSentiment.color} px-3 py-1.5 text-white`}>{overallSentiment.text}</Badge>
-                <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[200px]">
-                  <TabsList className="grid grid-cols-3">
-                    <TabsTrigger value="1d">1D</TabsTrigger>
-                    <TabsTrigger value="1w">1W</TabsTrigger>
-                    <TabsTrigger value="1m">1M</TabsTrigger>
-                  </TabsList>
-                </Tabs>
+                  <div className="flex items-center gap-4">
+                    {/* Premium sentiment badge */}
+                    <div className="relative">
+                      <div className={`${overallSentiment.color} px-6 py-3 rounded-full text-white font-semibold shadow-lg backdrop-blur-sm border border-white/20`}>
+                        <div className="flex items-center gap-2">
+                          {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
+                          {overallSentiment.text}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced time period selector */}
+                    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-1">
+                      <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
+                        <TabsList className="grid grid-cols-3 bg-transparent gap-1">
+                          <TabsTrigger 
+                            value="1d" 
+                            className="data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-200 rounded-xl px-4 py-2 font-medium"
+                          >
+                            1 Day
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="1w" 
+                            className="data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-200 rounded-xl px-4 py-2 font-medium"
+                          >
+                            1 Week
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="1m" 
+                            className="data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-200 rounded-xl px-4 py-2 font-medium"
+                          >
+                            1 Month
+                          </TabsTrigger>
+                        </TabsList>
+                      </Tabs>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Inputs Section */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">Inputs</h2>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSection("inputs")}>
-                  {sectionsCollapsed.inputs ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+            {/* Premium Inputs Section */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-8">
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-bold text-slate-200">Portfolio Configuration</h2>
+                  <p className="text-slate-400">Optimize your allocations with sentiment-driven insights</p>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-10 w-10 p-0 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl transition-all duration-200" 
+                  onClick={() => toggleSection("inputs")}
+                >
+                  {sectionsCollapsed.inputs ? 
+                    <ChevronDown className="h-5 w-5" /> : 
+                    <ChevronUp className="h-5 w-5" />
+                  }
                 </Button>
               </div>
 
               {!sectionsCollapsed.inputs && (
                 <>
-                  {/* Stock Allocation */}
-                  <Card className="mb-6">
-                    <CardHeader className="pb-2">
+                  {/* Premium Stock Allocation Card */}
+                  <Card className="mb-8 bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 shadow-2xl rounded-3xl overflow-hidden">
+                    <CardHeader className="pb-6 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-b border-slate-700/30">
                       <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
-                            <BarChart3 className="h-5 w-5 text-primary" />
+                        <div className="space-y-3">
+                          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-slate-200">
+                            <div className="p-2 bg-blue-500/20 rounded-xl">
+                              <BarChart3 className="h-6 w-6 text-blue-400" />
+                            </div>
                             Stock Allocation
                           </CardTitle>
-                          <CardDescription className="text-xs sm:text-sm">
-                            Adjust your portfolio allocation and lock in positions based on sentiment
+                          <CardDescription className="text-slate-400 text-base">
+                            Optimize portfolio allocation with sentiment-driven insights and position locking
                           </CardDescription>
                         </div>
                         <Button
-                          size="sm"
-                          variant="outline"
-                          className="h-8 gap-1"
+                          size="lg"
+                          className="bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 text-blue-300 hover:text-white transition-all duration-200 rounded-xl px-6 gap-2"
                           onClick={() =>
                             basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                           }
                         >
-                          <Edit2 className="h-3.5 w-3.5" />
-                          Edit Stocks
+                          <Edit2 className="h-4 w-4" />
+                          Edit Portfolio
                         </Button>
                       </div>
                     </CardHeader>
 
-                    <CardContent>
-                      <div className="space-y-6">
-                        {stocks.map((stock) => {
+                    <CardContent className="p-8">
+                      <div className="space-y-8">
+                        {stocks.map((stock, index) => {
                           const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
+                          const sentimentColor = stockData.compositeSentiment > 0.3 
+                            ? "from-emerald-500/20 to-emerald-400/10" 
+                            : stockData.compositeSentiment > -0.3 
+                              ? "from-amber-500/20 to-amber-400/10" 
+                              : "from-red-500/20 to-red-400/10"
+                          
                           return (
-                            <div key={stock.id} className="space-y-3">
-                              <div className="flex items-center justify-between gap-2">
-                                {" "}
-                                {/* Changed from flex-col sm:flex-row */}
-                                <div className="flex items-center gap-3 flex-shrink-0">
-                                  {" "}
-                                  {/* Added flex-shrink-0 */}
-                                  <div className="min-w-[3rem] sm:w-16 font-medium text-foreground">
-                                    {" "}
-                                    {/* Adjusted width for responsiveness */}
-                                    {stock.symbol}
+                            <div 
+                              key={stock.id} 
+                              className={`relative p-6 bg-gradient-to-r ${sentimentColor} rounded-2xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group`}
+                              onClick={() => handleStockClick(stock)}
+                            >
+                              {/* Hover effect overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 group-hover:from-blue-500/10 to-transparent rounded-2xl transition-all duration-300" />
+                              
+                              <div className="relative space-y-4">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-4">
+                                    {/* Stock symbol with premium styling */}
+                                    <div className="flex items-center gap-3">
+                                      <div className="w-12 h-12 bg-slate-800/50 rounded-xl flex items-center justify-center border border-slate-600/30">
+                                        <span className="font-bold text-white text-sm">{stock.symbol}</span>
+                                      </div>
+                                      <div>
+                                        <div className="font-semibold text-slate-200 text-lg">{stock.symbol}</div>
+                                        <div className="text-slate-400 text-sm">{stock.name}</div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className="text-xs sm:text-sm text-muted-foreground truncate">{stock.name}</div>
-                                </div>
-                                <div className="flex items-center gap-3 flex-shrink-0">
-                                  {" "}
-                                  {/* Added flex-shrink-0, removed w-full sm:w-auto justify-between sm:justify-end */}
-                                  <div className="text-xs sm:text-sm font-medium text-foreground min-w-[3rem] text-right">
-                                    {stock.allocation}%
+                                  
+                                  <div className="flex items-center gap-4">
+                                    {/* Allocation percentage with premium styling */}
+                                    <div className="text-right">
+                                      <div className="text-2xl font-bold text-slate-200">{stock.allocation}%</div>
+                                      <div className="text-xs text-slate-400">allocation</div>
+                                    </div>
+                                    
+                                    {/* Premium lock button */}
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="h-10 w-10 rounded-xl bg-slate-800/30 hover:bg-slate-700/50 border border-slate-600/30 transition-all duration-200"
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleToggleLock(stock.id)
+                                      }}
+                                      disabled={basketLocked}
+                                    >
+                                      {stock.locked ? (
+                                        <Lock className="h-4 w-4 text-amber-400" />
+                                      ) : (
+                                        <Unlock className="h-4 w-4 text-slate-400" />
+                                      )}
+                                    </Button>
                                   </div>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    onClick={() => handleToggleLock(stock.id)}
-                                    disabled={basketLocked}
-                                  >
-                                    {stock.locked ? (
-                                      <Lock className="h-4 w-4 text-amber-500" />
-                                    ) : (
-                                      <Unlock className="h-4 w-4 text-muted-foreground" />
-                                    )}
-                                  </Button>
                                 </div>
-                              </div>
 
-                              {/* Single Interactive Allocation Bar */}
-                              <div className="space-y-2">
-                                <div className="relative">
-                                  <Slider
-                                    value={[stock.allocation]}
-                                    max={100}
-                                    step={1}
-                                    disabled={stock.locked || basketLocked}
-                                    onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                    className="py-1"
-                                  />
-                                  {/* Overlay the sentiment color on the slider track */}
-                                  <div
-                                    className={`absolute top-1/2 left-0 h-2 rounded-full pointer-events-none transform -translate-y-1/2 transition-all duration-300 ${
-                                      stockData.compositeSentiment > 0.3
-                                        ? "bg-emerald-500/20"
-                                        : stockData.compositeSentiment > -0.3
-                                          ? "bg-amber-500/20"
-                                          : "bg-red-500/20"
-                                    }`}
-                                    style={{ width: `${stock.allocation}%` }}
-                                  />
-                                </div>
-                                {stock.locked && (
-                                  <div className="text-xs sm:text-sm text-amber-600 flex items-center gap-1">
-                                    <Lock className="h-3 w-3" />
-                                    Position locked at {stock.allocation}%
+                                {/* Premium Interactive Allocation Slider */}
+                                <div className="space-y-3">
+                                  <div className="flex items-center justify-between text-sm">
+                                    <span className="text-slate-400">Allocation Slider</span>
+                                    <span className="text-slate-300 font-medium">
+                                      {stock.locked ? "Locked" : "Adjustable"}
+                                    </span>
                                   </div>
-                                )}
+                                  
+                                  <div className="relative">
+                                    {/* Custom premium slider background */}
+                                    <div className="h-3 bg-slate-800/50 rounded-full border border-slate-600/30 overflow-hidden">
+                                      <div 
+                                        className={`h-full bg-gradient-to-r transition-all duration-500 ${
+                                          stockData.compositeSentiment > 0.3
+                                            ? "from-emerald-500 to-emerald-400"
+                                            : stockData.compositeSentiment > -0.3
+                                              ? "from-amber-500 to-amber-400"
+                                              : "from-red-500 to-red-400"
+                                        } shadow-lg`}
+                                        style={{ width: `${stock.allocation}%` }}
+                                      />
+                                    </div>
+                                    
+                                    {/* Hidden slider for interaction */}
+                                    <Slider
+                                      value={[stock.allocation]}
+                                      max={100}
+                                      step={1}
+                                      disabled={stock.locked || basketLocked}
+                                      onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
+                                      className="absolute inset-0 opacity-0"
+                                    />
+                                  </div>
+                                  
+                                  {stock.locked && (
+                                    <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20">
+                                      <Lock className="h-4 w-4" />
+                                      Position locked at {stock.allocation}%
+                                    </div>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           )
@@ -1110,46 +1197,50 @@ const SentimentDashboard = () => {
                       </div>
                     </CardContent>
 
-                    <CardFooter className="flex flex-wrap justify-between border-t pt-4 gap-2">
-                      <div className="flex items-center gap-4">
-                        <div className="text-sm text-muted-foreground">
-                          <span className="font-medium text-foreground">{stocks.filter((s) => s.locked).length}</span>{" "}
-                          of {stocks.length} positions locked
+                    <CardFooter className="flex flex-wrap justify-between bg-gradient-to-r from-slate-800/30 to-slate-900/30 border-t border-slate-700/30 pt-6 gap-4">
+                      <div className="flex items-center gap-6">
+                        <div className="text-slate-300">
+                          <span className="font-semibold text-white">{stocks.filter((s) => s.locked).length}</span>
+                          <span className="text-slate-400"> of </span>
+                          <span className="font-semibold text-white">{stocks.length}</span>
+                          <span className="text-slate-400"> positions locked</span>
                         </div>
                         <Button
                           size="sm"
-                          variant="outline"
+                          className="bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600/30 text-slate-300 hover:text-white transition-all duration-200 rounded-xl gap-2"
                           onClick={handleResetAllocations}
-                          className="gap-1"
                           disabled={basketLocked}
                         >
-                          <RotateCw className="h-3.5 w-3.5" />
-                          Reset
+                          <RotateCw className="h-4 w-4" />
+                          Reset Allocations
                         </Button>
                       </div>
                       <Button
                         size="sm"
+                        className="bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 text-blue-300 hover:text-white transition-all duration-200 rounded-xl px-6"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
                         disabled={basketLocked}
                       >
-                        Adjust Allocations
+                        Fine-tune Allocations
                       </Button>
                     </CardFooter>
                   </Card>
 
-                  {/* Source Weighting and Correlation */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    {/* Source Weighting Controls */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
-                          <Activity className="h-5 w-5 text-primary" />
+                  {/* Premium Source Weighting and Correlation */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    {/* Premium Source Weighting Controls */}
+                    <Card className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 shadow-2xl rounded-3xl overflow-hidden">
+                      <CardHeader className="pb-6 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-b border-slate-700/30">
+                        <CardTitle className="flex items-center gap-3 text-xl font-bold text-slate-200">
+                          <div className="p-2 bg-purple-500/20 rounded-xl">
+                            <Activity className="h-6 w-6 text-purple-400" />
+                          </div>
                           Source Weighting
                         </CardTitle>
-                        <CardDescription className="text-xs sm:text-sm">
-                          Adjust the influence of each data source on the composite sentiment
+                        <CardDescription className="text-slate-400 text-base">
+                          Fine-tune data source influence on composite sentiment analytics
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-6">
@@ -1557,9 +1648,27 @@ const SentimentDashboard = () => {
               </div>
             ) : null}
 
-            {/* Footer */}
-            <div className="mt-8 pt-6 border-t text-center text-muted-foreground text-sm">
-              <p>© 2024 Sentiment Analysis Dashboard. Data refreshes every 15 minutes.</p>
+            {/* Premium Footer */}
+            <div className="mt-16 pt-8 border-t border-slate-700/30 bg-gradient-to-r from-slate-900/20 to-slate-800/20 backdrop-blur-sm rounded-t-3xl">
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-6 text-sm">
+                  <div className="flex items-center gap-2 text-slate-400">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <span>Live Data Feed</span>
+                  </div>
+                  <div className="text-slate-500">•</div>
+                  <div className="text-slate-400">
+                    Last updated: {new Date().toLocaleTimeString()}
+                  </div>
+                  <div className="text-slate-500">•</div>
+                  <div className="text-slate-400">
+                    Refresh: 15min intervals
+                  </div>
+                </div>
+                <p className="text-slate-500 text-sm">
+                  © 2024 Sentiment Analytics Pro. Advanced market intelligence platform.
+                </p>
+              </div>
             </div>
 
             {/* Modals */}
