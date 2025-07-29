@@ -960,13 +960,18 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="bg-gradient-to-br from-slate-950 via-blue-950 via-indigo-950 to-purple-950 min-h-screen">
+      {/* Vibrant Background Patterns */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.12),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(79,70,229,0.08)_50%,transparent_70%)] pointer-events-none" />
+      
+      <div className="relative max-w-7xl mx-auto p-6">
         {isLoading && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-card p-6 rounded-lg shadow-xl flex items-center gap-3">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              <span className="text-card-foreground">{isLoadingBaskets ? "Loading baskets..." : "Processing..."}</span>
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/50 p-8 rounded-2xl shadow-2xl flex items-center gap-4">
+              <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+              <span className="text-slate-200 text-lg font-medium">{isLoadingBaskets ? "Loading baskets..." : "Processing..."}</span>
             </div>
           </div>
         )}
@@ -974,135 +979,206 @@ const SentimentDashboard = () => {
           <StockDetailView stock={selectedStock} onBack={() => setSelectedStock(null)} timePeriod={timePeriod} />
         ) : (
           <>
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                  Sentiment Analysis Dashboard
-                </h1>
-                <p className="text-muted-foreground mt-1">Track market sentiment across multiple data sources</p>
-              </div>
+            {/* Premium Header */}
+            <div className="relative mb-12">
+              {/* Vibrant Glass Morphism Header */}
+              <div className="bg-gradient-to-r from-blue-900/30 via-indigo-900/40 to-purple-900/30 backdrop-blur-xl border border-blue-500/20 rounded-3xl p-8 shadow-2xl shadow-blue-500/10">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                  <div className="space-y-3">
+                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500 bg-clip-text text-transparent">
+                      Sentiment Analytics
+                    </h1>
+                    <p className="text-blue-200/80 text-lg font-medium">
+                      Advanced market intelligence across multiple data sources
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-blue-300/70">
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse" />
+                      <span>Real-time data • Last updated {new Date().toLocaleTimeString()}</span>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <Badge className={`${overallSentiment.color} px-3 py-1.5 text-white`}>{overallSentiment.text}</Badge>
-                <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[200px]">
-                  <TabsList className="grid grid-cols-3">
-                    <TabsTrigger value="1d">1D</TabsTrigger>
-                    <TabsTrigger value="1w">1W</TabsTrigger>
-                    <TabsTrigger value="1m">1M</TabsTrigger>
-                  </TabsList>
-                </Tabs>
+                  <div className="flex items-center gap-4">
+                    {/* Vibrant sentiment badge */}
+                    <div className="relative">
+                      <div className={`bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-500/25 backdrop-blur-sm border border-blue-400/30`}>
+                        <div className="flex items-center gap-2">
+                          {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
+                          {overallSentiment.text}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Vibrant time period selector */}
+                    <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-1">
+                      <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
+                        <TabsList className="grid grid-cols-3 bg-transparent gap-1">
+                          <TabsTrigger 
+                            value="1d" 
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-200 hover:text-white"
+                          >
+                            1 Day
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="1w" 
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-200 hover:text-white"
+                          >
+                            1 Week
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="1m" 
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-200 hover:text-white"
+                          >
+                            1 Month
+                          </TabsTrigger>
+                        </TabsList>
+                      </Tabs>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Inputs Section */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">Inputs</h2>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSection("inputs")}>
-                  {sectionsCollapsed.inputs ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+            {/* Premium Inputs Section */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-8">
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-bold text-slate-200">Portfolio Configuration</h2>
+                  <p className="text-slate-400">Optimize your allocations with sentiment-driven insights</p>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-10 w-10 p-0 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl transition-all duration-200" 
+                  onClick={() => toggleSection("inputs")}
+                >
+                  {sectionsCollapsed.inputs ? 
+                    <ChevronDown className="h-5 w-5" /> : 
+                    <ChevronUp className="h-5 w-5" />
+                  }
                 </Button>
               </div>
 
               {!sectionsCollapsed.inputs && (
                 <>
-                  {/* Stock Allocation */}
-                  <Card className="mb-6">
-                    <CardHeader className="pb-2">
+                  {/* Vibrant Stock Allocation Card */}
+                  <Card className="mb-8 bg-gradient-to-br from-blue-900/30 via-indigo-900/25 to-purple-900/30 backdrop-blur-xl border border-blue-500/20 shadow-2xl shadow-blue-500/10 rounded-3xl overflow-hidden">
+                    <CardHeader className="pb-6 bg-gradient-to-r from-blue-800/30 via-indigo-800/40 to-purple-800/30 border-b border-blue-500/20">
                       <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
-                            <BarChart3 className="h-5 w-5 text-primary" />
+                        <div className="space-y-3">
+                          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-blue-100">
+                            <div className="p-2 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-xl border border-blue-400/30">
+                              <BarChart3 className="h-6 w-6 text-blue-300" />
+                            </div>
                             Stock Allocation
                           </CardTitle>
-                          <CardDescription className="text-xs sm:text-sm">
-                            Adjust your portfolio allocation and lock in positions based on sentiment
+                          <CardDescription className="text-blue-200/70 text-base">
+                            Optimize portfolio allocation with sentiment-driven insights and position locking
                           </CardDescription>
                         </div>
                         <Button
-                          size="sm"
-                          variant="outline"
-                          className="h-8 gap-1"
+                          size="lg"
+                          className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 border border-blue-400/30 text-blue-200 hover:text-white transition-all duration-200 rounded-xl px-6 gap-2 shadow-lg shadow-blue-500/10"
                           onClick={() =>
                             basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                           }
                         >
-                          <Edit2 className="h-3.5 w-3.5" />
-                          Edit Stocks
+                          <Edit2 className="h-4 w-4" />
+                          Edit Portfolio
                         </Button>
                       </div>
                     </CardHeader>
 
-                    <CardContent>
-                      <div className="space-y-6">
-                        {stocks.map((stock) => {
+                    <CardContent className="p-8">
+                      {/* Grid layout with 3 cards per row */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
+                        {stocks.map((stock, index) => {
                           const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
+                          const performanceColor = stockData.compositeSentiment > 0.3 
+                            ? "text-emerald-400" 
+                            : stockData.compositeSentiment > -0.3 
+                              ? "text-amber-400" 
+                              : "text-red-400"
+                          const bgColor = stockData.compositeSentiment > 0.3 
+                            ? "from-blue-500/15 via-indigo-500/10 to-purple-500/15" 
+                            : stockData.compositeSentiment > -0.3 
+                              ? "from-blue-600/10 via-indigo-600/8 to-purple-600/10" 
+                              : "from-blue-700/8 via-indigo-700/6 to-purple-700/8"
+                          
                           return (
-                            <div key={stock.id} className="space-y-3">
-                              <div className="flex items-center justify-between gap-2">
-                                {" "}
-                                {/* Changed from flex-col sm:flex-row */}
-                                <div className="flex items-center gap-3 flex-shrink-0">
-                                  {" "}
-                                  {/* Added flex-shrink-0 */}
-                                  <div className="min-w-[3rem] sm:w-16 font-medium text-foreground">
-                                    {" "}
-                                    {/* Adjusted width for responsiveness */}
-                                    {stock.symbol}
+                            <div 
+                              key={stock.id} 
+                              className={`relative w-full p-3 bg-gradient-to-br ${bgColor} rounded-xl border border-blue-500/20 hover:border-purple-400/40 transition-all duration-300 group hover:shadow-lg hover:shadow-blue-500/10`}
+                            >
+                              {/* Vibrant hover effect overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-indigo-500/0 group-hover:from-blue-500/8 group-hover:via-indigo-500/5 group-hover:to-purple-500/8 to-transparent rounded-xl transition-all duration-300" />
+                              
+                              <div className="relative">
+                                {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
+                                                                  <div className="flex items-center justify-between">
+                                    {/* Left side: Symbol and company name */}
+                                    <div className="flex-1 min-w-0">
+                                      <div className="font-semibold text-blue-100 text-sm">{stock.symbol}</div>
+                                      <div className="text-blue-200/60 text-xs truncate">{stock.name}</div>
+                                    </div>
+                                    
+                                    {/* Right side: Percentage and lock */}
+                                    <div className="flex items-center gap-2 flex-shrink-0">
+                                      <div className="text-right">
+                                        <div className="font-bold text-blue-100 text-lg">{stock.allocation}%</div>
+                                      </div>
+                                      <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6 rounded-md bg-blue-800/30 hover:bg-purple-700/40 border border-blue-500/20 hover:border-purple-400/30 transition-all duration-200"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          handleToggleLock(stock.id)
+                                        }}
+                                        disabled={basketLocked}
+                                      >
+                                        {stock.locked ? (
+                                          <Lock className="h-3 w-3 text-purple-300" />
+                                        ) : (
+                                          <Unlock className="h-3 w-3 text-blue-300" />
+                                        )}
+                                      </Button>
+                                    </div>
                                   </div>
-                                  <div className="text-xs sm:text-sm text-muted-foreground truncate">{stock.name}</div>
-                                </div>
-                                <div className="flex items-center gap-3 flex-shrink-0">
-                                  {" "}
-                                  {/* Added flex-shrink-0, removed w-full sm:w-auto justify-between sm:justify-end */}
-                                  <div className="text-xs sm:text-sm font-medium text-foreground min-w-[3rem] text-right">
-                                    {stock.allocation}%
-                                  </div>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    onClick={() => handleToggleLock(stock.id)}
-                                    disabled={basketLocked}
-                                  >
-                                    {stock.locked ? (
-                                      <Lock className="h-4 w-4 text-amber-500" />
-                                    ) : (
-                                      <Unlock className="h-4 w-4 text-muted-foreground" />
-                                    )}
-                                  </Button>
-                                </div>
-                              </div>
 
-                              {/* Single Interactive Allocation Bar */}
-                              <div className="space-y-2">
-                                <div className="relative">
-                                  <Slider
-                                    value={[stock.allocation]}
-                                    max={100}
-                                    step={1}
-                                    disabled={stock.locked || basketLocked}
-                                    onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                    className="py-1"
-                                  />
-                                  {/* Overlay the sentiment color on the slider track */}
-                                  <div
-                                    className={`absolute top-1/2 left-0 h-2 rounded-full pointer-events-none transform -translate-y-1/2 transition-all duration-300 ${
-                                      stockData.compositeSentiment > 0.3
-                                        ? "bg-emerald-500/20"
-                                        : stockData.compositeSentiment > -0.3
-                                          ? "bg-amber-500/20"
-                                          : "bg-red-500/20"
-                                    }`}
-                                    style={{ width: `${stock.allocation}%` }}
-                                  />
-                                </div>
-                                {stock.locked && (
-                                  <div className="text-xs sm:text-sm text-amber-600 flex items-center gap-1">
-                                    <Lock className="h-3 w-3" />
-                                    Position locked at {stock.allocation}%
+                                                                  {/* Blue-to-Purple Gradient Slider */}
+                                  <div className="mt-3 space-y-2">
+                                    <div className="flex items-center justify-between text-xs text-blue-200/70">
+                                      <span>Allocation</span>
+                                      <span>{stock.locked ? "Locked" : "Adjustable"}</span>
+                                    </div>
+                                    
+                                    <div className="relative">
+                                      {/* Blue-to-Purple gradient track */}
+                                      <div className="h-2 bg-blue-900/30 rounded-full overflow-hidden border border-blue-500/20">
+                                        <div 
+                                          className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all duration-300 shadow-sm"
+                                          style={{ width: `${stock.allocation}%` }}
+                                        />
+                                      </div>
+                                      
+                                      {/* Interactive slider overlay */}
+                                      <Slider
+                                        value={[stock.allocation]}
+                                        max={100}
+                                        step={1}
+                                        disabled={stock.locked || basketLocked}
+                                        onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
+                                        className="absolute inset-0 z-10"
+                                      />
+                                    </div>
+                                    
+                                    {stock.locked && (
+                                      <div className="flex items-center gap-1 text-xs text-purple-300">
+                                        <Lock className="h-3 w-3" />
+                                        <span>Position locked at {stock.allocation}%</span>
+                                      </div>
+                                    )}
                                   </div>
-                                )}
                               </div>
                             </div>
                           )
@@ -1110,46 +1186,50 @@ const SentimentDashboard = () => {
                       </div>
                     </CardContent>
 
-                    <CardFooter className="flex flex-wrap justify-between border-t pt-4 gap-2">
-                      <div className="flex items-center gap-4">
-                        <div className="text-sm text-muted-foreground">
-                          <span className="font-medium text-foreground">{stocks.filter((s) => s.locked).length}</span>{" "}
-                          of {stocks.length} positions locked
+                    <CardFooter className="flex flex-wrap justify-between bg-gradient-to-r from-blue-800/20 via-indigo-800/25 to-purple-800/20 border-t border-blue-500/20 pt-6 gap-4">
+                      <div className="flex items-center gap-6">
+                        <div className="text-blue-200/80">
+                          <span className="font-semibold text-blue-100">{stocks.filter((s) => s.locked).length}</span>
+                          <span className="text-blue-200/60"> of </span>
+                          <span className="font-semibold text-blue-100">{stocks.length}</span>
+                          <span className="text-blue-200/60"> positions locked</span>
                         </div>
                         <Button
                           size="sm"
-                          variant="outline"
+                          className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 hover:from-blue-500/40 hover:to-indigo-500/40 border border-blue-400/30 text-blue-200 hover:text-white transition-all duration-200 rounded-xl gap-2 shadow-sm shadow-blue-500/10"
                           onClick={handleResetAllocations}
-                          className="gap-1"
                           disabled={basketLocked}
                         >
-                          <RotateCw className="h-3.5 w-3.5" />
-                          Reset
+                          <RotateCw className="h-4 w-4" />
+                          Reset Allocations
                         </Button>
                       </div>
                       <Button
                         size="sm"
+                        className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 border border-purple-400/30 text-purple-200 hover:text-white transition-all duration-200 rounded-xl px-6 shadow-sm shadow-purple-500/10"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
                         disabled={basketLocked}
                       >
-                        Adjust Allocations
+                        Fine-tune Allocations
                       </Button>
                     </CardFooter>
                   </Card>
 
-                  {/* Source Weighting and Correlation */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    {/* Source Weighting Controls */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
-                          <Activity className="h-5 w-5 text-primary" />
+                  {/* Premium Source Weighting and Correlation */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    {/* Premium Source Weighting Controls */}
+                    <Card className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 shadow-2xl rounded-3xl overflow-hidden">
+                      <CardHeader className="pb-6 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-b border-slate-700/30">
+                        <CardTitle className="flex items-center gap-3 text-xl font-bold text-slate-200">
+                          <div className="p-2 bg-purple-500/20 rounded-xl">
+                            <Activity className="h-6 w-6 text-purple-400" />
+                          </div>
                           Source Weighting
                         </CardTitle>
-                        <CardDescription className="text-xs sm:text-sm">
-                          Adjust the influence of each data source on the composite sentiment
+                        <CardDescription className="text-slate-400 text-base">
+                          Fine-tune data source influence on composite sentiment analytics
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-6">
@@ -1557,9 +1637,27 @@ const SentimentDashboard = () => {
               </div>
             ) : null}
 
-            {/* Footer */}
-            <div className="mt-8 pt-6 border-t text-center text-muted-foreground text-sm">
-              <p>© 2025 Sentiment Analysis Dashboard. Data refreshes every 15 minutes.</p>
+            {/* Vibrant Footer */}
+            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-gradient-to-r from-blue-900/20 via-indigo-900/15 to-purple-900/20 backdrop-blur-sm rounded-t-3xl">
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-6 text-sm">
+                  <div className="flex items-center gap-2 text-blue-300/80">
+                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse shadow-sm shadow-blue-400/50" />
+                    <span>Live Data Feed</span>
+                  </div>
+                  <div className="text-blue-400/50">•</div>
+                  <div className="text-blue-300/70">
+                    Last updated: {new Date().toLocaleTimeString()}
+                  </div>
+                  <div className="text-blue-400/50">•</div>
+                  <div className="text-blue-300/70">
+                    Refresh: 15min intervals
+                  </div>
+                </div>
+                <p className="text-blue-200/60 text-sm">
+                  © 2024 Sentiment Analytics Pro. Advanced market intelligence platform.
+                </p>
+              </div>
             </div>
 
             {/* Modals */}
