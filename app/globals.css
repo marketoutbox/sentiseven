@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Light theme - keeping original for light mode */
+    /* Light theme */
     --background: 210 20% 98%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -32,84 +32,58 @@
     --chart-3: 142 76% 36%;
     --chart-4: 47 96% 53%;
     --chart-5: 0 84% 60%;
-
-    /* Premium fintech accents */
-    --primary-purple: 262 90% 50%;
-    --primary-blue: 217 91% 60%;
-    --success-green: 142 76% 36%;
-    --warning-amber: 47 96% 53%;
-    --danger-red: 0 84% 60%;
   }
 
   .dark {
     /* Premium Fintech Dark Theme */
-    --background: 224 15% 6%;              /* Deep charcoal background */
-    --foreground: 210 20% 95%;             /* Crisp white text */
+    --background: 224 15% 6%;
+    --foreground: 210 20% 95%;
     
-    /* Card system with depth */
-    --card: 224 20% 10%;                   /* Dark elevated cards */
-    --card-foreground: 210 20% 95%;       /* Light text on cards */
-    --card-elevated: 224 25% 12%;         /* Even more elevated cards */
+    /* Card system */
+    --card: 224 20% 10%;
+    --card-foreground: 210 20% 95%;
+    --card-elevated: 224 25% 12%;
     
     /* Interactive surfaces */
-    --popover: 224 25% 12%;               /* Elevated popovers */
-    --popover-foreground: 210 20% 95%;   
+    --popover: 224 25% 12%;
+    --popover-foreground: 210 20% 95%;
     
-    /* Primary brand colors with gradients */
-    --primary: 262 90% 58%;               /* Vibrant purple */
-    --primary-foreground: 210 20% 95%;   
-    --primary-hover: 262 85% 65%;        /* Lighter purple for hover */
+    /* Primary colors */
+    --primary: 262 90% 58%;
+    --primary-foreground: 210 20% 95%;
+    --primary-hover: 262 85% 65%;
     
-    /* Secondary interactive elements */
-    --secondary: 224 30% 15%;             /* Dark secondary background */
-    --secondary-foreground: 210 15% 85%; /* Muted light text */
-    --secondary-hover: 224 35% 18%;      /* Hover state */
+    /* Secondary colors */
+    --secondary: 224 30% 15%;
+    --secondary-foreground: 210 15% 85%;
+    --secondary-hover: 224 35% 18%;
     
     /* Muted elements */
-    --muted: 224 25% 8%;                  /* Very dark muted background */
-    --muted-foreground: 215 15% 55%;     /* Muted text */
+    --muted: 224 25% 8%;
+    --muted-foreground: 215 15% 55%;
     
     /* Accent colors */
-    --accent: 217 91% 25%;                /* Deep blue accent */
-    --accent-foreground: 210 20% 95%;    
-    --accent-hover: 217 91% 35%;         /* Hover blue */
+    --accent: 217 91% 25%;
+    --accent-foreground: 210 20% 95%;
+    --accent-hover: 217 91% 35%;
     
     /* Status colors */
-    --destructive: 0 75% 55%;             /* Softer red */
+    --destructive: 0 75% 55%;
     --destructive-foreground: 210 20% 95%;
-    --success: 142 76% 45%;               /* Success green */
-    --warning: 47 96% 58%;                /* Warning amber */
+    --success: 142 76% 45%;
+    --warning: 47 96% 58%;
     
     /* Borders and inputs */
-    --border: 224 30% 18%;                /* Subtle borders */
-    --input: 224 25% 8%;                  /* Dark input backgrounds */
-    --ring: 262 90% 58%;                  /* Purple focus ring */
+    --border: 224 30% 18%;
+    --input: 224 25% 8%;
+    --ring: 262 90% 58%;
     
-    /* Premium gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 90% 58%) 0%, hsl(217 91% 60%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(224 20% 10%) 0%, hsl(224 25% 12%) 100%);
-    --gradient-surface: linear-gradient(135deg, hsl(224 25% 8%) 0%, hsl(224 30% 10%) 100%);
-    
-    /* Chart colors optimized for dark theme */
-    --chart-1: 262 90% 58%;               /* Purple */
-    --chart-2: 217 91% 60%;               /* Blue */
-    --chart-3: 142 76% 45%;               /* Green */
-    --chart-4: 47 96% 58%;                /* Amber */
-    --chart-5: 335 85% 60%;               /* Pink */
-    
-    /* Glass morphism effect */
-    --glass-background: hsla(224, 20%, 10%, 0.8);
-    --glass-border: hsla(210, 20%, 95%, 0.1);
-    
-    /* Premium shadow system */
-    --shadow-sm: 0 1px 2px 0 hsla(224, 25%, 5%, 0.25);
-    --shadow-md: 0 4px 6px -1px hsla(224, 25%, 5%, 0.4), 0 2px 4px -1px hsla(224, 25%, 5%, 0.15);
-    --shadow-lg: 0 10px 15px -3px hsla(224, 25%, 5%, 0.5), 0 4px 6px -2px hsla(224, 25%, 5%, 0.2);
-    --shadow-xl: 0 20px 25px -5px hsla(224, 25%, 5%, 0.6), 0 10px 10px -5px hsla(224, 25%, 5%, 0.25);
-    
-    /* Glow effects */
-    --glow-purple: 0 0 20px hsla(262, 90%, 58%, 0.3);
-    --glow-blue: 0 0 20px hsla(217, 91%, 60%, 0.3);
+    /* Chart colors for dark theme */
+    --chart-1: 262 90% 58%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 142 76% 45%;
+    --chart-4: 47 96% 58%;
+    --chart-5: 335 85% 60%;
   }
 }
 
@@ -121,7 +95,6 @@
   body {
     @apply bg-background text-foreground text-sm md:text-base;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -155,109 +128,49 @@
 @layer components {
   /* Premium card variants */
   .card-premium {
-    background: var(--gradient-card);
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card-elevated)) 100%);
     backdrop-filter: blur(20px);
     border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 15px -3px hsla(224, 25%, 5%, 0.5), 0 4px 6px -2px hsla(224, 25%, 5%, 0.2);
   }
   
   .card-glass {
-    background: var(--glass-background);
+    background: hsla(224, 20%, 10%, 0.8);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-md);
-  }
-  
-  /* Premium button variants */
-  .btn-premium {
-    background: var(--gradient-primary);
-    color: hsl(var(--primary-foreground));
-    border: none;
-    box-shadow: var(--glow-purple);
-    transition: all 0.3s ease;
-  }
-  
-  .btn-premium:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-xl), var(--glow-purple);
+    border: 1px solid hsla(210, 20%, 95%, 0.1);
   }
   
   /* Gradient text effect */
   .text-gradient {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   
-  /* Premium focus states */
-  .focus-premium {
-    @apply focus:outline-none focus:ring-2;
-    focus:ring-color: hsl(var(--primary) / 0.3);
-    focus:ring-offset-2;
-    focus:ring-offset-background;
-  }
-  
-  /* Animated gradient borders */
-  .border-gradient {
-    position: relative;
-    background: hsl(var(--card));
-    border-radius: calc(var(--radius) + 1px);
-  }
-  
-  .border-gradient::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: var(--gradient-primary);
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-  }
-  
-  /* Premium input styles */
-  .input-premium {
-    background: hsl(var(--input));
-    border: 1px solid hsl(var(--border));
-    transition: all 0.2s ease;
-  }
-  
-  .input-premium:focus {
-    border-color: hsl(var(--primary));
-    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
-  }
-  
-  /* Data visualization enhancements */
-  .chart-container {
-    background: var(--gradient-surface);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    border: 1px solid hsl(var(--border));
-  }
-  
   /* Premium navigation */
   .nav-premium {
-    background: var(--glass-background);
+    background: hsla(224, 20%, 10%, 0.9);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid hsla(210, 20%, 95%, 0.1);
+  }
+  
+  /* Glass morphism utility */
+  .glass-morphism {
+    background: hsla(224, 20%, 10%, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsla(210, 20%, 95%, 0.1);
   }
   
   /* Status indicators */
+  .status-indicator {
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
   .status-online {
     background: hsl(var(--success));
     box-shadow: 0 0 10px hsl(var(--success) / 0.5);
-  }
-  
-  .status-processing {
-    background: hsl(var(--warning));
-    box-shadow: 0 0 10px hsl(var(--warning) / 0.5);
-  }
-  
-  .status-error {
-    background: hsl(var(--destructive));
-    box-shadow: 0 0 10px hsl(var(--destructive) / 0.5);
   }
 }
 
@@ -266,34 +179,17 @@
     text-wrap: balance;
   }
   
-  /* Premium spacing utilities */
-  .space-premium > * + * {
-    margin-top: 1.5rem;
-  }
-  
   /* Animation utilities */
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
   
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-  
-  @keyframes glow {
-    from { box-shadow: var(--glow-purple); }
-    to { box-shadow: var(--glow-blue); }
-  }
-  
-  /* Glass morphism utilities */
-  .glass-morphism {
-    background: var(--glass-background);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    0%, 100% { 
+      transform: translateY(0px); 
+    }
+    50% { 
+      transform: translateY(-10px); 
+    }
   }
 }

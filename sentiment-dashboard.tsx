@@ -1413,7 +1413,7 @@ const SentimentDashboard = () => {
                           ) => (
                             <Card
                               key={stock.id}
-                              className="cursor-pointer card-premium hover:scale-102 transition-all duration-300 hover:shadow-glow-purple"
+                              className="cursor-pointer card-premium hover:scale-102 transition-all duration-300"
                               onClick={() => handleStockClick(stock)}
                             >
                               <CardHeader className="pb-2">
