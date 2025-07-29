@@ -1063,7 +1063,7 @@ const SentimentDashboard = () => {
                   {/* Premium Stock Allocation Card */}
                   <Card className="mb-8 bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
                             <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
@@ -1075,16 +1075,18 @@ const SentimentDashboard = () => {
                             Optimize portfolio allocation with sentiment-driven insights and position locking
                           </CardDescription>
                         </div>
-                        <Button
-                          size="lg"
-                          className="bg-gradient-to-r from-blue-700/30 to-purple-700/30 hover:from-blue-600/40 hover:to-purple-600/40 border border-blue-600/40 text-white hover:text-white transition-all duration-200 rounded-xl px-6 gap-2 shadow-lg shadow-blue-900/20"
-                          onClick={() =>
-                            basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
-                          }
-                        >
-                          <Edit2 className="h-4 w-4" />
-                          Edit Portfolio
-                        </Button>
+                        <div className="flex items-center gap-4">
+                          <Button
+                            size="lg"
+                            className="bg-gradient-to-r from-blue-700 to-purple-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/30 backdrop-blur-sm border border-blue-600/40"
+                            onClick={() =>
+                              basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
+                            }
+                          >
+                            <Edit2 className="h-4 w-4" />
+                            Edit Portfolio
+                          </Button>
+                        </div>
                       </div>
                     </CardHeader>
 
@@ -1218,15 +1220,19 @@ const SentimentDashboard = () => {
                     {/* Premium Source Weighting Controls */}
                     <Card className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
-                        <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                          <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
-                            <Activity className="h-6 w-6 text-blue-200" />
+                        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                          <div className="space-y-3">
+                            <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+                                <Activity className="h-6 w-6 text-blue-200" />
+                              </div>
+                              Source Weighting
+                            </CardTitle>
+                            <CardDescription className="text-blue-100/80 text-base">
+                              Fine-tune data source influence on composite sentiment analytics
+                            </CardDescription>
                           </div>
-                          Source Weighting
-                        </CardTitle>
-                        <CardDescription className="text-blue-100/80 text-base">
-                          Fine-tune data source influence on composite sentiment analytics
-                        </CardDescription>
+                        </div>
                       </CardHeader>
                       <CardContent className="p-8">
                         <div className="space-y-6">

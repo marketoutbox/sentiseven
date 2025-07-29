@@ -111,16 +111,18 @@ export function CorrelationChart() {
   return (
     <Card className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
       <CardHeader className="pb-6">
-        <div className="max-w-[70%] sm:max-w-[100%]">
-          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-            <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
-              <InfoCircle className="h-6 w-6 text-blue-200" />
-            </div>
-            Sentiment-Price Correlation
-          </CardTitle>
-          <CardDescription className="text-blue-100/80 text-base mt-3">
-            This table shows the relationship between the source of information and historical price
-          </CardDescription>
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+          <div className="space-y-3">
+            <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+                <InfoCircle className="h-6 w-6 text-blue-200" />
+              </div>
+              Sentiment-Price Correlation
+            </CardTitle>
+            <CardDescription className="text-blue-100/80 text-base">
+              This table shows the relationship between the source of information and historical price
+            </CardDescription>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="p-8">
