@@ -1559,7 +1559,7 @@ const SentimentDashboard = () => {
 
             {/* Footer */}
             <div className="mt-8 pt-6 border-t text-center text-muted-foreground text-sm">
-              <p>© 2025 Sentiment Analysis Dashboard. Data refreshes every 15 minutes.</p>
+              <p>© 2024 Sentiment Analysis Dashboard. Data refreshes every 15 minutes.</p>
             </div>
 
             {/* Modals */}
