@@ -114,7 +114,7 @@ export function CorrelationChart() {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           <div className="space-y-3">
             <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-blue-700/40 rounded-xl border border-blue-500/40">
                 <InfoCircle className="h-6 w-6 text-blue-200" />
               </div>
               Sentiment-Price Correlation

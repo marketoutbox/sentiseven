@@ -960,10 +960,10 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-950 via-[#1e293b] via-[#0f172a] to-purple-950 min-h-screen">
-      {/* Darker Background Patterns */}
+    <div className="bg-gradient-to-br from-slate-950 via-[#1e293b] via-[#0f172a] to-[#1e293b]/50 min-h-screen">
+      {/* Dark #1e293b Background Patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,41,59,0.15),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.08),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(30,41,59,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(30,41,59,0.08)_50%,transparent_70%)] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto p-6">
@@ -982,17 +982,17 @@ const SentimentDashboard = () => {
             {/* Premium Header */}
             <div className="relative mb-12">
               {/* Dark Glass Morphism Header */}
-              <div className="bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 rounded-3xl p-8 shadow-2xl shadow-[#1e293b]/30">
+              <div className="bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-[#1e293b]/40 backdrop-blur-xl border border-[#1e293b]/50 rounded-3xl p-8 shadow-2xl shadow-[#1e293b]/30">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div className="space-y-3">
-                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
                       Sentiment Analytics
                     </h1>
                     <p className="text-blue-100/90 text-lg font-medium">
                       Advanced market intelligence across multiple data sources
                     </p>
                     <div className="flex items-center gap-2 text-sm text-blue-200/80">
-                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse" />
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse" />
                       <span>Real-time data • Last updated {new Date().toLocaleTimeString()}</span>
                     </div>
                   </div>
@@ -1000,7 +1000,7 @@ const SentimentDashboard = () => {
                   <div className="flex items-center gap-4">
                     {/* Dark sentiment badge */}
                     <div className="relative">
-                      <div className={`bg-gradient-to-r from-[#1e293b] to-purple-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-[#1e293b]/40 backdrop-blur-sm border border-[#1e293b]/60`}>
+                      <div className={`bg-gradient-to-r from-[#1e293b] to-blue-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-[#1e293b]/40 backdrop-blur-sm border border-[#1e293b]/60`}>
                         <div className="flex items-center gap-2">
                           {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
                           {overallSentiment.text}
@@ -1009,24 +1009,24 @@ const SentimentDashboard = () => {
                     </div>
                     
                     {/* Dark time period selector */}
-                    <div className="bg-gradient-to-r from-[#1e293b]/80 to-purple-950/60 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-1">
+                    <div className="bg-gradient-to-r from-[#1e293b]/80 to-[#1e293b]/60 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-1">
                       <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
                         <TabsList className="grid grid-cols-3 bg-transparent gap-1">
                                                       <TabsTrigger 
                             value="1d" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Day
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1w" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Week
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1m" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Month
                           </TabsTrigger>
@@ -1066,7 +1066,7 @@ const SentimentDashboard = () => {
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                            <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+                            <div className="p-2 bg-gradient-to-r from-blue-600/40 to-blue-700/40 rounded-xl border border-blue-500/40">
                               <BarChart3 className="h-6 w-6 text-blue-200" />
                             </div>
                             Stock Allocation
@@ -1078,7 +1078,7 @@ const SentimentDashboard = () => {
                         <div className="flex items-center gap-4">
                           <Button
                             size="lg"
-                            className="bg-gradient-to-r from-blue-700 to-purple-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/30 backdrop-blur-sm border border-blue-600/40"
+                            className="bg-gradient-to-r from-blue-700 to-blue-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/30 backdrop-blur-sm border border-blue-600/40"
                             onClick={() =>
                               basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                             }
@@ -1105,7 +1105,7 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-blue-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
                             >
                               {/* Premium hover effect overlay */}
                               <div className="absolute inset-0 bg-[#1e293b]/0 group-hover:bg-[#1e293b]/20 rounded-xl transition-all duration-300" />
@@ -1127,7 +1127,7 @@ const SentimentDashboard = () => {
                                       <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-6 w-6 rounded-md bg-[#1e293b]/80 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
+                                        className="h-6 w-6 rounded-md bg-[#1e293b]/80 hover:bg-blue-800/50 border border-[#1e293b]/60 hover:border-blue-600/50 transition-all duration-200"
                                         onClick={(e) => {
                                           e.stopPropagation()
                                           handleToggleLock(stock.id)
@@ -1135,7 +1135,7 @@ const SentimentDashboard = () => {
                                         disabled={basketLocked}
                                       >
                                         {stock.locked ? (
-                                          <Lock className="h-3 w-3 text-purple-200" />
+                                          <Lock className="h-3 w-3 text-blue-200" />
                                         ) : (
                                           <Unlock className="h-3 w-3 text-blue-200" />
                                         )}
@@ -1143,7 +1143,7 @@ const SentimentDashboard = () => {
                                     </div>
                                   </div>
 
-                                                                  {/* Enhanced Blue-to-Purple Gradient Slider */}
+                                                                  {/* Enhanced Blue Gradient Slider */}
                                   <div className="mt-3 space-y-2">
                                     <div className="flex items-center justify-between text-xs text-blue-100/80">
                                       <span>Allocation</span>
@@ -1154,7 +1154,7 @@ const SentimentDashboard = () => {
                                       {/* Dark background track */}
                                       <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
                                         <div 
-                                          className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                          className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
                                           style={{ width: `${stock.allocation}%` }}
                                         />
                                       </div>
@@ -1171,7 +1171,7 @@ const SentimentDashboard = () => {
                                     </div>
                                     
                                     {stock.locked && (
-                                      <div className="flex items-center gap-1 text-xs text-purple-200">
+                                      <div className="flex items-center gap-1 text-xs text-blue-200">
                                         <Lock className="h-3 w-3" />
                                         <span>Position locked at {stock.allocation}%</span>
                                       </div>
@@ -1204,7 +1204,7 @@ const SentimentDashboard = () => {
                       </div>
                       <Button
                         size="sm"
-                        className="bg-gradient-to-r from-blue-600/40 to-purple-600/40 hover:from-blue-500/50 hover:to-purple-500/50 border border-purple-500/50 text-white hover:text-white transition-all duration-200 rounded-xl px-6 shadow-sm shadow-purple-900/20"
+                        className="bg-gradient-to-r from-blue-600/40 to-blue-700/40 hover:from-blue-500/50 hover:to-blue-600/50 border border-blue-500/50 text-white hover:text-white transition-all duration-200 rounded-xl px-6 shadow-sm shadow-blue-900/20"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
@@ -1223,7 +1223,7 @@ const SentimentDashboard = () => {
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
                             <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+                              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-blue-700/40 rounded-xl border border-blue-500/40">
                                 <Activity className="h-6 w-6 text-blue-200" />
                               </div>
                               Source Weighting
@@ -1246,12 +1246,12 @@ const SentimentDashboard = () => {
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6 rounded-md bg-[#1e293b]/60 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
+                                  className="h-6 w-6 rounded-md bg-[#1e293b]/60 hover:bg-blue-800/50 border border-[#1e293b]/60 hover:border-blue-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("twitter")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.twitter ? (
-                                    <Lock className="h-3 w-3 text-purple-200" />
+                                    <Lock className="h-3 w-3 text-blue-200" />
                                   ) : (
                                     <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
@@ -1261,7 +1261,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
                                 />
                               </div>
@@ -1287,12 +1287,12 @@ const SentimentDashboard = () => {
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
+                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-blue-800/50 border border-blue-700/40 hover:border-blue-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("googleTrends")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.googleTrends ? (
-                                    <Lock className="h-3 w-3 text-purple-200" />
+                                    <Lock className="h-3 w-3 text-blue-200" />
                                   ) : (
                                     <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
@@ -1302,7 +1302,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.googleTrends * 100}%` }}
                                 />
                               </div>
@@ -1328,12 +1328,12 @@ const SentimentDashboard = () => {
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
+                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-blue-800/50 border border-blue-700/40 hover:border-blue-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("news")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.news ? (
-                                    <Lock className="h-3 w-3 text-purple-200" />
+                                    <Lock className="h-3 w-3 text-blue-200" />
                                   ) : (
                                     <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
@@ -1343,7 +1343,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.news * 100}%` }}
                                 />
                               </div>
@@ -1664,11 +1664,11 @@ const SentimentDashboard = () => {
             ) : null}
 
             {/* Vibrant Footer */}
-            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-gradient-to-r from-blue-900/20 via-indigo-900/15 to-purple-900/20 backdrop-blur-sm rounded-t-3xl">
+            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-gradient-to-r from-blue-900/20 via-[#1e293b]/15 to-blue-900/20 backdrop-blur-sm rounded-t-3xl">
               <div className="text-center space-y-4">
                 <div className="flex items-center justify-center gap-6 text-sm">
                   <div className="flex items-center gap-2 text-blue-300/80">
-                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse shadow-sm shadow-blue-400/50" />
+                                          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-sm shadow-blue-400/50" />
                     <span>Live Data Feed</span>
                   </div>
                   <div className="text-blue-400/50">•</div>
