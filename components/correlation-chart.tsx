@@ -109,7 +109,7 @@ export function CorrelationChart() {
   }
 
   return (
-    <Card className="bg-gradient-to-br from-blue-950/40 via-slate-900/35 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+    <Card className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
       <CardHeader className="pb-6">
         <div className="max-w-[70%] sm:max-w-[100%]">
           <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">

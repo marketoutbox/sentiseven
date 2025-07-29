@@ -1060,8 +1060,8 @@ const SentimentDashboard = () => {
 
               {!sectionsCollapsed.inputs && (
                 <>
-                  {/* Dark Stock Allocation Card */}
-                  <Card className="mb-8 bg-gradient-to-br from-blue-950/40 via-slate-900/35 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+                  {/* Premium Stock Allocation Card */}
+                  <Card className="mb-8 bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex items-center justify-between">
                         <div className="space-y-3">
@@ -1098,19 +1098,15 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = stockData.compositeSentiment > 0.3 
-                            ? "from-blue-900/20 via-slate-800/15 to-purple-900/20" 
-                            : stockData.compositeSentiment > -0.3 
-                              ? "from-blue-950/15 via-slate-900/12 to-purple-950/15" 
-                              : "from-blue-950/10 via-slate-950/8 to-purple-950/10"
+                          const bgColor = "from-blue-950/40 via-slate-900/50 to-purple-950/40"
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 bg-gradient-to-br ${bgColor} rounded-xl border border-blue-800/30 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-blue-900/20`}
+                              className={`relative w-full p-3 bg-gradient-to-r ${bgColor} rounded-xl border border-blue-800/30 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-blue-900/20`}
                             >
-                              {/* Dark hover effect overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-blue-800/0 via-slate-800/0 group-hover:from-blue-800/10 group-hover:via-slate-800/8 group-hover:to-purple-800/10 to-transparent rounded-xl transition-all duration-300" />
+                              {/* Premium hover effect overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-800/0 via-slate-800/0 group-hover:from-blue-800/10 group-hover:via-slate-800/8 group-hover:to-purple-800/10 to-transparent rounded-xl transition-all duration-300" />
                               
                               <div className="relative">
                                 {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
@@ -1219,8 +1215,8 @@ const SentimentDashboard = () => {
 
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    {/* Unified Source Weighting Controls */}
-                    <Card className="bg-gradient-to-br from-blue-950/40 via-slate-900/35 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+                    {/* Premium Source Weighting Controls */}
+                    <Card className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
                           <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
