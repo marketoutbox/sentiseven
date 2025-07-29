@@ -1038,17 +1038,17 @@ const SentimentDashboard = () => {
               </div>
             </div>
 
-            {/* Premium Inputs Section */}
+            {/* Unified Inputs Section */}
             <div className="mb-12">
               <div className="flex items-center justify-between mb-8">
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold text-slate-200">Portfolio Configuration</h2>
-                  <p className="text-slate-400">Optimize your allocations with sentiment-driven insights</p>
+                  <h2 className="text-3xl font-bold text-white">Portfolio Configuration</h2>
+                  <p className="text-blue-100/80">Optimize your allocations with sentiment-driven insights</p>
                 </div>
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="h-10 w-10 p-0 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl transition-all duration-200" 
+                  className="h-10 w-10 p-0 text-blue-100 hover:text-white hover:bg-blue-800/30 rounded-xl transition-all duration-200" 
                   onClick={() => toggleSection("inputs")}
                 >
                   {sectionsCollapsed.inputs ? 
@@ -1217,120 +1217,144 @@ const SentimentDashboard = () => {
                     </CardFooter>
                   </Card>
 
-                  {/* Premium Source Weighting and Correlation */}
+                  {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    {/* Premium Source Weighting Controls */}
-                    <Card className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/30 shadow-2xl rounded-3xl overflow-hidden">
-                      <CardHeader className="pb-6 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border-b border-slate-700/30">
-                        <CardTitle className="flex items-center gap-3 text-xl font-bold text-slate-200">
-                          <div className="p-2 bg-purple-500/20 rounded-xl">
-                            <Activity className="h-6 w-6 text-purple-400" />
+                    {/* Unified Source Weighting Controls */}
+                    <Card className="bg-gradient-to-br from-blue-950/40 via-slate-900/35 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+                      <CardHeader className="pb-6">
+                        <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                          <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+                            <Activity className="h-6 w-6 text-blue-200" />
                           </div>
                           Source Weighting
                         </CardTitle>
-                        <CardDescription className="text-slate-400 text-base">
+                        <CardDescription className="text-blue-100/80 text-base">
                           Fine-tune data source influence on composite sentiment analytics
                         </CardDescription>
                       </CardHeader>
-                      <CardContent className="space-y-6">
-                        <div className="space-y-4">
+                      <CardContent className="p-8">
+                        <div className="space-y-6">
                           <div>
-                            <div className="flex justify-between mb-2">
-                              <label className="text-sm text-muted-foreground font-medium">Twitter</label>
+                            <div className="flex justify-between mb-3">
+                              <label className="text-sm text-blue-100/80 font-medium">Twitter</label>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium bg-muted text-foreground px-2 py-0.5 rounded">
+                                <span className="text-sm font-bold text-white bg-blue-900/40 px-3 py-1 rounded-lg border border-blue-700/40">
                                   {(weights.twitter * 100).toFixed(0)}%
                                 </span>
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6"
+                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("twitter")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.twitter ? (
-                                    <Lock className="h-3.5 w-3.5 text-amber-500" />
+                                    <Lock className="h-3 w-3 text-purple-200" />
                                   ) : (
-                                    <Unlock className="h-3.5 w-3.5 text-muted-foreground" />
+                                    <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
                                 </Button>
                               </div>
                             </div>
-                            <Slider
-                              defaultValue={[weights.twitter]}
-                              value={[weights.twitter]}
-                              max={1}
-                              step={0.05}
-                              onValueChange={(value) => handleWeightChange("twitter", value)}
-                              className="py-1"
-                              disabled={basketLocked}
-                            />
+                            <div className="relative">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  style={{ width: `${weights.twitter * 100}%` }}
+                                />
+                              </div>
+                              <Slider
+                                defaultValue={[weights.twitter]}
+                                value={[weights.twitter]}
+                                max={1}
+                                step={0.05}
+                                onValueChange={(value) => handleWeightChange("twitter", value)}
+                                className="absolute inset-0 z-10"
+                                disabled={basketLocked}
+                              />
+                            </div>
                           </div>
 
                           <div>
-                            <div className="flex justify-between mb-2">
-                              <label className="text-sm text-muted-foreground font-medium">Google Trends</label>
+                            <div className="flex justify-between mb-3">
+                              <label className="text-sm text-blue-100/80 font-medium">Google Trends</label>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium bg-muted text-foreground px-2 py-0.5 rounded">
+                                <span className="text-sm font-bold text-white bg-blue-900/40 px-3 py-1 rounded-lg border border-blue-700/40">
                                   {(weights.googleTrends * 100).toFixed(0)}%
                                 </span>
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6"
+                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("googleTrends")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.googleTrends ? (
-                                    <Lock className="h-3.5 w-3.5 text-amber-500" />
+                                    <Lock className="h-3 w-3 text-purple-200" />
                                   ) : (
-                                    <Unlock className="h-3.5 w-3.5 text-muted-foreground" />
+                                    <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
                                 </Button>
                               </div>
                             </div>
-                            <Slider
-                              defaultValue={[weights.googleTrends]}
-                              value={[weights.googleTrends]}
-                              max={1}
-                              step={0.05}
-                              onValueChange={(value) => handleWeightChange("googleTrends", value)}
-                              className="py-1"
-                              disabled={basketLocked}
-                            />
+                            <div className="relative">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  style={{ width: `${weights.googleTrends * 100}%` }}
+                                />
+                              </div>
+                              <Slider
+                                defaultValue={[weights.googleTrends]}
+                                value={[weights.googleTrends]}
+                                max={1}
+                                step={0.05}
+                                onValueChange={(value) => handleWeightChange("googleTrends", value)}
+                                className="absolute inset-0 z-10"
+                                disabled={basketLocked}
+                              />
+                            </div>
                           </div>
 
                           <div>
-                            <div className="flex justify-between mb-2">
-                              <label className="text-sm text-muted-foreground font-medium">News</label>
+                            <div className="flex justify-between mb-3">
+                              <label className="text-sm text-blue-100/80 font-medium">News</label>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium bg-muted text-foreground px-2 py-0.5 rounded">
+                                <span className="text-sm font-bold text-white bg-blue-900/40 px-3 py-1 rounded-lg border border-blue-700/40">
                                   {(weights.news * 100).toFixed(0)}%
                                 </span>
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6"
+                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("news")}
                                   disabled={basketLocked}
                                 >
                                   {weightLocks.news ? (
-                                    <Lock className="h-3.5 w-3.5 text-amber-500" />
+                                    <Lock className="h-3 w-3 text-purple-200" />
                                   ) : (
-                                    <Unlock className="h-3.5 w-3.5 text-muted-foreground" />
+                                    <Unlock className="h-3 w-3 text-blue-200" />
                                   )}
                                 </Button>
                               </div>
                             </div>
-                            <Slider
-                              defaultValue={[weights.news]}
-                              value={[weights.news]}
-                              max={1}
-                              step={0.05}
-                              onValueChange={(value) => handleWeightChange("news", value)}
-                              className="py-1"
-                              disabled={basketLocked}
-                            />
+                            <div className="relative">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                                <div 
+                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
+                                  style={{ width: `${weights.news * 100}%` }}
+                                />
+                              </div>
+                              <Slider
+                                defaultValue={[weights.news]}
+                                value={[weights.news]}
+                                max={1}
+                                step={0.05}
+                                onValueChange={(value) => handleWeightChange("news", value)}
+                                className="absolute inset-0 z-10"
+                                disabled={basketLocked}
+                              />
+                            </div>
                           </div>
                         </div>
                       </CardContent>

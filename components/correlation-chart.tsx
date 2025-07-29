@@ -109,27 +109,32 @@ export function CorrelationChart() {
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2 space-y-2 sm:space-y-0">
+    <Card className="bg-gradient-to-br from-blue-950/40 via-slate-900/35 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+      <CardHeader className="pb-6">
         <div className="max-w-[70%] sm:max-w-[100%]">
-          <CardTitle className="text-2xl font-bold">Sentiment-Price Correlation</CardTitle>
-          <CardDescription className="mt-1 text-slate-400">
+          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+            <div className="p-2 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-xl border border-blue-500/40">
+              <InfoCircle className="h-6 w-6 text-blue-200" />
+            </div>
+            Sentiment-Price Correlation
+          </CardTitle>
+          <CardDescription className="text-blue-100/80 text-base mt-3">
             This table shows the relationship between the source of information and historical price
           </CardDescription>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-8">
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-2 text-muted-foreground">Loading correlation data...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+            <span className="ml-2 text-blue-100/80">Loading correlation data...</span>
           </div>
         ) : error ? (
-          <div className="p-4 bg-destructive/10 text-destructive border border-destructive/20 rounded-md">{error}</div>
+          <div className="p-4 bg-red-500/10 text-red-300 border border-red-500/20 rounded-xl">{error}</div>
         ) : (
           <div className="space-y-6">
             {/* Header row */}
-            <div className="grid grid-cols-2 gap-4 py-2 text-sm font-medium text-slate-400">
+            <div className="grid grid-cols-2 gap-4 py-2 text-sm font-medium text-blue-100/80">
               <div>Source</div>
               <div className="flex items-center justify-end">
                 Correlation Impact / Win Rate %
@@ -138,21 +143,21 @@ export function CorrelationChart() {
             </div>
 
             {/* Divider */}
-            <div className="h-px bg-slate-800"></div>
+            <div className="h-px bg-blue-800/40"></div>
 
             {/* Source rows in a 2x2 grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {dynamicSourceCorrelationData.map((source, index) => (
                 <div key={index} className="space-y-1">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="text-lg font-medium">{source.name}</div>
+                    <div className="text-lg font-medium text-white">{source.name}</div>
                     <div className="flex items-center justify-end text-sm font-medium" style={{ color: source.color }}>
                       {getWinRateImpactText(source.winRate)} {/* Dynamically set impact text */}
                     </div>
                   </div>
 
                   {/* Scale labels ABOVE progress bar */}
-                  <div className="grid grid-cols-4 text-xs text-slate-400 mb-1">
+                  <div className="grid grid-cols-4 text-xs text-blue-200/70 mb-1">
                     <div className="text-left">Weak</div>
                     <div className="text-center">Moderate</div>
                     <div className="text-center">Strong</div>
@@ -160,7 +165,7 @@ export function CorrelationChart() {
                   </div>
 
                   {/* Progress bar container (relative for absolute children) */}
-                  <div className="relative h-3 w-full rounded-full bg-slate-800/50">
+                  <div className="relative h-3 w-full rounded-full bg-slate-800/60 border border-blue-800/40">
                     {/* Percentage text above marker */}
                     <div
                       className="absolute bottom-[calc(100%+0.25rem)] text-xs text-black z-10"
