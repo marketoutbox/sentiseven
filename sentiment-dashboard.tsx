@@ -1061,7 +1061,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Premium Stock Allocation Card */}
-                  <Card className="mb-8 bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-[#1e293b] backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1100,15 +1100,15 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = "from-[#1e293b]/60 via-slate-900/70 to-purple-950/40"
+                          const bgColor = "bg-[#1e293b]/80"
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 bg-gradient-to-r ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
                             >
                               {/* Premium hover effect overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-[#1e293b]/0 via-slate-800/0 group-hover:from-[#1e293b]/10 group-hover:via-slate-800/8 group-hover:to-purple-800/10 to-transparent rounded-xl transition-all duration-300" />
+                              <div className="absolute inset-0 bg-[#1e293b]/0 group-hover:bg-[#1e293b]/20 rounded-xl transition-all duration-300" />
                               
                               <div className="relative">
                                 {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
@@ -1127,7 +1127,7 @@ const SentimentDashboard = () => {
                                       <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-6 w-6 rounded-md bg-[#1e293b]/60 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
+                                        className="h-6 w-6 rounded-md bg-[#1e293b]/80 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
                                         onClick={(e) => {
                                           e.stopPropagation()
                                           handleToggleLock(stock.id)
@@ -1218,7 +1218,7 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Premium Source Weighting Controls */}
-                    <Card className="bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
+                    <Card className="bg-[#1e293b] backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
@@ -1240,7 +1240,7 @@ const SentimentDashboard = () => {
                             <div className="flex justify-between mb-3">
                               <label className="text-sm text-blue-100/80 font-medium">Twitter</label>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-bold text-white bg-[#1e293b]/60 px-3 py-1 rounded-lg border border-[#1e293b]/60">
+                                <span className="text-sm font-bold text-white bg-[#1e293b]/80 px-3 py-1 rounded-lg border border-[#1e293b]/60">
                                   {(weights.twitter * 100).toFixed(0)}%
                                 </span>
                                 <Button
