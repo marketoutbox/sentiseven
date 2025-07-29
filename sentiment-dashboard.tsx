@@ -1106,8 +1106,7 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 bg-gradient-to-br ${bgColor} rounded-xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group hover:scale-[1.02]`}
-                              onClick={() => handleStockClick(stock)}
+                              className={`relative w-full p-3 bg-gradient-to-br ${bgColor} rounded-xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 group`}
                             >
                               {/* Hover effect overlay */}
                               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 group-hover:from-blue-500/5 to-transparent rounded-2xl transition-all duration-300" />
@@ -1145,12 +1144,18 @@ const SentimentDashboard = () => {
                                   </div>
                                 </div>
 
-                                {/* Simple allocation slider */}
-                                <div className="mt-3">
+                                {/* Interactive allocation slider */}
+                                <div className="mt-3 space-y-2">
+                                  <div className="flex items-center justify-between text-xs text-slate-400">
+                                    <span>Allocation</span>
+                                    <span>{stock.locked ? "Locked" : "Adjustable"}</span>
+                                  </div>
+                                  
                                   <div className="relative">
-                                    <div className="h-1.5 bg-slate-800/50 rounded-full overflow-hidden">
+                                    {/* Background track */}
+                                    <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden">
                                       <div 
-                                        className={`h-full bg-gradient-to-r transition-all duration-500 ${
+                                        className={`h-full bg-gradient-to-r transition-all duration-300 ${
                                           stockData.compositeSentiment > 0.3
                                             ? "from-emerald-500 to-emerald-400"
                                             : stockData.compositeSentiment > -0.3
@@ -1161,15 +1166,23 @@ const SentimentDashboard = () => {
                                       />
                                     </div>
                                     
+                                    {/* Interactive slider overlay */}
                                     <Slider
                                       value={[stock.allocation]}
                                       max={100}
                                       step={1}
                                       disabled={stock.locked || basketLocked}
                                       onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                      className="absolute inset-0 opacity-0"
+                                      className="absolute inset-0 z-10"
                                     />
                                   </div>
+                                  
+                                  {stock.locked && (
+                                    <div className="flex items-center gap-1 text-xs text-amber-400">
+                                      <Lock className="h-3 w-3" />
+                                      <span>Position locked at {stock.allocation}%</span>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </div>
