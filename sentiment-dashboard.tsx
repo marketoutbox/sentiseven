@@ -960,11 +960,11 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-950 via-slate-900 via-blue-900 to-purple-950 min-h-screen">
+    <div className="bg-gradient-to-br from-slate-950 via-[#1e293b] via-[#0f172a] to-purple-950 min-h-screen">
       {/* Darker Background Patterns */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,64,175,0.12),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,41,59,0.15),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.08),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(30,58,138,0.06)_50%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(30,41,59,0.08)_50%,transparent_70%)] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto p-6">
         {isLoading && (
@@ -982,7 +982,7 @@ const SentimentDashboard = () => {
             {/* Premium Header */}
             <div className="relative mb-12">
               {/* Dark Glass Morphism Header */}
-              <div className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 rounded-3xl p-8 shadow-2xl shadow-blue-900/20">
+              <div className="bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 rounded-3xl p-8 shadow-2xl shadow-[#1e293b]/30">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div className="space-y-3">
                     <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -1000,7 +1000,7 @@ const SentimentDashboard = () => {
                   <div className="flex items-center gap-4">
                     {/* Dark sentiment badge */}
                     <div className="relative">
-                      <div className={`bg-gradient-to-r from-blue-700 to-purple-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/30 backdrop-blur-sm border border-blue-600/40`}>
+                      <div className={`bg-gradient-to-r from-[#1e293b] to-purple-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-[#1e293b]/40 backdrop-blur-sm border border-[#1e293b]/60`}>
                         <div className="flex items-center gap-2">
                           {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
                           {overallSentiment.text}
@@ -1009,24 +1009,24 @@ const SentimentDashboard = () => {
                     </div>
                     
                     {/* Dark time period selector */}
-                    <div className="bg-gradient-to-r from-blue-950/60 to-purple-950/60 backdrop-blur-sm border border-blue-700/40 rounded-2xl p-1">
+                    <div className="bg-gradient-to-r from-[#1e293b]/80 to-purple-950/60 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-1">
                       <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
                         <TabsList className="grid grid-cols-3 bg-transparent gap-1">
-                          <TabsTrigger 
+                                                      <TabsTrigger 
                             value="1d" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-800/30 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Day
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1w" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-800/30 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Week
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1m" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-800/30 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Month
                           </TabsTrigger>
@@ -1061,7 +1061,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Premium Stock Allocation Card */}
-                  <Card className="mb-8 bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1100,15 +1100,15 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = "from-blue-950/40 via-slate-900/50 to-purple-950/40"
+                          const bgColor = "from-[#1e293b]/60 via-slate-900/70 to-purple-950/40"
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 bg-gradient-to-r ${bgColor} rounded-xl border border-blue-800/30 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-blue-900/20`}
+                              className={`relative w-full p-3 bg-gradient-to-r ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-purple-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
                             >
                               {/* Premium hover effect overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-800/0 via-slate-800/0 group-hover:from-blue-800/10 group-hover:via-slate-800/8 group-hover:to-purple-800/10 to-transparent rounded-xl transition-all duration-300" />
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#1e293b]/0 via-slate-800/0 group-hover:from-[#1e293b]/10 group-hover:via-slate-800/8 group-hover:to-purple-800/10 to-transparent rounded-xl transition-all duration-300" />
                               
                               <div className="relative">
                                 {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
@@ -1127,7 +1127,7 @@ const SentimentDashboard = () => {
                                       <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
+                                        className="h-6 w-6 rounded-md bg-[#1e293b]/60 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
                                         onClick={(e) => {
                                           e.stopPropagation()
                                           handleToggleLock(stock.id)
@@ -1152,7 +1152,7 @@ const SentimentDashboard = () => {
                                     
                                     <div className="relative">
                                       {/* Dark background track */}
-                                      <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                                      <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
                                         <div 
                                           className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
                                           style={{ width: `${stock.allocation}%` }}
@@ -1218,7 +1218,7 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Premium Source Weighting Controls */}
-                    <Card className="bg-gradient-to-r from-blue-950/40 via-slate-900/50 to-purple-950/40 backdrop-blur-xl border border-blue-800/30 shadow-2xl shadow-blue-900/20 rounded-3xl overflow-hidden">
+                    <Card className="bg-gradient-to-r from-[#1e293b]/60 via-slate-900/70 to-purple-950/40 backdrop-blur-xl border border-[#1e293b]/50 shadow-2xl shadow-[#1e293b]/30 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
@@ -1240,13 +1240,13 @@ const SentimentDashboard = () => {
                             <div className="flex justify-between mb-3">
                               <label className="text-sm text-blue-100/80 font-medium">Twitter</label>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-bold text-white bg-blue-900/40 px-3 py-1 rounded-lg border border-blue-700/40">
+                                <span className="text-sm font-bold text-white bg-[#1e293b]/60 px-3 py-1 rounded-lg border border-[#1e293b]/60">
                                   {(weights.twitter * 100).toFixed(0)}%
                                 </span>
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  className="h-6 w-6 rounded-md bg-blue-900/40 hover:bg-purple-800/50 border border-blue-700/40 hover:border-purple-600/50 transition-all duration-200"
+                                  className="h-6 w-6 rounded-md bg-[#1e293b]/60 hover:bg-purple-800/50 border border-[#1e293b]/60 hover:border-purple-600/50 transition-all duration-200"
                                   onClick={() => toggleWeightLock("twitter")}
                                   disabled={basketLocked}
                                 >
@@ -1259,7 +1259,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
                                 <div 
                                   className="h-full bg-gradient-to-r from-blue-600 via-blue-500 via-indigo-500 via-purple-500 to-purple-600 transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
