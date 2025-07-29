@@ -1088,51 +1088,41 @@ const SentimentDashboard = () => {
                     </CardHeader>
 
                     <CardContent className="p-8">
-                      <div className="space-y-8">
+                      {/* Grid layout with 3 cards per row */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {stocks.map((stock, index) => {
                           const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
-                          const sentimentColor = stockData.compositeSentiment > 0.3 
-                            ? "from-emerald-500/20 to-emerald-400/10" 
+                          const performanceColor = stockData.compositeSentiment > 0.3 
+                            ? "text-emerald-400" 
                             : stockData.compositeSentiment > -0.3 
-                              ? "from-amber-500/20 to-amber-400/10" 
-                              : "from-red-500/20 to-red-400/10"
+                              ? "text-amber-400" 
+                              : "text-red-400"
+                          const bgColor = stockData.compositeSentiment > 0.3 
+                            ? "from-emerald-500/10 to-emerald-400/5" 
+                            : stockData.compositeSentiment > -0.3 
+                              ? "from-amber-500/10 to-amber-400/5" 
+                              : "from-red-500/10 to-red-400/5"
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative p-6 bg-gradient-to-r ${sentimentColor} rounded-2xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group`}
+                              className={`relative p-6 bg-gradient-to-br ${bgColor} rounded-2xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group hover:scale-[1.02]`}
                               onClick={() => handleStockClick(stock)}
                             >
                               {/* Hover effect overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 group-hover:from-blue-500/10 to-transparent rounded-2xl transition-all duration-300" />
+                              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 group-hover:from-blue-500/5 to-transparent rounded-2xl transition-all duration-300" />
                               
                               <div className="relative space-y-4">
+                                {/* Header with stock symbol and lock */}
                                 <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-4">
-                                    {/* Stock symbol with premium styling */}
-                                    <div className="flex items-center gap-3">
-                                      <div className="w-12 h-12 bg-slate-800/50 rounded-xl flex items-center justify-center border border-slate-600/30">
-                                        <span className="font-bold text-white text-sm">{stock.symbol}</span>
-                                      </div>
-                                      <div>
-                                        <div className="font-semibold text-slate-200 text-lg">{stock.symbol}</div>
-                                        <div className="text-slate-400 text-sm">{stock.name}</div>
-                                      </div>
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-slate-800/50 rounded-lg flex items-center justify-center border border-slate-600/30">
+                                      <span className="font-bold text-white text-xs">{stock.symbol}</span>
                                     </div>
-                                  </div>
-                                  
-                                  <div className="flex items-center gap-4">
-                                    {/* Allocation percentage with premium styling */}
-                                    <div className="text-right">
-                                      <div className="text-2xl font-bold text-slate-200">{stock.allocation}%</div>
-                                      <div className="text-xs text-slate-400">allocation</div>
-                                    </div>
-                                    
-                                    {/* Premium lock button */}
                                     <Button
                                       variant="ghost"
                                       size="icon"
-                                      className="h-10 w-10 rounded-xl bg-slate-800/30 hover:bg-slate-700/50 border border-slate-600/30 transition-all duration-200"
+                                      className="h-8 w-8 rounded-lg bg-slate-800/30 hover:bg-slate-700/50 border border-slate-600/30 transition-all duration-200"
                                       onClick={(e) => {
                                         e.stopPropagation()
                                         handleToggleLock(stock.id)
@@ -1140,26 +1130,39 @@ const SentimentDashboard = () => {
                                       disabled={basketLocked}
                                     >
                                       {stock.locked ? (
-                                        <Lock className="h-4 w-4 text-amber-400" />
+                                        <Lock className="h-3 w-3 text-amber-400" />
                                       ) : (
-                                        <Unlock className="h-4 w-4 text-slate-400" />
+                                        <Unlock className="h-3 w-3 text-slate-400" />
                                       )}
                                     </Button>
                                   </div>
                                 </div>
 
-                                {/* Premium Interactive Allocation Slider */}
-                                <div className="space-y-3">
-                                  <div className="flex items-center justify-between text-sm">
-                                    <span className="text-slate-400">Allocation Slider</span>
-                                    <span className="text-slate-300 font-medium">
-                                      {stock.locked ? "Locked" : "Adjustable"}
-                                    </span>
-                                  </div>
-                                  
+                                {/* Stock info */}
+                                <div className="space-y-2">
+                                  <div className="font-semibold text-slate-200 text-lg">{stock.symbol}</div>
+                                  <div className="text-slate-400 text-sm truncate">{stock.name}</div>
+                                </div>
+
+                                {/* Allocation percentage - large and prominent */}
+                                <div className="text-center py-4">
+                                  <div className="text-3xl font-bold text-slate-200">{stock.allocation}%</div>
+                                  <div className="text-xs text-slate-400 mt-1">Portfolio Allocation</div>
+                                </div>
+
+                                {/* Performance indicator */}
+                                <div className="flex items-center justify-center gap-2 py-2">
+                                  {getSentimentIcon(stockData.compositeSentiment)}
+                                  <span className={`text-sm font-medium ${performanceColor}`}>
+                                    {stockData.compositeSentiment > 0.3 ? "Positive" : 
+                                     stockData.compositeSentiment > -0.3 ? "Neutral" : "Negative"}
+                                  </span>
+                                </div>
+
+                                {/* Interactive allocation slider */}
+                                <div className="space-y-2">
                                   <div className="relative">
-                                    {/* Custom premium slider background */}
-                                    <div className="h-3 bg-slate-800/50 rounded-full border border-slate-600/30 overflow-hidden">
+                                    <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden">
                                       <div 
                                         className={`h-full bg-gradient-to-r transition-all duration-500 ${
                                           stockData.compositeSentiment > 0.3
@@ -1167,12 +1170,11 @@ const SentimentDashboard = () => {
                                             : stockData.compositeSentiment > -0.3
                                               ? "from-amber-500 to-amber-400"
                                               : "from-red-500 to-red-400"
-                                        } shadow-lg`}
+                                        }`}
                                         style={{ width: `${stock.allocation}%` }}
                                       />
                                     </div>
                                     
-                                    {/* Hidden slider for interaction */}
                                     <Slider
                                       value={[stock.allocation]}
                                       max={100}
@@ -1184,9 +1186,11 @@ const SentimentDashboard = () => {
                                   </div>
                                   
                                   {stock.locked && (
-                                    <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20">
-                                      <Lock className="h-4 w-4" />
-                                      Position locked at {stock.allocation}%
+                                    <div className="text-center">
+                                      <div className="inline-flex items-center gap-1 text-xs text-amber-400 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">
+                                        <Lock className="h-3 w-3" />
+                                        Locked
+                                      </div>
                                     </div>
                                   )}
                                 </div>
