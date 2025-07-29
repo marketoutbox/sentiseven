@@ -1089,7 +1089,7 @@ const SentimentDashboard = () => {
 
                     <CardContent className="p-8">
                       {/* Grid layout with 3 cards per row */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
                         {stocks.map((stock, index) => {
                           const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
                           const performanceColor = stockData.compositeSentiment > 0.3 
@@ -1106,61 +1106,59 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative p-6 bg-gradient-to-br ${bgColor} rounded-2xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group hover:scale-[1.02]`}
+                              className={`relative w-full p-4 bg-gradient-to-br ${bgColor} rounded-2xl border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300 cursor-pointer group hover:scale-[1.02]`}
                               onClick={() => handleStockClick(stock)}
                             >
                               {/* Hover effect overlay */}
                               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 group-hover:from-blue-500/5 to-transparent rounded-2xl transition-all duration-300" />
                               
-                              <div className="relative space-y-4">
+                              <div className="relative space-y-3">
                                 {/* Header with stock symbol and lock */}
                                 <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-slate-800/50 rounded-lg flex items-center justify-center border border-slate-600/30">
-                                      <span className="font-bold text-white text-xs">{stock.symbol}</span>
-                                    </div>
-                                    <Button
-                                      variant="ghost"
-                                      size="icon"
-                                      className="h-8 w-8 rounded-lg bg-slate-800/30 hover:bg-slate-700/50 border border-slate-600/30 transition-all duration-200"
-                                      onClick={(e) => {
-                                        e.stopPropagation()
-                                        handleToggleLock(stock.id)
-                                      }}
-                                      disabled={basketLocked}
-                                    >
-                                      {stock.locked ? (
-                                        <Lock className="h-3 w-3 text-amber-400" />
-                                      ) : (
-                                        <Unlock className="h-3 w-3 text-slate-400" />
-                                      )}
-                                    </Button>
+                                  <div className="w-10 h-10 bg-slate-800/50 rounded-lg flex items-center justify-center border border-slate-600/30">
+                                    <span className="font-bold text-white text-xs">{stock.symbol}</span>
                                   </div>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-7 w-7 rounded-lg bg-slate-800/30 hover:bg-slate-700/50 border border-slate-600/30 transition-all duration-200"
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      handleToggleLock(stock.id)
+                                    }}
+                                    disabled={basketLocked}
+                                  >
+                                    {stock.locked ? (
+                                      <Lock className="h-3 w-3 text-amber-400" />
+                                    ) : (
+                                      <Unlock className="h-3 w-3 text-slate-400" />
+                                    )}
+                                  </Button>
                                 </div>
 
                                 {/* Stock info */}
-                                <div className="space-y-2">
-                                  <div className="font-semibold text-slate-200 text-lg">{stock.symbol}</div>
-                                  <div className="text-slate-400 text-sm truncate">{stock.name}</div>
+                                <div className="space-y-1">
+                                  <div className="font-semibold text-slate-200 text-base">{stock.symbol}</div>
+                                  <div className="text-slate-400 text-xs truncate">{stock.name}</div>
                                 </div>
 
                                 {/* Allocation percentage - large and prominent */}
-                                <div className="text-center py-4">
-                                  <div className="text-3xl font-bold text-slate-200">{stock.allocation}%</div>
-                                  <div className="text-xs text-slate-400 mt-1">Portfolio Allocation</div>
+                                <div className="text-center py-2">
+                                  <div className="text-2xl font-bold text-slate-200">{stock.allocation}%</div>
+                                  <div className="text-xs text-slate-400">Allocation</div>
                                 </div>
 
                                 {/* Performance indicator */}
-                                <div className="flex items-center justify-center gap-2 py-2">
+                                <div className="flex items-center justify-center gap-2 py-1">
                                   {getSentimentIcon(stockData.compositeSentiment)}
-                                  <span className={`text-sm font-medium ${performanceColor}`}>
+                                  <span className={`text-xs font-medium ${performanceColor}`}>
                                     {stockData.compositeSentiment > 0.3 ? "Positive" : 
                                      stockData.compositeSentiment > -0.3 ? "Neutral" : "Negative"}
                                   </span>
                                 </div>
 
                                 {/* Interactive allocation slider */}
-                                <div className="space-y-2">
+                                <div className="space-y-1">
                                   <div className="relative">
                                     <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden">
                                       <div 
@@ -1186,7 +1184,7 @@ const SentimentDashboard = () => {
                                   </div>
                                   
                                   {stock.locked && (
-                                    <div className="text-center">
+                                    <div className="text-center mt-1">
                                       <div className="inline-flex items-center gap-1 text-xs text-amber-400 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">
                                         <Lock className="h-3 w-3" />
                                         Locked
