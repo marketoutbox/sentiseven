@@ -999,9 +999,9 @@ const SentimentDashboard = () => {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    {/* Dark sentiment badge */}
+                    {/* Clean sentiment badge */}
                     <div className="relative">
-                      <div className={`bg-gradient-to-r from-[#1e293b] to-blue-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-[#1e293b]/40 backdrop-blur-sm border border-[#1e293b]/60`}>
+                      <div className={`px-6 py-3 rounded-full text-white font-semibold`}>
                         <div className="flex items-center gap-2">
                           {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
                           {overallSentiment.text}
@@ -1009,25 +1009,25 @@ const SentimentDashboard = () => {
                       </div>
                     </div>
                     
-                    {/* Dark time period selector */}
-                    <div className="bg-gradient-to-r from-[#1e293b]/80 to-[#1e293b]/60 backdrop-blur-sm border border-[#1e293b]/60 rounded-2xl p-1">
+                    {/* Clean time period selector */}
+                    <div className="rounded-2xl p-1">
                       <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
                         <TabsList className="grid grid-cols-3 bg-transparent gap-1">
                                                       <TabsTrigger 
                             value="1d" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Day
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1w" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Week
                           </TabsTrigger>
                           <TabsTrigger 
                             value="1m" 
-                            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1e293b] data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#1e293b]/40 transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
+                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
                           >
                             1 Month
                           </TabsTrigger>
