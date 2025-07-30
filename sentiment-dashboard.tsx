@@ -961,11 +961,11 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-[#0a1628] via-[#0f1b2d] via-[#142033] to-[#1a2332] min-h-screen">
-      {/* French Navy Background Patterns */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(26,35,50,0.15),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(20,32,51,0.08),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(15,27,45,0.08)_50%,transparent_70%)] pointer-events-none" />
+    <div className="bg-gradient-to-br from-[#020817] via-[#030a1c] via-[#040c20] to-[#050e24] min-h-screen">
+      {/* Deep Background Patterns */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(8,16,35,0.12),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(5,14,36,0.08),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(6,12,28,0.06)_50%,transparent_70%)] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto p-6">
         {isLoading && (
@@ -982,8 +982,8 @@ const SentimentDashboard = () => {
           <>
             {/* Premium Header */}
             <div className="relative mb-12">
-              {/* Elegant French Navy Header */}
-              <div className="bg-gradient-to-r from-[#2a3441]/70 via-[#334155]/80 to-[#2a3441]/70 backdrop-blur-xl border border-[#2a3441]/60 rounded-3xl p-8 shadow-2xl shadow-[#0a1628]/40">
+              {/* Deep Space Header */}
+              <div className="bg-[#0a101e]/90 backdrop-blur-xl border border-[#0a101e]/80 rounded-3xl p-8 shadow-2xl shadow-[#020817]/60">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div className="space-y-3">
                     <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
@@ -1061,8 +1061,8 @@ const SentimentDashboard = () => {
 
               {!sectionsCollapsed.inputs && (
                 <>
-                  {/* Premium Stock Allocation Card */}
-                  <Card className="mb-8 bg-[#2a3441] backdrop-blur-xl border border-[#2a3441]/60 shadow-2xl shadow-[#0a1628]/40 rounded-3xl overflow-hidden">
+                  {/* Stock Allocation Card */}
+                  <Card className="mb-8 bg-[#0a101e] backdrop-blur-xl border border-[#0a101e]/80 shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1101,15 +1101,15 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = "bg-[#1e293b]" // Darker than parent bg-[#2a3441] 
+                          const bgColor = "bg-gradient-to-br from-[#131826] via-[#141929] to-[#151a2c]" // Subtle gradient in #131826 range
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#2a3441]/40 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#0a1628]/30`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#020817]/40`}
                             >
-                              {/* Premium hover effect overlay */}
-                              <div className="absolute inset-0 bg-[#1e293b]/0 group-hover:bg-[#1e293b]/20 rounded-xl transition-all duration-300" />
+                              {/* Subtle hover effect overlay */}
+                              <div className="absolute inset-0 bg-[#131826]/0 group-hover:bg-[#131826]/30 rounded-xl transition-all duration-300" />
                               
                               <div className="relative">
                                 {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
@@ -1218,8 +1218,8 @@ const SentimentDashboard = () => {
 
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    {/* Premium Source Weighting Controls */}
-                    <Card className="bg-[#2a3441] backdrop-blur-xl border border-[#2a3441]/60 shadow-2xl shadow-[#0a1628]/40 rounded-3xl overflow-hidden">
+                    {/* Source Weighting Controls */}
+                    <Card className="bg-[#0a101e] backdrop-blur-xl border border-[#0a101e]/80 shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
@@ -1664,8 +1664,8 @@ const SentimentDashboard = () => {
               </div>
             ) : null}
 
-            {/* Elegant French Navy Footer */}
-            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-gradient-to-r from-[#2a3441]/30 via-[#334155]/20 to-[#2a3441]/30 backdrop-blur-sm rounded-t-3xl">
+            {/* Deep Space Footer */}
+            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-[#0a101e]/60 backdrop-blur-sm rounded-t-3xl">
               <div className="text-center space-y-4">
                 <div className="flex items-center justify-center gap-6 text-sm">
                   <div className="flex items-center gap-2 text-blue-300/80">
