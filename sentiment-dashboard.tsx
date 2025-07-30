@@ -1152,11 +1152,11 @@ const SentimentDashboard = () => {
                                     </div>
                                     
                                     <div className="relative">
-                                      {/* Dark background track */}
-                                      <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden">
-                                                                              <div 
-                                        className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
-                                        style={{ width: `${stock.allocation}%` }}
+                                      {/* Purple background track */}
+                                      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#723ce8' }}>
+                                        <div 
+                                        className="h-full transition-all duration-300 shadow-lg"
+                                        style={{ width: `${stock.allocation}%`, backgroundColor: '#91c4fc' }}
                                       />
                                       </div>
                                       
