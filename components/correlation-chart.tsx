@@ -167,7 +167,7 @@ export function CorrelationChart() {
                   </div>
 
                   {/* Progress bar container (relative for absolute children) */}
-                  <div className="relative h-3 w-full rounded-full bg-slate-800/60 border border-blue-800/40">
+                  <div className="relative h-3 w-full rounded-full bg-slate-800/60">
                     {/* Percentage text above marker */}
                     <div
                       className="absolute bottom-[calc(100%+0.25rem)] text-xs text-black z-10"

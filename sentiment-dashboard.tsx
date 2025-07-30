@@ -1153,7 +1153,7 @@ const SentimentDashboard = () => {
                                     
                                     <div className="relative">
                                       {/* Dark background track */}
-                                      <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
+                                      <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden">
                                                                               <div 
                                         className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                         style={{ width: `${stock.allocation}%` }}
@@ -1260,7 +1260,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
@@ -1301,7 +1301,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.googleTrends * 100}%` }}
@@ -1342,7 +1342,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
+                              <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.news * 100}%` }}
