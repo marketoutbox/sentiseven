@@ -980,13 +980,13 @@ const SentimentDashboard = () => {
           <StockDetailView stock={selectedStock} onBack={() => setSelectedStock(null)} timePeriod={timePeriod} />
         ) : (
           <>
-            {/* Premium Header */}
+            {/* Clean Header */}
             <div className="relative mb-12">
-              {/* Deep Space Header */}
-              <div className="bg-[#0a101e]/90 backdrop-blur-xl border border-[#1e293b80] rounded-3xl p-8 shadow-2xl shadow-[#020817]/60">
+              {/* No background - use site background */}
+              <div className="p-8">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div className="space-y-3">
-                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
+                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
                       Sentiment Analytics
                     </h1>
                     <p className="text-blue-100/90 text-lg font-medium">
@@ -1079,7 +1079,7 @@ const SentimentDashboard = () => {
                         <div className="flex items-center gap-4">
                           <Button
                             size="lg"
-                            className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-purple-900/20 backdrop-blur-sm border border-blue-500/30 transition-all duration-300"
+                            className="bg-gradient-to-r from-[#28578a] to-[#4e4988] hover:from-[#2a5a8d] hover:to-[#514c8b] px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-purple-900/20 backdrop-blur-sm border border-blue-500/30 transition-all duration-300"
                             onClick={() =>
                               basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                             }
@@ -1154,10 +1154,10 @@ const SentimentDashboard = () => {
                                     <div className="relative">
                                       {/* Dark background track */}
                                       <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
-                                        <div 
-                                          className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
-                                          style={{ width: `${stock.allocation}%` }}
-                                        />
+                                                                              <div 
+                                        className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
+                                        style={{ width: `${stock.allocation}%` }}
+                                      />
                                       </div>
                                       
                                       {/* Interactive slider overlay */}
@@ -1195,7 +1195,7 @@ const SentimentDashboard = () => {
                         </div>
                         <Button
                           size="sm"
-                          className="bg-gradient-to-r from-blue-600/60 via-indigo-600/60 to-purple-600/60 hover:from-blue-500/70 hover:via-indigo-500/70 hover:to-purple-500/70 border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl gap-2 shadow-sm shadow-purple-900/20"
+                          className="bg-gradient-to-r from-[#28578a]/60 to-[#4e4988]/60 hover:from-[#2a5a8d]/70 hover:to-[#514c8b]/70 border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl gap-2 shadow-sm shadow-purple-900/20"
                           onClick={handleResetAllocations}
                           disabled={basketLocked}
                         >
@@ -1205,7 +1205,7 @@ const SentimentDashboard = () => {
                       </div>
                       <Button
                         size="sm"
-                        className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-purple-900/20"
+                        className="bg-gradient-to-r from-[#28578a] to-[#4e4988] hover:from-[#2a5a8d] hover:to-[#514c8b] border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-purple-900/20"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
@@ -1262,7 +1262,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-[#1e293b]/50">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
                                 />
                               </div>
@@ -1303,7 +1303,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.googleTrends * 100}%` }}
                                 />
                               </div>
@@ -1344,7 +1344,7 @@ const SentimentDashboard = () => {
                             <div className="relative">
                               <div className="h-2 bg-slate-800/60 rounded-full overflow-hidden border border-blue-800/40">
                                 <div 
-                                  className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r from-[#28578a] to-[#4e4988] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.news * 100}%` }}
                                 />
                               </div>

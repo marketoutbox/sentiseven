@@ -186,12 +186,12 @@ export function CorrelationChart() {
                       style={{ left: getWinRateWidthPercentage(source.winRate) }}
                     ></div>
 
-                    {/* Progress bar fill */}
+                    {/* Progress bar fill with gradient */}
                     <div
                       className="h-full rounded-full"
                       style={{
                         width: getWinRateWidthPercentage(source.winRate),
-                        backgroundColor: source.color,
+                        background: `linear-gradient(to right, ${source.color}20, ${source.color})`,
                       }}
                     ></div>
                   </div>
