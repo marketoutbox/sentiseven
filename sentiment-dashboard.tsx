@@ -983,7 +983,7 @@ const SentimentDashboard = () => {
             {/* Premium Header */}
             <div className="relative mb-12">
               {/* Deep Space Header */}
-              <div className="bg-[#0a101e]/90 backdrop-blur-xl border border-[#0a101e]/80 rounded-3xl p-8 shadow-2xl shadow-[#020817]/60">
+              <div className="bg-[#0a101e]/90 backdrop-blur-xl border border-[#1e293b80] rounded-3xl p-8 shadow-2xl shadow-[#020817]/60">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                   <div className="space-y-3">
                     <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
@@ -1062,7 +1062,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Stock Allocation Card */}
-                  <Card className="mb-8 bg-[#0a101e] backdrop-blur-xl border border-[#0a101e]/80 shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-[#0a101e] backdrop-blur-xl border border-[#1e293b80] shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1219,7 +1219,7 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Source Weighting Controls */}
-                    <Card className="bg-[#0a101e] backdrop-blur-xl border border-[#0a101e]/80 shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
+                    <Card className="bg-[#0a101e] backdrop-blur-xl border border-[#1e293b80] shadow-2xl shadow-[#020817]/60 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
