@@ -1,5 +1,5 @@
 "use client"
-// Trigger deployment
+// Force deployment - slider colors update
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
@@ -1153,10 +1153,10 @@ const SentimentDashboard = () => {
                                     
                                     <div className="relative">
                                       {/* Purple background track */}
-                                      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#723ce8' }}>
+                                      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#723ce8 !important' }}>
                                         <div 
                                         className="h-full transition-all duration-300 shadow-lg"
-                                        style={{ width: `${stock.allocation}%`, backgroundColor: '#91c4fc' }}
+                                        style={{ width: `${stock.allocation}%`, backgroundColor: '#91c4fc !important' }}
                                       />
                                       </div>
                                       
