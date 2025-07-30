@@ -37,7 +37,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <div className="min-h-screen bg-background text-foreground">
-              <nav className="border-b border-border bg-white dark:bg-card">
+              <nav className="">
                 <div className="max-w-7xl mx-auto px-6 py-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
