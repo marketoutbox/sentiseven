@@ -1101,12 +1101,12 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = "bg-[#1e293b]/80"
+                          const bgColor = "bg-[#0f172a]" // Darker than parent bg-[#1e293b]
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#1e293b]/50 hover:border-blue-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#1e293b]/30 hover:border-blue-600/50 transition-all duration-300 group hover:shadow-lg hover:shadow-[#1e293b]/30`}
                             >
                               {/* Premium hover effect overlay */}
                               <div className="absolute inset-0 bg-[#1e293b]/0 group-hover:bg-[#1e293b]/20 rounded-xl transition-all duration-300" />
