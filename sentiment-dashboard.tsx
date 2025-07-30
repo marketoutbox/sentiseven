@@ -1067,7 +1067,7 @@ const SentimentDashboard = () => {
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                            <div className="p-2 bg-gradient-to-r from-blue-600/40 to-blue-700/40 rounded-xl border border-blue-500/40">
+                            <div className="p-2 bg-gradient-to-r from-blue-600/40 via-indigo-600/40 to-purple-600/40 rounded-xl border border-purple-500/30">
                               <BarChart3 className="h-6 w-6 text-blue-200" />
                             </div>
                             Stock Allocation
@@ -1079,7 +1079,7 @@ const SentimentDashboard = () => {
                         <div className="flex items-center gap-4">
                           <Button
                             size="lg"
-                            className="bg-gradient-to-r from-blue-700 to-blue-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/30 backdrop-blur-sm border border-blue-600/40"
+                            className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-purple-900/20 backdrop-blur-sm border border-blue-500/30 transition-all duration-300"
                             onClick={() =>
                               basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                             }
@@ -1195,7 +1195,7 @@ const SentimentDashboard = () => {
                         </div>
                         <Button
                           size="sm"
-                          className="bg-gradient-to-r from-blue-700/40 to-indigo-700/40 hover:from-blue-600/50 hover:to-indigo-600/50 border border-blue-600/50 text-white hover:text-white transition-all duration-200 rounded-xl gap-2 shadow-sm shadow-blue-900/20"
+                          className="bg-gradient-to-r from-blue-600/60 via-indigo-600/60 to-purple-600/60 hover:from-blue-500/70 hover:via-indigo-500/70 hover:to-purple-500/70 border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl gap-2 shadow-sm shadow-purple-900/20"
                           onClick={handleResetAllocations}
                           disabled={basketLocked}
                         >
@@ -1205,7 +1205,7 @@ const SentimentDashboard = () => {
                       </div>
                       <Button
                         size="sm"
-                        className="bg-gradient-to-r from-blue-600/40 to-blue-700/40 hover:from-blue-500/50 hover:to-blue-600/50 border border-blue-500/50 text-white hover:text-white transition-all duration-200 rounded-xl px-6 shadow-sm shadow-blue-900/20"
+                        className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 border border-purple-500/40 text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-purple-900/20"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
@@ -1224,7 +1224,7 @@ const SentimentDashboard = () => {
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
                             <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                              <div className="p-2 bg-gradient-to-r from-blue-600/40 to-blue-700/40 rounded-xl border border-blue-500/40">
+                              <div className="p-2 bg-gradient-to-r from-blue-600/40 via-indigo-600/40 to-purple-600/40 rounded-xl border border-purple-500/30">
                                 <Activity className="h-6 w-6 text-blue-200" />
                               </div>
                               Source Weighting
