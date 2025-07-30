@@ -1152,22 +1152,14 @@ const SentimentDashboard = () => {
                                     </div>
                                     
                                     <div className="relative">
-                                      {/* Purple background track */}
-                                      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#723ce8 !important' }}>
-                                        <div 
-                                        className="h-full transition-all duration-300 shadow-lg"
-                                        style={{ width: `${stock.allocation}%`, backgroundColor: '#91c4fc !important' }}
-                                      />
-                                      </div>
-                                      
-                                      {/* Interactive slider overlay */}
+                                      {/* Interactive slider with custom colors */}
                                       <Slider
                                         value={[stock.allocation]}
                                         max={100}
                                         step={1}
                                         disabled={stock.locked || basketLocked}
                                         onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                        className="absolute inset-0 z-10"
+                                        className="[&>span[data-orientation='horizontal']]:bg-[#723ce8] [&>span[data-orientation='horizontal']>span]:bg-[#91c4fc]"
                                       />
                                     </div>
                                     
