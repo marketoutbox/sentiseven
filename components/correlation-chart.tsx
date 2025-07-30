@@ -168,24 +168,6 @@ export function CorrelationChart() {
 
                   {/* Progress bar container (relative for absolute children) */}
                   <div className="relative h-3 w-full rounded-full bg-slate-800/60">
-                    {/* Percentage text above marker */}
-                    <div
-                      className="absolute bottom-[calc(100%+0.25rem)] text-xs text-black z-10"
-                      style={{
-                        left: getWinRateWidthPercentage(source.winRate),
-                        transform: "translateX(-50%)", // Center text on the marker
-                        textShadow: "0 0 3px rgba(255,255,255,0.8)", // Stronger white shadow for readability
-                      }}
-                    >
-                      {source.winRate.toFixed(1)}%
-                    </div>
-
-                    {/* Vertical marker */}
-                    <div
-                      className="absolute top-0 h-full w-px bg-black z-10"
-                      style={{ left: getWinRateWidthPercentage(source.winRate) }}
-                    ></div>
-
                     {/* Progress bar fill with gradient */}
                     <div
                       className="h-full rounded-full"
