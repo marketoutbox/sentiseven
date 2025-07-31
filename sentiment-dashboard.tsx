@@ -961,7 +961,7 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-[#0D111C] min-h-screen">
+    <div className="bg-[#030514] min-h-screen">
       {/* Subtle Background Patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(36,93,255,0.06),transparent_50%)] pointer-events-none" />
@@ -1062,12 +1062,12 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Stock Allocation Card */}
-                  <Card className="mb-8 bg-[#151B2A] backdrop-blur-xl border border-[#1E2638] shadow-2xl shadow-[#0D111C]/60 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#757faa] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                            <div className="p-2 bg-[#3B82F6]/40 rounded-xl">
+                            <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                               <BarChart3 className="h-6 w-6 text-blue-200" />
                             </div>
                             Stock Allocation
@@ -1079,7 +1079,7 @@ const SentimentDashboard = () => {
                         <div className="flex items-center gap-4">
                           <Button
                             size="lg"
-                            className="bg-[#3B82F6] hover:bg-[#245DFF] px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/20 backdrop-blur-sm transition-all duration-300"
+                            className="bg-[#1e31dd] hover:bg-[#245DFF] px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/20 backdrop-blur-sm transition-all duration-300"
                             onClick={() =>
                               basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                             }
@@ -1106,7 +1106,7 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#0D111C]/40`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030514]/40`}
                             >
                               {/* Subtle hover effect overlay */}
                               <div className="absolute inset-0 bg-[#131826]/0 group-hover:bg-[#131826]/30 rounded-xl transition-all duration-300" />
@@ -1159,7 +1159,7 @@ const SentimentDashboard = () => {
                                         step={1}
                                         disabled={stock.locked || basketLocked}
                                         onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                        className="[&>span[data-orientation='horizontal']]:bg-[#1E2638] [&>span[data-orientation='horizontal']>span]:bg-[#3B82F6]"
+                                        className="[&>span[data-orientation='horizontal']]:bg-[#757faa] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                                       />
                                     </div>
                                     
@@ -1197,7 +1197,7 @@ const SentimentDashboard = () => {
                       </div>
                       <Button
                         size="sm"
-                        className="bg-[#3B82F6] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-blue-900/20"
+                        className="bg-[#1e31dd] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-blue-900/20"
                         onClick={() =>
                           basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
                         }
@@ -1211,12 +1211,12 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Source Weighting Controls */}
-                    <Card className="bg-[#151B2A] backdrop-blur-xl border border-[#1E2638] shadow-2xl shadow-[#0D111C]/60 rounded-3xl overflow-hidden">
+                    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#757faa] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
                             <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                              <div className="p-2 bg-[#3B82F6]/40 rounded-xl">
+                              <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                                 <Activity className="h-6 w-6 text-blue-200" />
                               </div>
                               Source Weighting
@@ -1252,9 +1252,9 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#1E2638] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
                                 <div 
-                                  className="h-full bg-gradient-to-r bg-[#3B82F6] transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
                                 />
                               </div>
@@ -1293,9 +1293,9 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#1E2638] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
                                 <div 
-                                  className="h-full bg-gradient-to-r bg-[#3B82F6] transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.googleTrends * 100}%` }}
                                 />
                               </div>
@@ -1334,9 +1334,9 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#1E2638] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
                                 <div 
-                                  className="h-full bg-gradient-to-r bg-[#3B82F6] transition-all duration-300 shadow-lg"
+                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.news * 100}%` }}
                                 />
                               </div>
@@ -1657,7 +1657,7 @@ const SentimentDashboard = () => {
             ) : null}
 
             {/* Deep Space Footer */}
-            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-[#151B2A]/60 backdrop-blur-sm rounded-t-3xl">
+            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-[#090e23]/60 backdrop-blur-sm rounded-t-3xl">
               <div className="text-center space-y-4">
                 <div className="flex items-center justify-center gap-6 text-sm">
                   <div className="flex items-center gap-2 text-blue-300/80">

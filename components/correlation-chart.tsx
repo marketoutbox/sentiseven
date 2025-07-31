@@ -109,12 +109,12 @@ export function CorrelationChart() {
   }
 
   return (
-    <Card className="bg-[#151B2A] backdrop-blur-xl border border-[#1E2638] shadow-2xl shadow-[#0D111C]/60 rounded-3xl overflow-hidden">
+    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#757faa] shadow-2xl shadow-[#0D111C]/60 rounded-3xl overflow-hidden">
       <CardHeader className="pb-6">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           <div className="space-y-3">
             <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
-                             <div className="p-2 bg-[#3B82F6]/40 rounded-xl">
+                             <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                 <InfoCircle className="h-6 w-6 text-blue-200" />
               </div>
               Sentiment-Price Correlation
@@ -167,7 +167,7 @@ export function CorrelationChart() {
                   </div>
 
                   {/* Progress bar container (relative for absolute children) */}
-                  <div className="relative h-3 w-full rounded-full bg-[#1E2638]">
+                  <div className="relative h-3 w-full rounded-full bg-[#757faa]">
                     {/* Progress bar fill with gradient */}
                     <div
                       className="h-full rounded-full"
