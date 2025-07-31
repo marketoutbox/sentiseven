@@ -148,34 +148,39 @@ export function CorrelationChart() {
             <div className="h-px bg-blue-800/40"></div>
 
             {/* Source rows in a 2x2 grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xl:gap-6">
               {dynamicSourceCorrelationData.map((source, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-lg font-medium text-white">{source.name}</div>
-                    <div className="flex items-center justify-end text-sm font-medium" style={{ color: source.color }}>
-                      {getWinRateImpactText(source.winRate)} {/* Dynamically set impact text */}
+                <div key={index} className="relative w-full p-3 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40">
+                  {/* Subtle hover effect overlay */}
+                  <div className="absolute inset-0 bg-[#040517]/0 group-hover:bg-[#040517]/30 rounded-xl transition-all duration-300" />
+                  
+                  <div className="relative space-y-2">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-sm font-medium text-white">{source.name}</div>
+                      <div className="flex items-center justify-end text-xs font-medium" style={{ color: source.color }}>
+                        {getWinRateImpactText(source.winRate)} {/* Dynamically set impact text */}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Scale labels ABOVE progress bar */}
-                  <div className="grid grid-cols-4 text-xs text-blue-200/70 mb-1">
-                    <div className="text-left">Weak</div>
-                    <div className="text-center">Moderate</div>
-                    <div className="text-center">Strong</div>
-                    <div className="text-right">Very Strong</div>
-                  </div>
+                    {/* Scale labels ABOVE progress bar */}
+                    <div className="grid grid-cols-4 text-xs text-blue-200/70 mb-1">
+                      <div className="text-left">Weak</div>
+                      <div className="text-center">Moderate</div>
+                      <div className="text-center">Strong</div>
+                      <div className="text-right">Very Strong</div>
+                    </div>
 
-                  {/* Progress bar container (relative for absolute children) */}
-                  <div className="relative h-3 w-full rounded-full bg-[#757faa]">
-                    {/* Progress bar fill with gradient */}
-                    <div
-                      className="h-full rounded-full"
-                      style={{
-                        width: getWinRateWidthPercentage(source.winRate),
-                        background: `linear-gradient(to right, ${source.color}20, ${source.color})`,
-                      }}
-                    ></div>
+                    {/* Progress bar container (relative for absolute children) */}
+                    <div className="relative h-2 w-full rounded-full bg-[#192233]">
+                      {/* Progress bar fill with gradient */}
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: getWinRateWidthPercentage(source.winRate),
+                          background: `linear-gradient(to right, ${source.color}20, ${source.color})`,
+                        }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
               ))}

@@ -1177,7 +1177,7 @@ const SentimentDashboard = () => {
                                         step={1}
                                         disabled={stock.locked || basketLocked}
                                         onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                        className="[&>span[data-orientation='horizontal']]:bg-[#757faa] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
+                                        className="[&>span[data-orientation='horizontal']]:bg-[#192233] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                                       />
                                     </div>
                                     
@@ -1249,7 +1249,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.twitter * 100}%` }}
@@ -1290,7 +1290,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.googleTrends * 100}%` }}
@@ -1331,7 +1331,7 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#757faa] rounded-full overflow-hidden">
+                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
                                   style={{ width: `${weights.news * 100}%` }}
