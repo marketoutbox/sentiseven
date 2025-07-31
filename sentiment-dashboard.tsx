@@ -1110,7 +1110,7 @@ const SentimentDashboard = () => {
 
                     <CardContent className="p-8">
                       {/* Grid layout with 3 cards per row */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
+                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
                         {stocks.map((stock, index) => {
                           const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
                           const performanceColor = stockData.compositeSentiment > 0.3 

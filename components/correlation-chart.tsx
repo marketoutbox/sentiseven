@@ -148,7 +148,7 @@ export function CorrelationChart() {
             <div className="h-px bg-blue-800/40"></div>
 
             {/* Source rows in a 2x2 grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xl:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 xl:gap-6">
               {dynamicSourceCorrelationData.map((source, index) => (
                 <div key={index} className="relative w-full p-3 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40">
                   {/* Subtle hover effect overlay */}
