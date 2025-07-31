@@ -961,7 +961,7 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-[#020310] to-[#030514] min-h-screen">
+    <div className="bg-gradient-to-b from-[#010310] to-[#030516] min-h-screen">
       {/* Subtle Background Patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,49,221,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(36,93,255,0.06),transparent_50%)] pointer-events-none" />
@@ -1062,7 +1062,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Stock Allocation Card */}
-                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030516]/60 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1106,7 +1106,7 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030514]/40`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40`}
                             >
                               {/* Subtle hover effect overlay */}
                               <div className="absolute inset-0 bg-[#131826]/0 group-hover:bg-[#131826]/30 rounded-xl transition-all duration-300" />
@@ -1211,7 +1211,7 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Source Weighting Controls */}
-                    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
+                    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030516]/60 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
