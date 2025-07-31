@@ -478,29 +478,29 @@ export default function GoogleTrendSignalsPage() {
                       }
 
                       return (
-                        <tr key={i} className="border-b border-border hover:bg-muted/50 transition-colors">
-                          <td className="px-3 py-3 sm:px-6 sm:py-4">{row.date}</td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium">{row.comp_symbol}</td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 max-w-[150px] sm:max-w-xs truncate">
+                        <tr key={i} className="border-b border-[#0e142d] hover:bg-[#192233]/50 transition-colors">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-white">{row.date}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{row.comp_symbol}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 max-w-[150px] sm:max-w-xs truncate text-white">
                             {row.analyzed_keywords}
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right">{row.sentiment_score}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">{row.sentiment_score}</td>
                           <td className="px-3 py-3 sm:px-6 sm:py-4 text-center">
                             <span
                               className={`px-2 py-0.5 rounded-full text-xs font-medium inline-block
                         ${
                           row.sentiment?.toLowerCase() === "positive"
-                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border border-green-200 dark:border-green-800"
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                             : row.sentiment?.toLowerCase() === "negative"
-                              ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 border border-red-200 dark:border-red-800"
-                              : "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                              ? "bg-red-500/20 text-red-400 border border-red-500/50"
+                              : "bg-amber-500/20 text-amber-400 border border-amber-500/50"
                         }`}
                             >
                               {row.sentiment}
                             </span>
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right">${row.entry_price}</td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">${row.entry_price}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
                             {pricesLoading ? (
                               <Loader2 className="h-4 w-4 animate-spin inline" />
                             ) : (
@@ -518,7 +518,7 @@ export default function GoogleTrendSignalsPage() {
               </div>
             ) : (
               <div className="flex justify-center items-center h-64">
-                <p className="text-muted-foreground">No Google Trends signals found matching your criteria.</p>
+                <p className="text-blue-200/60">No Google Trends signals found matching your criteria.</p>
               </div>
             )}
           </CardContent>
@@ -538,28 +538,28 @@ export default function GoogleTrendSignalsPage() {
             <div className="h-[250px] sm:h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={comparisonData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#0e142d" />
                   <XAxis
                     dataKey="symbol"
-                    stroke="var(--muted-foreground)"
-                    className="fill-muted-foreground text-xs sm:text-sm"
+                    stroke="#b0b8c4"
+                    className="fill-blue-200/60 text-xs sm:text-sm"
                   />
                   <YAxis
-                    stroke="var(--muted-foreground)"
-                    className="fill-muted-foreground text-xs sm:text-sm"
+                    stroke="#b0b8c4"
+                    className="fill-blue-200/60 text-xs sm:text-sm"
                     domain={[-1, 1]}
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "var(--background)",
-                      borderColor: "var(--border)",
-                      borderRadius: "0.375rem",
-                      color: "var(--foreground)",
-                      fontSize: "0.875rem", // text-sm
+                      backgroundColor: "#090e23",
+                      borderColor: "#0e142d",
+                      borderRadius: "0.75rem",
+                      color: "#ffffff",
+                      fontSize: "0.875rem",
                     }}
                     formatter={(value) => [value.toFixed(2), "Sentiment Score"]}
                   />
-                  <Legend wrapperStyle={{ fontSize: "0.75rem" }} /> {/* text-xs */}
+                  <Legend wrapperStyle={{ fontSize: "0.75rem", color: "#b0b8c4" }} />
                   <Bar dataKey="googleTrends" name="Google Trends" fill="#10b981" />
                   <Bar dataKey="twitter" name="Twitter" fill="#3b82f6" />
                   <Bar dataKey="news" name="News" fill="#f59e0b" />
