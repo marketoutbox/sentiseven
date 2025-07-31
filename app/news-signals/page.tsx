@@ -314,7 +314,7 @@ export default function NewsSignalsPage() {
           </p>
         </div>
         {/* Summary Stats Card */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div className="flex flex-col">

@@ -343,11 +343,11 @@ export default function GoogleTrendSignalsPage() {
           </p>
         </div>
         {/* Summary Stats Card */}
-        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
+        <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div className="flex flex-col">
-                <span className="text-blue-200/60 text-xs sm:text-sm">Total Signals</span>
+                <span className="text-white/90 text-xs sm:text-sm">Total Signals</span>
                 <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
               </div>
               <div className="flex flex-col">
