@@ -1062,7 +1062,7 @@ const SentimentDashboard = () => {
               {!sectionsCollapsed.inputs && (
                 <>
                   {/* Stock Allocation Card */}
-                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#161d3b] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
+                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
@@ -1211,7 +1211,7 @@ const SentimentDashboard = () => {
                   {/* Unified Source Weighting and Correlation */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                     {/* Source Weighting Controls */}
-                    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#161d3b] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
+                    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-2xl shadow-[#030514]/60 rounded-3xl overflow-hidden">
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
