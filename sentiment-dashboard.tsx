@@ -1076,16 +1076,34 @@ const SentimentDashboard = () => {
                             Optimize portfolio allocation with sentiment-driven insights and position locking
                           </CardDescription>
                         </div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                           <Button
-                            size="lg"
-                            className="bg-[#1e31dd] hover:bg-[#245DFF] px-6 py-3 rounded-full text-white font-semibold shadow-lg shadow-blue-900/20 backdrop-blur-sm transition-all duration-300"
+                            size="sm"
+                            className="bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20"
+                            onClick={handleResetAllocations}
+                            disabled={basketLocked}
+                          >
+                            <RotateCw className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            className="bg-[#1e31dd] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-4 shadow-sm shadow-blue-900/20"
+                            onClick={() =>
+                              basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
+                            }
+                            disabled={basketLocked}
+                          >
+                            Allocation
+                          </Button>
+                          <Button
+                            size="sm"
+                            className="bg-[#1e31dd] hover:bg-[#245DFF] px-4 py-2 rounded-xl text-white font-semibold shadow-lg shadow-blue-900/20 backdrop-blur-sm transition-all duration-300"
                             onClick={() =>
                               basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsStockSelectorOpen(true)
                             }
                           >
-                            <Edit2 className="h-4 w-4" />
-                            Edit Portfolio
+                            <Edit2 className="h-4 w-4 mr-2" />
+                            Modify
                           </Button>
                         </div>
                       </div>
@@ -1177,34 +1195,13 @@ const SentimentDashboard = () => {
                       </div>
                     </CardContent>
 
-                    <CardFooter className="flex flex-wrap justify-between border-t border-blue-800/30 pt-6 gap-4">
-                      <div className="flex items-center gap-6">
-                        <div className="text-blue-100/90">
-                          <span className="font-semibold text-white">{stocks.filter((s) => s.locked).length}</span>
-                          <span className="text-blue-100/70"> of </span>
-                          <span className="font-semibold text-white">{stocks.length}</span>
-                          <span className="text-blue-100/70"> positions locked</span>
-                        </div>
-                        <Button
-                          size="sm"
-                          className="bg-gradient-to-b from-[#243ec7]/60 to-[#21358c]/60 hover:from-[#1e36b8]/70 hover:to-[#1c2e7a]/70 text-white hover:text-white transition-all duration-300 rounded-xl gap-2 shadow-sm shadow-blue-900/20"
-                          onClick={handleResetAllocations}
-                          disabled={basketLocked}
-                        >
-                          <RotateCw className="h-4 w-4" />
-                          Reset Allocations
-                        </Button>
+                    <CardFooter className="flex justify-center border-t border-blue-800/30 pt-6">
+                      <div className="text-blue-100/90">
+                        <span className="font-semibold text-white">{stocks.filter((s) => s.locked).length}</span>
+                        <span className="text-blue-100/70"> of </span>
+                        <span className="font-semibold text-white">{stocks.length}</span>
+                        <span className="text-blue-100/70"> positions locked</span>
                       </div>
-                      <Button
-                        size="sm"
-                        className="bg-[#1e31dd] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-6 shadow-sm shadow-blue-900/20"
-                        onClick={() =>
-                          basketLocked ? setIsUnlockBasketAlertOpen(true) : setIsAllocationEditorOpen(true)
-                        }
-                        disabled={basketLocked}
-                      >
-                        Fine-tune Allocations
-                      </Button>
                     </CardFooter>
                   </Card>
 
