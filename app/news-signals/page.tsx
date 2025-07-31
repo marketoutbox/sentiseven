@@ -316,8 +316,7 @@ export default function NewsSignalsPage() {
         {/* Summary Stats Card */}
         <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
-            <div className="flex justify-center">
-              <div className="grid grid-cols-5 gap-4 sm:gap-6 max-w-6xl">
+            <div className="flex justify-between items-start px-4 sm:px-8">
                 <div className="flex flex-col">
                   <span className="text-white text-xs sm:text-sm">Total Signals</span>
                   <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
@@ -346,7 +345,6 @@ export default function NewsSignalsPage() {
                   <span className="text-white text-xs sm:text-sm">Negative Signals</span>
                   <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
                 </div>
-              </div>
             </div>
             <div className="mt-4 flex justify-center">
               <div className="px-3 py-1 bg-white/10 rounded-full text-xs font-medium text-white/90 backdrop-blur-sm">
