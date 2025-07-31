@@ -105,7 +105,7 @@ export function StockSelector({
                   placeholder="Search stocks..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/50 rounded-xl"
+                  className="pl-10 bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                 />
               </div>
 
