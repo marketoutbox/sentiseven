@@ -395,34 +395,34 @@ export default function TwitterSignalsPage() {
         {/* Summary Stats Card */}
         <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-5 gap-4 sm:gap-6">
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Total Signals</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
+                <span className="text-white text-xs sm:text-sm">Total Signals</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Analyzed Tweets</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">
+                <span className="text-white text-xs sm:text-sm">Analyzed Tweets</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">
                   {summaryStats.totalTweets.toLocaleString()}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Win Rate %</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">
+                <span className="text-white text-xs sm:text-sm">Win Rate %</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">
                   {summaryStats.winRate.toFixed(2)}%
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Positive Signals</span>
-                <span className="text-green-600 text-xl sm:text-2xl font-bold">{summaryStats.positive}</span>
+                <span className="text-white text-xs sm:text-sm">Positive Signals</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.positive}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Negative Signals</span>
-                <span className="text-red-600 text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
+                <span className="text-white text-xs sm:text-sm">Negative Signals</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
-              <span className="text-muted-foreground text-xs sm:text-sm">Last updated: {summaryStats.lastUpdate}</span>
+            <div className="mt-4 flex justify-between items-center">
+              <span className="text-white/80 text-xs sm:text-sm">Last updated: {summaryStats.lastUpdate}</span>
             </div>
           </CardContent>
         </Card>
