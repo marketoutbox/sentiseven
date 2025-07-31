@@ -20,6 +20,7 @@ import {
   Loader2,
   Plus,
   Trash2,
+  TrendingUp,
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { StockSelector } from "./components/stock-selector"
@@ -980,24 +981,51 @@ const SentimentDashboard = () => {
           <StockDetailView stock={selectedStock} onBack={() => setSelectedStock(null)} timePeriod={timePeriod} />
         ) : (
           <>
-            {/* Hero Section */}
-            <div className="relative mb-12">
-              <div className="mx-auto max-w-4xl">
-                <div className="relative bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] p-8 rounded-3xl shadow-2xl shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm">
-                  {/* Subtle glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-blue-500/30 to-blue-600/20 rounded-3xl blur-xl"></div>
-                  
-                  <div className="relative text-center space-y-6">
-                    <h1 className="text-4xl lg:text-6xl font-bold text-white">
-                      Sentiment Analytics
-                    </h1>
-                    <p className="text-xl lg:text-2xl text-blue-100 font-medium max-w-3xl mx-auto">
-                      Advanced market intelligence across multiple data sources
-                    </p>
-                    <div className="pt-4">
+            {/* Hero Section - Matches Stock Allocation Width */}
+            <div className="relative mb-8">
+              <div className="relative bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] p-8 rounded-3xl shadow-lg shadow-[#030516]/30 border border-[#0e142d] backdrop-blur-xl overflow-hidden">
+                {/* Subtle background graphics */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 right-4 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+                  <div className="absolute bottom-6 left-6 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+                  <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/5 rounded-full blur-lg"></div>
+                  {/* Grid pattern overlay */}
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9wYXR0ZXJuPgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+Cjwvc3ZnPgo=')] opacity-20"></div>
+                </div>
+                
+                <div className="relative">
+                  <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+                    {/* Left content */}
+                    <div className="flex-1 text-left space-y-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-white/10 rounded-xl backdrop-blur-sm">
+                          <TrendingUp className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="px-3 py-1 bg-white/10 rounded-full text-xs font-medium text-white/90 backdrop-blur-sm">
+                          AI-Powered
+                        </div>
+                      </div>
+                      <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight">
+                        Sentiment Analytics
+                      </h1>
+                      <p className="text-lg text-blue-100 font-medium leading-relaxed max-w-2xl">
+                        Advanced market intelligence across multiple data sources
+                      </p>
+                      <div className="flex items-center gap-3 text-sm text-blue-200/80">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                          <span>Live Data Processing</span>
+                        </div>
+                        <div className="w-1 h-4 bg-white/20 rounded-full"></div>
+                        <span>Multi-Source Intelligence</span>
+                      </div>
+                    </div>
+                    
+                    {/* Right CTA */}
+                    <div className="flex-shrink-0">
                       <Button
                         size="lg"
-                        className="bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50 px-8 py-4 rounded-full text-lg font-semibold shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                        className="bg-[#090e23] hover:bg-[#0a0f25] text-white border border-[#0e142d] hover:border-blue-500/50 px-8 py-4 rounded-xl text-lg font-semibold shadow-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                       >
                         Learn More
                         <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
