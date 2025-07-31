@@ -980,59 +980,30 @@ const SentimentDashboard = () => {
           <StockDetailView stock={selectedStock} onBack={() => setSelectedStock(null)} timePeriod={timePeriod} />
         ) : (
           <>
-            {/* Clean Header */}
+            {/* Hero Section */}
             <div className="relative mb-12">
-              {/* No background - use site background */}
-              <div className="p-8">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-                  <div className="space-y-3">
-                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              <div className="mx-auto max-w-4xl">
+                <div className="relative bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] p-8 rounded-3xl shadow-2xl shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm">
+                  {/* Subtle glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-blue-500/30 to-blue-600/20 rounded-3xl blur-xl"></div>
+                  
+                  <div className="relative text-center space-y-6">
+                    <h1 className="text-4xl lg:text-6xl font-bold text-white">
                       Sentiment Analytics
                     </h1>
-                    <p className="text-blue-100/90 text-lg font-medium">
+                    <p className="text-xl lg:text-2xl text-blue-100 font-medium max-w-3xl mx-auto">
                       Advanced market intelligence across multiple data sources
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-blue-200/80">
-                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse" />
-                      <span>Real-time data • Last updated {new Date().toLocaleTimeString()}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    {/* Clean sentiment badge */}
-                    <div className="relative">
-                      <div className={`px-6 py-3 rounded-full text-white font-semibold`}>
-                        <div className="flex items-center gap-2">
-                          {getSentimentIcon(weightedData[weightedData.length - 1].compositeSentiment)}
-                          {overallSentiment.text}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Clean time period selector */}
-                    <div className="rounded-2xl p-1">
-                      <Tabs defaultValue={timePeriod} onValueChange={setTimePeriod} className="w-[240px]">
-                        <TabsList className="grid grid-cols-3 bg-transparent gap-1">
-                                                      <TabsTrigger 
-                            value="1d" 
-                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
-                          >
-                            1 Day
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="1w" 
-                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
-                          >
-                            1 Week
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="1m" 
-                            className="data-[state=active]:text-white data-[state=active]:font-bold transition-all duration-200 rounded-xl px-4 py-2 font-medium text-blue-100 hover:text-white"
-                          >
-                            1 Month
-                          </TabsTrigger>
-                        </TabsList>
-                      </Tabs>
+                    <div className="pt-4">
+                      <Button
+                        size="lg"
+                        className="bg-white/10 hover:bg-white/20 text-white border border-white/30 hover:border-white/50 px-8 py-4 rounded-full text-lg font-semibold shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                      >
+                        Learn More
+                        <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Button>
                     </div>
                   </div>
                 </div>
