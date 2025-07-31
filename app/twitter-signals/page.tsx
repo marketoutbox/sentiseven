@@ -421,7 +421,7 @@ export default function TwitterSignalsPage() {
                   <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
                 </div>
             </div>
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 flex justify-start">
               <div className="px-3 py-1 bg-white/10 rounded-full text-xs font-medium text-white/90 backdrop-blur-sm">
                 Last updated: {summaryStats.lastUpdate}
               </div>
