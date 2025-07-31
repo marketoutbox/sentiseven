@@ -1362,32 +1362,72 @@ const SentimentDashboard = () => {
                     {/* <ModelAccuracy /> */}
                   </div>
 
-                  {/* Simplified Basket Management */}
-                  <Card className="mb-6">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl mb-1">
-                        <BarChart3 className="h-5 w-5 text-primary" />
-                        Basket Management
-                      </CardTitle>
-                      <CardDescription className="text-xs sm:text-sm">
-                        Select an existing basket or create a new one to track your portfolio
-                      </CardDescription>
+                  {/* Basket Management - Matches Stock Allocation Styling */}
+                  <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
+                    <CardHeader className="pb-6">
+                      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                        <div className="space-y-3">
+                          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                            <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
+                              <BarChart3 className="h-6 w-6 text-blue-200" />
+                            </div>
+                            Basket Management
+                          </CardTitle>
+                          <CardDescription className="text-blue-100/80 text-base">
+                            Select an existing basket or create a new one to track your portfolio
+                          </CardDescription>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          {/* Lock/Unlock Button - Reset Button Styling */}
+                          {basketId && (
+                            <Button
+                              size="sm"
+                              className="bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20"
+                              onClick={() => (basketLocked ? handleUnlockBasket() : saveCurrentBasket(true))}
+                              disabled={isLoading}
+                            >
+                              {basketLocked ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
+                            </Button>
+                          )}
+                          
+                          {/* Add to New Basket - Allocation Button Styling */}
+                          <Button
+                            size="sm"
+                            className="bg-[#1e31dd] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-4 shadow-sm shadow-blue-900/20"
+                            onClick={() => setIsAddBasketModalOpen(true)}
+                            disabled={isLoading}
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Add to New Basket
+                          </Button>
+                          
+                          {/* Delete Button - Reset Button Styling */}
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20"
+                            onClick={() => handleDeleteBasket()}
+                            disabled={!basketId || isLoading || basketLocked}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="p-8">
                       <div className="flex flex-col sm:flex-row gap-3 w-full">
                         {/* Basket Dropdown */}
                         <div className="flex-1">
                           <Select value={selectedBasketId || ""} onValueChange={handleBasketChange}>
-                            <SelectTrigger className="bg-background border-border">
+                            <SelectTrigger className="bg-[#192233] border-[#0e142d] text-white rounded-xl h-12">
                               <SelectValue placeholder="Select a basket" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="bg-[#090e23] border-[#0e142d]">
                               {allBaskets &&
                                 allBaskets.map(
                                   (
                                     basket, // Defensive check
                                   ) => (
-                                    <SelectItem key={basket.id} value={basket.id}>
+                                    <SelectItem key={basket.id} value={basket.id} className="text-white hover:bg-[#192233]">
                                       <div className="flex items-center justify-between w-full">
                                         <span>{basket.name}</span>
                                         {basket.is_locked && <Lock className="h-3 w-3 text-amber-500 ml-2" />}
@@ -1399,76 +1439,49 @@ const SentimentDashboard = () => {
                           </Select>
                         </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
+                        {/* Save Changes Button */}
+                        <div className="flex gap-2 mt-2 sm:mt-0">
                           <Button
-                            variant="outline"
+                            size="sm"
+                            className="bg-[#1e31dd] hover:bg-[#245DFF] text-white hover:text-white transition-all duration-300 rounded-xl px-4 shadow-sm shadow-blue-900/20"
                             onClick={() => saveCurrentBasket(false)}
                             disabled={!basketId || isLoading || basketLocked}
-                            className="gap-1"
                           >
-                            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                            {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                             Save Changes
                           </Button>
-
-                          <Button
-                            variant="destructive"
-                            onClick={() => handleDeleteBasket()}
-                            disabled={!basketId || isLoading || basketLocked}
-                            className="gap-1"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Delete
-                          </Button>
-
-                          <Button onClick={() => setIsAddBasketModalOpen(true)} disabled={isLoading} className="gap-1">
-                            <Plus className="h-4 w-4" />
-                            Add to New Basket
-                          </Button>
-
-                          {basketId && (
-                            <Button
-                              variant={basketLocked ? "outline" : "secondary"}
-                              onClick={() => (basketLocked ? handleUnlockBasket() : saveCurrentBasket(true))}
-                              disabled={isLoading}
-                              className="gap-1"
-                            >
-                              {basketLocked ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
-                              {basketLocked ? "Unlock" : "Lock"}
-                            </Button>
-                          )}
                         </div>
                       </div>
 
                       {/* Current Basket Info */}
                       {basketId && (
-                        <div className="mt-4 pt-4 border-t">
+                        <div className="mt-6 pt-6 border-t border-[#0e142d]">
                           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                             <div>
-                              <span className="text-muted-foreground">Current:</span>
-                              <span className="font-medium ml-1">{basketName}</span>
+                              <span className="text-blue-200/60">Current:</span>
+                              <span className="font-medium ml-1 text-white">{basketName}</span>
                             </div>
                             <div>
-                              <span className="text-muted-foreground">Stocks:</span>
-                              <span className="font-medium ml-1">{stocks.length}</span>
+                              <span className="text-blue-200/60">Stocks:</span>
+                              <span className="font-medium ml-1 text-white">{stocks.length}</span>
                             </div>
                             <div>
-                              <span className="text-muted-foreground">Status:</span>
+                              <span className="text-blue-200/60">Status:</span>
                               <span className="font-medium ml-1">
                                 {basketLocked ? (
-                                  <Badge variant="outline" className="border-amber-500 text-amber-600 text-xs">
+                                  <Badge variant="outline" className="border-amber-500/50 text-amber-400 bg-amber-500/10 text-xs">
                                     Locked
                                   </Badge>
                                 ) : (
-                                  <Badge variant="outline" className="border-green-500 text-green-600 text-xs">
+                                  <Badge variant="outline" className="border-green-500/50 text-green-400 bg-green-500/10 text-xs">
                                     Editable
                                   </Badge>
                                 )}
                               </span>
                             </div>
                             <div>
-                              <span className="text-muted-foreground">Created:</span>
-                              <span className="font-medium ml-1">{formatDate(basketDates.created)}</span>
+                              <span className="text-blue-200/60">Created:</span>
+                              <span className="font-medium ml-1 text-white">{formatDate(basketDates.created)}</span>
                             </div>
                           </div>
                         </div>
