@@ -1101,15 +1101,15 @@ const SentimentDashboard = () => {
                             : stockData.compositeSentiment > -0.3 
                               ? "text-amber-400" 
                               : "text-red-400"
-                          const bgColor = "bg-gradient-to-br from-[#131826] via-[#141929] to-[#151a2c]" // Subtle gradient in #131826 range
+                          const bgColor = "bg-gradient-to-br from-[#040517] to-[#030514]" // Stock element gradient
                           
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#0a101e]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40`}
+                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40`}
                             >
                               {/* Subtle hover effect overlay */}
-                              <div className="absolute inset-0 bg-[#131826]/0 group-hover:bg-[#131826]/30 rounded-xl transition-all duration-300" />
+                              <div className="absolute inset-0 bg-[#040517]/0 group-hover:bg-[#040517]/30 rounded-xl transition-all duration-300" />
                               
                               <div className="relative">
                                 {/* Clean layout: Left (symbol & name) - Right (percentage & lock) */}
