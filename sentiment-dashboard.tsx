@@ -1159,7 +1159,7 @@ const SentimentDashboard = () => {
                                         step={1}
                                         disabled={stock.locked || basketLocked}
                                         onValueChange={(value) => handleAllocationChange(stock.id, value[0])}
-                                        className="[&>span[data-orientation='horizontal']]:bg-[#cc66ff] [&>span[data-orientation='horizontal']>span]:bg-[#4bacba]"
+                                        className="[&>span[data-orientation='horizontal']]:bg-[#1c2738] [&>span[data-orientation='horizontal']>span]:bg-[#6b9df9]"
                                       />
                                     </div>
                                     
