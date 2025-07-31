@@ -961,11 +961,11 @@ const SentimentDashboard = () => {
   }
 
   return (
-    <div className="bg-[#030514] min-h-screen">
+    <div className="bg-gradient-to-b from-[#020310] to-[#030514] min-h-screen">
       {/* Subtle Background Patterns */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.08),transparent_50%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(30,49,221,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(36,93,255,0.06),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(30,38,56,0.06)_50%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(117,127,170,0.04)_50%,transparent_70%)] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto p-6">
         {isLoading && (
