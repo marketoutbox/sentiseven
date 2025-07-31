@@ -334,25 +334,25 @@ export default function GoogleTrendSignalsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-[#010310] to-[#030516]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Google Trends Signals</h1>
-          <p className="text-sm sm:text-base text-muted-foreground mt-1 sm:mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Google Trends Signals</h1>
+          <p className="text-sm sm:text-base text-blue-100/80 mt-1 sm:mt-2">
             View the latest Google Trends sentiment signals for each stock.
           </p>
         </div>
         {/* Summary Stats Card */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Total Signals</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
+                <span className="text-blue-200/60 text-xs sm:text-sm">Total Signals</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Positive/Negative Ratio</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">
+                <span className="text-blue-200/60 text-xs sm:text-sm">Positive/Negative Ratio</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">
                   {summaryStats.negative > 0
                     ? (summaryStats.positive / summaryStats.negative).toFixed(2)
                     : summaryStats.positive > 0
@@ -361,35 +361,35 @@ export default function GoogleTrendSignalsPage() {
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Win Rate %</span>
-                <span className="text-foreground text-xl sm:text-2xl font-bold">
+                <span className="text-blue-200/60 text-xs sm:text-sm">Win Rate %</span>
+                <span className="text-white text-xl sm:text-2xl font-bold">
                   {summaryStats.winRate.toFixed(2)}%
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Positive Signals</span>
-                <span className="text-green-600 text-xl sm:text-2xl font-bold">{summaryStats.positive}</span>
+                <span className="text-blue-200/60 text-xs sm:text-sm">Positive Signals</span>
+                <span className="text-emerald-400 text-xl sm:text-2xl font-bold">{summaryStats.positive}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-muted-foreground text-xs sm:text-sm">Negative Signals</span>
-                <span className="text-red-600 text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
+                <span className="text-blue-200/60 text-xs sm:text-sm">Negative Signals</span>
+                <span className="text-red-400 text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-border flex justify-between items-center">
-              <span className="text-muted-foreground text-xs sm:text-sm">Last updated: {summaryStats.lastUpdate}</span>
+            <div className="mt-4 pt-4 border-t border-[#0e142d] flex justify-between items-center">
+              <span className="text-blue-200/60 text-xs sm:text-sm">Last updated: {summaryStats.lastUpdate}</span>
             </div>
           </CardContent>
         </Card>
         {/* Filters and Controls */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               <div className="flex-1 min-w-[180px]">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-200/60 h-4 w-4" />
                   <Input
                     placeholder="Search by symbol or keywords..."
-                    className="pl-10 h-9 sm:h-10 text-sm"
+                    className="pl-10 h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -397,30 +397,30 @@ export default function GoogleTrendSignalsPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 <Select value={sentimentFilter} onValueChange={setSentimentFilter}>
-                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm">
+                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white rounded-xl">
                     <SelectValue placeholder="Filter by sentiment" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Sentiments</SelectItem>
-                    <SelectItem value="positive">Positive</SelectItem>
-                    <SelectItem value="negative">Negative</SelectItem>
-                    <SelectItem value="neutral">Neutral</SelectItem>
+                  <SelectContent className="bg-[#090e23] border-[#0e142d] rounded-xl">
+                    <SelectItem value="all" className="text-white hover:bg-[#192233]">All Sentiments</SelectItem>
+                    <SelectItem value="positive" className="text-white hover:bg-[#192233]">Positive</SelectItem>
+                    <SelectItem value="negative" className="text-white hover:bg-[#192233]">Negative</SelectItem>
+                    <SelectItem value="neutral" className="text-white hover:bg-[#192233]">Neutral</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm">
+                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white rounded-xl">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="date">Date</SelectItem>
-                    <SelectItem value="symbol">Symbol</SelectItem>
-                    <SelectItem value="sentiment_score">Sentiment Score</SelectItem>
+                  <SelectContent className="bg-[#090e23] border-[#0e142d] rounded-xl">
+                    <SelectItem value="date" className="text-white hover:bg-[#192233]">Date</SelectItem>
+                    <SelectItem value="symbol" className="text-white hover:bg-[#192233]">Symbol</SelectItem>
+                    <SelectItem value="sentiment_score" className="text-white hover:bg-[#192233]">Sentiment Score</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-9 w-9 sm:h-10 sm:w-10"
+                  className="h-9 w-9 sm:h-10 sm:w-10 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
                   onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
                 >
                   {sortOrder === "asc" ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -430,30 +430,30 @@ export default function GoogleTrendSignalsPage() {
           </CardContent>
         </Card>
         {/* Table View */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardContent className="p-0">
             {loading ? (
               <div className="flex justify-center items-center h-64">
-                <Loader2 className="animate-spin w-6 h-6 mr-2 text-primary" />
-                <span className="text-muted-foreground">Loading sentiment data...</span>
+                <Loader2 className="animate-spin w-6 h-6 mr-2 text-blue-400" />
+                <span className="text-blue-200/60">Loading sentiment data...</span>
               </div>
             ) : error ? (
               <div className="flex justify-center items-center h-64">
-                <p className="text-red-500">{error}</p>
+                <p className="text-red-400">{error}</p>
               </div>
             ) : filteredData.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-xs sm:text-sm text-left">
                   <thead>
-                    <tr className="border-b border-border">
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium">Date</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium">Symbol</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium">Analyzed Keywords</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-right font-medium">Sentiment Score</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-center font-medium">Sentiment</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right">Entry Price</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right">Current Price</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right">P/L%</th>
+                    <tr className="border-b border-[#0e142d]">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Date</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Symbol</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Analyzed Keywords</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-right font-medium text-blue-200/60">Sentiment Score</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-center font-medium text-blue-200/60">Sentiment</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">Entry Price</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">Current Price</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">P/L%</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -524,13 +524,13 @@ export default function GoogleTrendSignalsPage() {
           </CardContent>
         </Card>
         {/* Signal Source Comparison */}
-        <Card>
+        <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardHeader className="p-4 sm:p-6">
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
-              <CardTitle className="text-lg sm:text-xl">Signal Source Comparison</CardTitle>
+              <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200/60" />
+              <CardTitle className="text-lg sm:text-xl text-white">Signal Source Comparison</CardTitle>
             </div>
-            <CardDescription className="text-sm sm:text-base">
+            <CardDescription className="text-sm sm:text-base text-blue-100/80">
               Compare Google Trends with Twitter and News signals
             </CardDescription>
           </CardHeader>
