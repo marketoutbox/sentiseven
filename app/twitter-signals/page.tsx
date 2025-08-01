@@ -383,8 +383,7 @@ export default function TwitterSignalsPage() {
     { symbol: "TSLA", googleTrends: 0.3, twitter: 0.4, news: 0.5 },
   ]
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-[#010310] to-[#030516]">
+      return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-white">Twitter Signals</h1>
@@ -640,6 +639,5 @@ export default function TwitterSignalsPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
   )
 }
