@@ -54,6 +54,16 @@ const companyNames: Record<string, string> = {
   // Add more mappings as needed
 }
 
+// Helper function to capitalize sentiment words
+const capitalizeSentiment = (sentiment: string | undefined | null): string => {
+  if (!sentiment) return ""
+  const lower = sentiment.toLowerCase()
+  if (lower === "positive") return "Positive"
+  if (lower === "negative") return "Negative"
+  if (lower === "neutral") return "Neutral"
+  return sentiment
+}
+
 export default function PerformancePage() {
   const { user } = useAuth()
   const [loading, setLoading] = useState(true)
@@ -632,7 +642,7 @@ export default function PerformancePage() {
                                         : "bg-gray-500/20 text-gray-400 border border-gray-500/50" // For "Mixed" or "N/A"
                                 }`}
                             >
-                              {stock.lockSentiment}
+                              {capitalizeSentiment(stock.lockSentiment)}
                             </span>
                           ) : (
                             <span className="text-blue-200/60 text-xs">No data</span>
@@ -666,7 +676,7 @@ export default function PerformancePage() {
                                         : "bg-gray-500/20 text-gray-400 border border-gray-500/50" // For "Mixed" or "N/A"
                                 }`}
                             >
-                              {stock.currentSentiment}
+                              {capitalizeSentiment(stock.currentSentiment)}
                             </span>
                           ) : (
                             <span className="text-blue-200/60 text-xs">No data</span>

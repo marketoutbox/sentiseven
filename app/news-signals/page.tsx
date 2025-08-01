@@ -31,6 +31,16 @@ const safeString = (value: any): string => {
   return String(value)
 }
 
+// Helper function to capitalize sentiment words
+const capitalizeSentiment = (sentiment: string | undefined | null): string => {
+  if (!sentiment) return ""
+  const lower = sentiment.toLowerCase()
+  if (lower === "positive") return "Positive"
+  if (lower === "negative") return "Negative"
+  if (lower === "neutral") return "Neutral"
+  return sentiment
+}
+
 export default function NewsSignalsPage() {
   const [data, setData] = useState<NewsSignal[]>([])
   const [loading, setLoading] = useState(true)
@@ -467,7 +477,7 @@ export default function NewsSignalsPage() {
                                       : "bg-amber-500/20 text-amber-400 border border-amber-500/50"
                                 }`}
                             >
-                              {row.sentiment}
+                              {capitalizeSentiment(row.sentiment)}
                             </span>
                           </td>
                           <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">${row.entry_price}</td>

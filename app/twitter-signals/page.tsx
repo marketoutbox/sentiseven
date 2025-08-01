@@ -23,6 +23,16 @@ interface StockPrice {
   source?: string
 }
 
+// Helper function to capitalize sentiment words
+const capitalizeSentiment = (sentiment: string | undefined | null): string => {
+  if (!sentiment) return ""
+  const lower = sentiment.toLowerCase()
+  if (lower === "positive") return "Positive"
+  if (lower === "negative") return "Negative"
+  if (lower === "neutral") return "Neutral"
+  return sentiment
+}
+
 export default function TwitterSignalsPage() {
   const [data, setData] = useState<TwitterSignal[]>([])
   const [loading, setLoading] = useState(true)
@@ -565,7 +575,7 @@ export default function TwitterSignalsPage() {
                                       : "bg-amber-500/20 text-amber-400 border border-amber-500/50"
                                 }`}
                             >
-                              {signal.sentiment}
+                              {capitalizeSentiment(signal.sentiment)}
                             </span>
                           </td>
                           <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
