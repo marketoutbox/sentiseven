@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { TrendingUp, TrendingDown, PieChart, Wallet, AlertCircle, Loader2 } from "lucide-react"
+import { TrendingUp, TrendingDown, PieChart, Wallet, AlertCircle, Loader2, RefreshCw } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { getAllUserBaskets, getBasketById, type StockBasket, type BasketStock } from "@/lib/basket-service"
@@ -93,6 +93,11 @@ export default function PortfolioTracker() {
   const [error, setError] = useState<string | null>(null)
   const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null)
   const [basketsPerformance, setBasketsPerformance] = useState<BasketPerformance[]>([])
+  const [lastFetchTime, setLastFetchTime] = useState<number | null>(null)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  // Cache duration: 5 minutes (300,000 ms)
+  const CACHE_DURATION = 5 * 60 * 1000
 
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString()
@@ -107,9 +112,25 @@ export default function PortfolioTracker() {
     }).format(amount)
   }
 
-  const calculatePortfolioPerformance = async () => {
+  const calculatePortfolioPerformance = async (forceRefresh = false) => {
     try {
-      setLoading(true)
+      // Check if we have cached data and it's still fresh
+      const now = Date.now()
+      const isCacheFresh = lastFetchTime && (now - lastFetchTime) < CACHE_DURATION
+      
+      if (!forceRefresh && isCacheFresh && portfolioData) {
+        console.log("Using cached portfolio data")
+        setLoading(false)
+        return
+      }
+
+      // Show appropriate loading state
+      if (portfolioData && !forceRefresh) {
+        setIsRefreshing(true) // Show refresh indicator instead of full loading
+      } else {
+        setLoading(true)
+      }
+      
       setError(null)
 
       if (!user) {
@@ -215,18 +236,44 @@ export default function PortfolioTracker() {
       })
 
       setBasketsPerformance(basketPerformances)
+      
+      // Update cache timestamp
+      setLastFetchTime(Date.now())
+      console.log("Portfolio data fetched and cached")
 
     } catch (error) {
       console.error("Error calculating portfolio performance:", error)
       setError("Failed to calculate portfolio performance. Please try again.")
     } finally {
       setLoading(false)
+      setIsRefreshing(false)
     }
   }
 
   useEffect(() => {
-    calculatePortfolioPerformance()
-  }, [user])
+    // Only fetch data if we don't have cached data or user changed
+    if (!portfolioData || !lastFetchTime) {
+      calculatePortfolioPerformance()
+    }
+  }, [user]) // Only depend on user changes
+
+  // Add visibility change listener to refresh data when tab becomes active (but with cache check)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && user) {
+        // Only refresh if data is stale (older than cache duration)
+        const now = Date.now()
+        const isStale = !lastFetchTime || (now - lastFetchTime) > CACHE_DURATION
+        if (isStale) {
+          console.log("Tab became active and data is stale, refreshing...")
+          calculatePortfolioPerformance(false) // Don't force, let cache logic decide
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [user, lastFetchTime])
 
   if (loading) {
     return (
@@ -253,7 +300,7 @@ export default function PortfolioTracker() {
             <AlertCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
             <p className="text-red-400 mb-4">{error}</p>
             <button
-              onClick={calculatePortfolioPerformance}
+              onClick={() => calculatePortfolioPerformance(true)}
               className="bg-[#1e31dd] hover:bg-[#245DFF] text-white px-6 py-2 rounded-xl transition-colors"
             >
               Retry
@@ -278,16 +325,31 @@ export default function PortfolioTracker() {
       {portfolioData && (
         <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
           <CardHeader className="pb-4 px-4 sm:px-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/10 rounded-xl">
-                <Wallet className="h-6 w-6 text-white" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-white/10 rounded-xl">
+                  <Wallet className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-lg sm:text-xl font-bold text-white">Portfolio Overview</CardTitle>
+                  <CardDescription className="text-white/80 text-sm">
+                    Real-time performance across all locked baskets
+                    {lastFetchTime && (
+                      <span className="block text-xs text-white/60 mt-1">
+                        Last updated: {new Date(lastFetchTime).toLocaleTimeString()}
+                      </span>
+                    )}
+                  </CardDescription>
+                </div>
               </div>
-              <div>
-                <CardTitle className="text-lg sm:text-xl font-bold text-white">Portfolio Overview</CardTitle>
-                <CardDescription className="text-white/80 text-sm">
-                  Real-time performance across all locked baskets
-                </CardDescription>
-              </div>
+              <button
+                onClick={() => calculatePortfolioPerformance(true)}
+                disabled={isRefreshing}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-xl transition-colors disabled:opacity-50"
+                title="Refresh portfolio data"
+              >
+                <RefreshCw className={`h-4 w-4 text-white ${isRefreshing ? 'animate-spin' : ''}`} />
+              </button>
             </div>
           </CardHeader>
           <CardContent className="px-4 sm:px-6 pb-6">
