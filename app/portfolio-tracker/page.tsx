@@ -29,61 +29,98 @@ interface BasketPerformance {
   stockCount: number
 }
 
-// Function to get current stock prices using existing API
-const getCurrentPrice = async (symbol: string): Promise<number> => {
+// Function to get current stock prices using existing API (batch optimized)
+const getCurrentPricesBatch = async (symbols: string[]): Promise<Record<string, number>> => {
   try {
+    console.log(`Fetching current prices for: ${symbols.join(', ')}`)
+    
     const response = await fetch(`/api/stock-price/current/batch`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ symbols: [symbol] }),
+      body: JSON.stringify({ symbols }),
     })
     
     if (!response.ok) {
-      throw new Error(`Failed to fetch current price for ${symbol}`)
+      throw new Error(`Failed to fetch current prices: ${response.status}`)
     }
     
     const data = await response.json()
-    return data[symbol]?.price || 0
+    console.log('Current prices fetched:', data)
+    return data
   } catch (error) {
-    console.error(`Error fetching current price for ${symbol}:`, error)
+    console.error('Error fetching current prices:', error)
     // Fallback to mock data if API fails
     const mockPrices: Record<string, number> = {
       AAPL: 175.43, MSFT: 378.85, GOOGL: 2845.32, AMZN: 144.73,
       META: 298.47, TSLA: 251.82, NVDA: 459.12, NFLX: 423.58,
     }
-    return mockPrices[symbol] || 100 + Math.random() * 50
+    
+    const fallbackData: Record<string, number> = {}
+    symbols.forEach(symbol => {
+      fallbackData[symbol] = mockPrices[symbol] || 100 + Math.random() * 50
+    })
+    return fallbackData
   }
 }
 
-// Function to get historical stock prices using existing API pattern
+// Single stock price getter (uses batch function)
+const getCurrentPrice = async (symbol: string): Promise<number> => {
+  const prices = await getCurrentPricesBatch([symbol])
+  return prices[symbol] || 0
+}
+
+// Function to get historical stock prices using our existing API
 const getHistoricalPrice = async (symbol: string, date: string): Promise<number> => {
   try {
-    // Using the same pattern as performance page
-    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${Math.floor(new Date(date).getTime() / 1000)}&period2=${Math.floor(new Date(date).getTime() / 1000 + 86400)}&interval=1d`)
+    console.log(`Fetching historical price for ${symbol} on ${date}`)
+    
+    // Use our existing historical price API
+    const response = await fetch(`/api/stock-price/historical/${symbol}?date=${date}`)
     
     if (!response.ok) {
-      throw new Error(`Failed to fetch historical price for ${symbol}`)
+      throw new Error(`Failed to fetch historical price for ${symbol}: ${response.status}`)
     }
     
     const data = await response.json()
-    const prices = data?.chart?.result?.[0]?.indicators?.quote?.[0]?.close
     
-    if (prices && prices.length > 0) {
-      return prices[0] || 0
+    // Handle different response formats from our API
+    if (data.price && data.price > 0) {
+      console.log(`Historical price for ${symbol} on ${date}: $${data.price}`)
+      return data.price
     }
     
-    // Fallback: use current price with some variation for demo
+    if (data.historicalData && data.historicalData.length > 0) {
+      const priceData = data.historicalData.find((d: any) => d.date === date) || data.historicalData[0]
+      if (priceData && priceData.close > 0) {
+        console.log(`Historical price for ${symbol} on ${date}: $${priceData.close}`)
+        return priceData.close
+      }
+    }
+    
+    // If no valid historical data, use current price with realistic variation
+    console.warn(`No historical data found for ${symbol} on ${date}, using current price with variation`)
     const currentPrice = await getCurrentPrice(symbol)
-    const changePercent = (Math.random() - 0.5) * 0.3 // ±15% variation
-    return currentPrice * (1 - changePercent)
+    const changePercent = (Math.random() - 0.5) * 0.2 // ±10% variation for more realistic fallback
+    const historicalPrice = currentPrice * (1 - changePercent)
+    console.log(`Fallback historical price for ${symbol}: $${historicalPrice.toFixed(2)}`)
+    return historicalPrice
+    
   } catch (error) {
-    console.error(`Error fetching historical price for ${symbol}:`, error)
+    console.error(`Error fetching historical price for ${symbol} on ${date}:`, error)
+    
     // Fallback to current price with variation
-    const currentPrice = await getCurrentPrice(symbol)
-    const changePercent = (Math.random() - 0.5) * 0.3
-    return currentPrice * (1 - changePercent)
+    try {
+      const currentPrice = await getCurrentPrice(symbol)
+      const changePercent = (Math.random() - 0.5) * 0.2
+      const fallbackPrice = currentPrice * (1 - changePercent)
+      console.log(`Error fallback price for ${symbol}: $${fallbackPrice.toFixed(2)}`)
+      return fallbackPrice
+    } catch (fallbackError) {
+      console.error(`Failed to get fallback price for ${symbol}:`, fallbackError)
+      return 100 // Last resort fallback
+    }
   }
 }
 
@@ -178,19 +215,35 @@ export default function PortfolioTracker() {
         let basketCurrentValue = 0
 
         // Calculate performance for each stock in the basket
+        // Investment logic: $10,000 per stock regardless of allocation percentage
+        
+        // Get all symbols for batch API calls
+        const symbols = stocks.map(stock => stock.symbol)
+        
+        // Fetch current prices for all stocks in batch
+        const currentPrices = await getCurrentPricesBatch(symbols)
+        
         for (const stock of stocks) {
           try {
             // Get historical price at lock date
             const historicalPrice = await getHistoricalPrice(stock.symbol, basket.locked_at)
-            // Get current price
-            const currentPrice = await getCurrentPrice(stock.symbol)
+            // Get current price from batch result
+            const currentPrice = currentPrices[stock.symbol] || 0
 
-            // Calculate values based on allocation
-            const allocation = stock.allocation / 100 // Convert percentage to decimal
-            const stockInitialValue = historicalPrice * allocation * 1000 // Assuming $1000 base investment per basket
-            const stockCurrentValue = currentPrice * allocation * 1000
+            if (historicalPrice <= 0 || currentPrice <= 0) {
+              console.warn(`Invalid prices for ${stock.symbol}: historical=${historicalPrice}, current=${currentPrice}`)
+              continue
+            }
 
-            basketInitialValue += stockInitialValue
+            // Investment logic: $10,000 per stock
+            const investmentAmount = 10000
+            const sharesOwned = investmentAmount / historicalPrice
+            const stockCurrentValue = sharesOwned * currentPrice
+
+            console.log(`${stock.symbol}: $${investmentAmount} @ $${historicalPrice.toFixed(2)} = ${sharesOwned.toFixed(2)} shares`)
+            console.log(`${stock.symbol}: ${sharesOwned.toFixed(2)} shares @ $${currentPrice.toFixed(2)} = $${stockCurrentValue.toFixed(2)}`)
+
+            basketInitialValue += investmentAmount
             basketCurrentValue += stockCurrentValue
           } catch (error) {
             console.error(`Failed to calculate performance for ${stock.symbol}:`, error)
