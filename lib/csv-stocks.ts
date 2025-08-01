@@ -89,12 +89,32 @@ export const loadStocksFromCSV = async (includePrices = false): Promise<Stock[]>
     // Check cache first
     const now = Date.now()
     if (cachedStocks && lastFetchTime && (now - lastFetchTime) < CACHE_DURATION && !includePrices) {
+      console.log('Returning cached stocks:', cachedStocks.length)
       return cachedStocks
     }
 
-    // Fetch CSV file
+    // Detect mobile browser
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    console.log('Loading CSV on mobile:', isMobile)
+
+    // Fetch CSV file with mobile-friendly options
     console.log('Fetching CSV file from /list.csv...')
-    const response = await fetch('/list.csv')
+    const fetchOptions: RequestInit = {
+      method: 'GET',
+      headers: {
+        'Accept': 'text/csv,text/plain,*/*',
+        'Cache-Control': isMobile ? 'no-cache' : 'default',
+      },
+    }
+    
+    if (isMobile) {
+      console.log('Using mobile-optimized fetch options')
+    }
+    
+    const response = await fetch('/list.csv', fetchOptions)
+    console.log('Response status:', response.status, 'OK:', response.ok)
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()))
+    
     if (!response.ok) {
       console.error('Failed to fetch CSV file:', response.status, response.statusText)
       throw new Error(`Failed to fetch stock list: ${response.status} ${response.statusText}`)

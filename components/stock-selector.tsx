@@ -22,6 +22,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 // Import stock data from CSV
 import { getAllStocks, searchStocks as searchStocksCSV, type Stock } from "@/lib/csv-stocks"
 import { testCSVAccess } from "@/lib/test-csv"
+import { testMobileCSVAccess, getMobileDebugInfo } from "@/lib/mobile-debug"
 
 export function StockSelector({
   open,
@@ -67,25 +68,61 @@ export function StockSelector({
       setLoading(true)
       setError(null)
       console.log('StockSelector: Starting to load stocks...')
+      console.log('User agent:', navigator.userAgent)
+      console.log('Is mobile:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
       
-      // Test CSV access first
-      const testResult = await testCSVAccess()
-      if (!testResult.success) {
-        throw new Error(`CSV access test failed: ${testResult.error}`)
+      // Test CSV access with mobile-specific debugging
+      console.log('Testing CSV access...')
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      
+      let testResult
+      if (isMobile) {
+        console.log('Running mobile-specific CSV test...')
+        testResult = await testMobileCSVAccess()
+      } else {
+        testResult = await testCSVAccess()
       }
       
+      console.log('CSV test result:', testResult)
+      
+      if (!testResult.success) {
+        console.error('CSV test failed, trying direct CSV load anyway...')
+        if (isMobile && testResult.debugInfo) {
+          console.log('Mobile debug info:', testResult.debugInfo)
+        }
+        // Don't throw error immediately, try direct load
+      }
+      
+      console.log('Attempting to load stocks from CSV...')
       const stocks = await getAllStocks()
       console.log('StockSelector: Loaded stocks:', stocks.length)
+      console.log('First few stocks:', stocks.slice(0, 3))
+      
+      if (stocks.length === 0) {
+        throw new Error('No stocks were loaded from CSV file. Check network connection and CSV file accessibility.')
+      }
+      
       setAllStocksData(stocks)
       setLastFetchTime(Date.now()) // Update cache timestamp
-      if (stocks.length === 0) {
-        setError('No stocks loaded from CSV file. Please check console for details.')
-      } else {
-        console.log('Stocks cached for 30 minutes')
-      }
+      console.log('Stocks successfully cached for 30 minutes')
+      
     } catch (error) {
       console.error('StockSelector: Error loading stocks:', error)
-      setError(`Failed to load stocks: ${error.message}`)
+      console.error('Error stack:', error.stack)
+      
+      // More specific error messages for debugging
+      let errorMessage = 'Failed to load stocks'
+      if (error.message.includes('fetch')) {
+        errorMessage = 'Network error: Cannot fetch stock data. Check internet connection.'
+      } else if (error.message.includes('CSV')) {
+        errorMessage = 'CSV file error: Stock data file not accessible.'
+      } else if (error.message.includes('parse')) {
+        errorMessage = 'Data parsing error: Stock data format is invalid.'
+      } else {
+        errorMessage = `Loading error: ${error.message}`
+      }
+      
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -150,7 +187,7 @@ export function StockSelector({
                   className="pl-10 bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                 />
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {lastFetchTime && (
                   <Button
                     onClick={() => {
@@ -166,13 +203,30 @@ export function StockSelector({
                   </Button>
                 )}
                 {error && (
-                  <Button
-                    onClick={loadStocks}
-                    variant="outline"
-                    className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
-                  >
-                    Retry
-                  </Button>
+                  <>
+                    <Button
+                      onClick={loadStocks}
+                      variant="outline"
+                      size="sm"
+                      className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
+                    >
+                      Retry
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        // Clear all cache and force reload
+                        setLastFetchTime(null)
+                        setAllStocksData([])
+                        setError(null)
+                        setTimeout(() => loadStocks(), 100)
+                      }}
+                      variant="outline"
+                      size="sm"
+                      className="bg-[#1e31dd] border-[#245DFF] text-white hover:bg-[#245DFF] rounded-xl"
+                    >
+                      Force Reload
+                    </Button>
+                  </>
                 )}
               </div>
             </div>
