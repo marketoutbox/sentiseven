@@ -429,15 +429,15 @@ export default function TwitterSignalsPage() {
           </CardContent>
         </Card>
         {/* Filters and Controls */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               <div className="flex-1 min-w-[180px]">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-200/60 h-4 w-4" />
                   <Input
                     placeholder="Search by symbol..."
-                    className="pl-10 h-9 sm:h-10 text-sm"
+                    className="pl-10 h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -445,31 +445,31 @@ export default function TwitterSignalsPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 <Select value={sentimentFilter} onValueChange={setSentimentFilter}>
-                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm">
+                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white rounded-xl">
                     <SelectValue placeholder="Filter by sentiment" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Sentiments</SelectItem>
-                    <SelectItem value="positive">Positive</SelectItem>
-                    <SelectItem value="negative">Negative</SelectItem>
-                    <SelectItem value="neutral">Neutral</SelectItem>
+                  <SelectContent className="bg-[#090e23] border-[#0e142d] rounded-xl">
+                    <SelectItem value="all" className="text-white hover:bg-[#192233]">All Sentiments</SelectItem>
+                    <SelectItem value="positive" className="text-white hover:bg-[#192233]">Positive</SelectItem>
+                    <SelectItem value="negative" className="text-white hover:bg-[#192233]">Negative</SelectItem>
+                    <SelectItem value="neutral" className="text-white hover:bg-[#192233]">Neutral</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm">
+                  <SelectTrigger className="w-full sm:w-[180px] h-9 sm:h-10 text-sm bg-[#192233] border-[#0e142d] text-white rounded-xl">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="date">Date</SelectItem>
-                    <SelectItem value="symbol">Symbol</SelectItem>
-                    <SelectItem value="sentiment_score">Sentiment Score</SelectItem>
-                    <SelectItem value="tweets">Analyzed Tweets</SelectItem>
+                  <SelectContent className="bg-[#090e23] border-[#0e142d] rounded-xl">
+                    <SelectItem value="date" className="text-white hover:bg-[#192233]">Date</SelectItem>
+                    <SelectItem value="symbol" className="text-white hover:bg-[#192233]">Symbol</SelectItem>
+                    <SelectItem value="sentiment_score" className="text-white hover:bg-[#192233]">Sentiment Score</SelectItem>
+                    <SelectItem value="tweets" className="text-white hover:bg-[#192233]">Analyzed Tweets</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-9 w-9 sm:h-10 sm:w-10"
+                  className="h-9 w-9 sm:h-10 sm:w-10 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
                   onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
                 >
                   {sortOrder === "asc" ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -479,17 +479,17 @@ export default function TwitterSignalsPage() {
           </CardContent>
         </Card>
         {/* Table View */}
-        <Card className="mb-6 sm:mb-8">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardContent className="p-0">
             {loading ? (
               <div className="flex justify-center items-center h-64">
-                <Loader2 className="animate-spin w-6 h-6 mr-2 text-primary" />
-                <span className="text-muted-foreground">Loading sentiment data...</span>
+                <Loader2 className="animate-spin w-6 h-6 mr-2 text-blue-400" />
+                <span className="text-blue-200/60">Loading sentiment data...</span>
               </div>
             ) : error ? (
               <div className="flex flex-col justify-center items-center h-64 space-y-4">
-                <p className="text-red-500 text-center">{error}</p>
-                <Button onClick={() => window.location.reload()} variant="outline">
+                <p className="text-red-400 text-center">{error}</p>
+                <Button onClick={() => window.location.reload()} variant="outline" className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536]">
                   Retry
                 </Button>
               </div>
@@ -497,25 +497,25 @@ export default function TwitterSignalsPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-xs sm:text-sm text-left">
                   <thead>
-                    <tr className="border-b border-border">
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-muted-foreground">Date</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-muted-foreground">Symbol</th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-muted-foreground">
+                    <tr className="border-b border-[#0e142d]">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Date</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Symbol</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">
                         Analyzed Tweets
                       </th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-muted-foreground">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">
                         Sentiment Score
                       </th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-center font-medium text-muted-foreground">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 text-center font-medium text-blue-200/60">
                         Sentiment
                       </th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-muted-foreground">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">
                         Entry Price
                       </th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-muted-foreground">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">
                         Current Price
                       </th>
-                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-muted-foreground">P/L%</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-right text-blue-200/60">P/L%</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -542,16 +542,16 @@ export default function TwitterSignalsPage() {
                       return (
                         <tr
                           key={`${signal.comp_symbol}-${signal.date}-${i}`}
-                          className="border-b border-border hover:bg-muted/50 transition-colors"
+                          className="border-b border-[#0e142d] hover:bg-[#192233]/50 transition-colors"
                         >
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-foreground">{signal.date}</td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-foreground">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-white">{signal.date}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">
                             {signal.comp_symbol}
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-foreground">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
                             {signal.analyzed_tweets}
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-foreground">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
                             {safeNumber(signal.sentiment_score).toFixed(2)}
                           </td>
                           <td className="px-3 py-3 sm:px-6 sm:py-4 text-center">
@@ -559,19 +559,19 @@ export default function TwitterSignalsPage() {
                               className={`px-2 py-0.5 rounded-full text-xs font-medium inline-block
                                 ${
                                   safeString(signal.sentiment).toLowerCase() === "positive"
-                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border border-green-200 dark:border-green-800"
+                                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                                     : safeString(signal.sentiment).toLowerCase() === "negative"
-                                      ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 border border-red-200 dark:border-red-800"
-                                      : "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                                      ? "bg-red-500/20 text-red-400 border border-red-500/50"
+                                      : "bg-amber-500/20 text-amber-400 border border-amber-500/50"
                                 }`}
                             >
                               {signal.sentiment}
                             </span>
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-foreground">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
                             ${safeNumber(signal.entry_price).toFixed(2)}
                           </td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-foreground">
+                          <td className="px-3 py-3 sm:px-6 sm:py-4 text-right text-white">
                             {pricesLoading ? (
                               <Loader2 className="h-4 w-4 animate-spin inline" />
                             ) : (
