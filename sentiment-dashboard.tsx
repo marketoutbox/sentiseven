@@ -1643,7 +1643,7 @@ const SentimentDashboard = () => {
             ) : null}
 
             {/* Footer */}
-            <div className="mt-16 pt-8 border-t border-blue-500/20 bg-[#090e23]/60 backdrop-blur-sm rounded-t-3xl">
+            <div className="mt-16 pt-8">
               <div className="text-center">
                 <p className="text-blue-200/60 text-sm">
                   © 2024 Sentiment Analytics Pro. All rights reserved.

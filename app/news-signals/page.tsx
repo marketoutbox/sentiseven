@@ -305,11 +305,11 @@ export default function NewsSignalsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-[#010310] to-[#030516]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">News Signals</h1>
-          <p className="text-sm sm:text-base text-muted-foreground mt-1 sm:mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">News Signals</h1>
+          <p className="text-sm sm:text-base text-blue-100/80 mt-1 sm:mt-2">
             View the latest News sentiment signals for each stock.
           </p>
         </div>
