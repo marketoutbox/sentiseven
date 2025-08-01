@@ -21,6 +21,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 // Import stock data from CSV
 import { getAllStocks, searchStocks as searchStocksCSV, type Stock } from "@/lib/csv-stocks"
+import { testCSVAccess } from "@/lib/test-csv"
 
 export function StockSelector({
   open,
@@ -51,11 +52,23 @@ export function StockSelector({
     try {
       setLoading(true)
       setError(null)
+      console.log('StockSelector: Starting to load stocks...')
+      
+      // Test CSV access first
+      const testResult = await testCSVAccess()
+      if (!testResult.success) {
+        throw new Error(`CSV access test failed: ${testResult.error}`)
+      }
+      
       const stocks = await getAllStocks()
+      console.log('StockSelector: Loaded stocks:', stocks.length)
       setAllStocksData(stocks)
+      if (stocks.length === 0) {
+        setError('No stocks loaded from CSV file. Please check console for details.')
+      }
     } catch (error) {
-      console.error('Error loading stocks:', error)
-      setError('Failed to load stocks. Please try again.')
+      console.error('StockSelector: Error loading stocks:', error)
+      setError(`Failed to load stocks: ${error.message}`)
     } finally {
       setLoading(false)
     }
