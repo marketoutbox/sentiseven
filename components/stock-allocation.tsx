@@ -232,7 +232,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
                   max="100"
                 />
               </div>
-              <div className="col-span-5">
+              <div className="col-span-4 pr-2">
                 <Slider
                   value={[stock.allocation]}
                   max={100}
@@ -243,9 +243,13 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
                   className="[&>span[data-orientation='horizontal']]:bg-[#192233] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                 />
               </div>
-              <div className="col-span-2 flex items-center justify-end gap-2">
+              <div className="col-span-3 flex items-center justify-end gap-2">
                 <span className="text-sm text-blue-200/60">{stock.locked ? "Locked" : "Unlocked"}</span>
-                <Switch checked={stock.locked} onCheckedChange={() => handleLockChange(stock.id)} />
+                <Switch 
+                  checked={stock.locked} 
+                  onCheckedChange={() => handleLockChange(stock.id)}
+                  className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
+                />
               </div>
             </div>
           ))}
