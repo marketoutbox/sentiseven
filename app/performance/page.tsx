@@ -74,7 +74,11 @@ export default function PerformancePage() {
   const [selectedBasketId, setSelectedBasketId] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<"all" | string>("all") // "all" or basket ID
   const [basketStocks, setBasketStocks] = useState<BasketStock[]>([])
-  const [selectedModels, setSelectedModels] = useState<string[]>([]) // Changed default to empty array
+  const [selectedModels, setSelectedModels] = useState<string[]>(["google", "twitter", "news"]) // Default: all models ON
+  const [lastFetchTime, setLastFetchTime] = useState<number | null>(null)
+  
+  // Cache duration: 5 minutes
+  const CACHE_DURATION = 5 * 60 * 1000
 
   // Format date to YYYY-MM-DD
   const formatDate = (dateString: string) => {
@@ -169,6 +173,14 @@ export default function PerformancePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Check if we have fresh cached data
+        const now = Date.now()
+        if (lastFetchTime && performanceData.length > 0 && (now - lastFetchTime) < CACHE_DURATION) {
+          console.log("Using cached performance data, skipping fetch")
+          return
+        }
+
+        console.log("Fetching fresh performance data...")
         setLoading(true)
         setError(null)
 
@@ -417,6 +429,7 @@ export default function PerformancePage() {
 
         setPerformanceData(processedData)
         setLastUpdated(new Date().toLocaleDateString())
+        setLastFetchTime(Date.now()) // Set cache timestamp
       } catch (err: any) {
         console.error("Error fetching performance data:", err)
         setError(err.message || "Failed to fetch performance data")
@@ -426,7 +439,17 @@ export default function PerformancePage() {
     }
 
     fetchData()
-  }, [viewMode, userBaskets, getCurrentPricesBatch, getHistoricalPrice, selectedModels]) // Added dependencies
+  }, [viewMode, selectedModels]) // Optimized dependencies - removed functions that cause rerenders
+
+  // Auto-refresh every 5 minutes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Auto-refreshing performance data (5 min interval)")
+      setLastFetchTime(null) // Clear cache to force refresh
+    }, CACHE_DURATION)
+
+    return () => clearInterval(interval)
+  }, [CACHE_DURATION])
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -449,6 +472,11 @@ export default function PerformancePage() {
                   {viewMode === "all"
                     ? "Performance data for stocks matching selected signal models"
                     : "Performance data from basket lock date to current date, matching selected signal models"}
+                  {lastFetchTime && (
+                    <span className="block text-xs text-blue-200/60 mt-1">
+                      Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
+                    </span>
+                  )}
                 </CardDescription>
               </div>
               <div className="flex items-center space-x-4 mt-4 sm:mt-0">
@@ -502,6 +530,18 @@ export default function PerformancePage() {
                     News
                   </label>
                 </div>
+                
+                {/* Manual Refresh Button */}
+                <Button 
+                  onClick={() => {
+                    setLastFetchTime(null) // Clear cache to force refresh
+                  }}
+                  variant="outline" 
+                  className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3"
+                  title="Refresh data"
+                >
+                  <Loader2 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                </Button>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
