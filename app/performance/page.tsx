@@ -412,26 +412,23 @@ export default function PerformancePage() {
   }, [viewMode, userBaskets, getCurrentPricesBatch, getHistoricalPrice, selectedModels]) // Added dependencies
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-        {" "}
-        {/* Updated classes */}
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Performance Summary</h1>
-          <p className="text-muted-foreground mt-2">
-            {viewMode === "all"
-              ? "Performance data for stocks matching selected signal models"
-              : "Performance data for stocks in your selected basket matching selected signal models"}
-          </p>
-        </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      {/* Header */}
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white">Performance Summary</h1>
+        <p className="text-sm sm:text-base text-blue-100/80 mt-1 sm:mt-2">
+          {viewMode === "all"
+            ? "Performance data for stocks matching selected signal models"
+            : "Performance data for stocks in your selected basket matching selected signal models"}
+        </p>
+      </div>
         {/* Main Content Card */}
-        <Card className="mb-8">
-          <CardHeader className="pb-4">
+        <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
+          <CardHeader className="pb-4 px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <CardTitle className="text-xl">Stocks Performance Table</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg sm:text-xl font-bold text-white">Stocks Performance Table</CardTitle>
+                <CardDescription className="text-sm text-blue-100/80">
                   {viewMode === "all"
                     ? "Performance data for stocks matching selected signal models"
                     : "Performance data from basket lock date to current date, matching selected signal models"}
@@ -448,7 +445,7 @@ export default function PerformancePage() {
                   />
                   <label
                     htmlFor="google-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
                   >
                     GTrends
                   </label>
@@ -465,7 +462,7 @@ export default function PerformancePage() {
                   />
                   <label
                     htmlFor="twitter-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
                   >
                     Twitter
                   </label>
@@ -480,7 +477,7 @@ export default function PerformancePage() {
                   />
                   <label
                     htmlFor="news-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
                   >
                     News
                   </label>
@@ -488,30 +485,31 @@ export default function PerformancePage() {
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-center gap-2 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl">
                     <span>
                       {viewMode === "all"
                         ? "All Stocks"
                         : userBaskets.find((b) => b.id === viewMode)?.name || "Unknown Basket"}
                     </span>
-                    <Badge variant="secondary" className="ml-2">
+                    <Badge variant="secondary" className="ml-2 bg-[#1e31dd]/20 text-blue-200 border-[#1e31dd]/50">
                       {performanceData.length} stocks
                     </Badge>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="bg-[#090e23] border-[#0e142d] rounded-xl">
                   <DropdownMenuItem
                     onClick={() => {
                       setViewMode("all")
                       setSelectedBasketId(null)
                     }}
+                    className="text-white hover:bg-[#192233]"
                   >
                     All Stocks
                   </DropdownMenuItem>
                   {userBaskets.length > 0 && (
                     <>
-                      <DropdownMenuSeparator />
+                      <DropdownMenuSeparator className="bg-[#0e142d]" />
                       {userBaskets.map((basket) => (
                         <DropdownMenuItem
                           key={basket.id}
@@ -519,9 +517,10 @@ export default function PerformancePage() {
                             setViewMode(basket.id!)
                             setSelectedBasketId(basket.id!)
                           }}
+                          className="text-white hover:bg-[#192233]"
                         >
                           {basket.name}
-                          <span className="ml-2 text-xs text-muted-foreground">
+                          <span className="ml-2 text-xs text-blue-200/60">
                             (Locked {basket.locked_at ? new Date(basket.locked_at).toLocaleDateString() : ""})
                           </span>
                         </DropdownMenuItem>
@@ -529,7 +528,7 @@ export default function PerformancePage() {
                     </>
                   )}
                   {userBaskets.length === 0 && user && (
-                    <DropdownMenuItem disabled>
+                    <DropdownMenuItem disabled className="text-blue-200/60">
                       No locked baskets
                       <span className="ml-2 text-xs text-muted-foreground">(Create and lock a basket first)</span>
                     </DropdownMenuItem>
@@ -540,19 +539,19 @@ export default function PerformancePage() {
             </div>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="p-0">
             {/* Table */}
             {loading ? (
               <div className="flex justify-center items-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                <span className="ml-2 text-muted-foreground">Loading performance data...</span>
+                <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+                <span className="ml-2 text-blue-200/60">Loading performance data...</span>
               </div>
             ) : error ? (
-              <div className="p-4 bg-destructive/10 text-destructive border border-destructive/20 rounded-md">
+              <div className="p-4 bg-red-500/10 text-red-400 border border-red-500/20 rounded-md">
                 {error}
               </div>
             ) : performanceData.length === 0 ? (
-              <div className="p-8 text-center text-muted-foreground">
+              <div className="p-8 text-center text-blue-200/60">
                 {selectedModels.length === 0 // Updated message for no models selected
                   ? "Please select at least one signal model to view performance data."
                   : viewMode !== "all"
@@ -561,77 +560,77 @@ export default function PerformancePage() {
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-xs sm:text-sm text-left">
                   <thead>
                     <tr>
                       <th
                         colSpan={2}
-                        className="px-4 py-3 bg-muted text-muted-foreground border-b text-center font-medium"
+                        className="px-3 py-3 sm:px-6 sm:py-4 border-b border-[#0e142d] text-center font-medium text-blue-200/60"
                       >
                         Stock
                       </th>
                       <th
                         colSpan={3}
-                        className="px-4 py-3 bg-primary/10 text-foreground border-b text-center font-medium"
+                        className="px-3 py-3 sm:px-6 sm:py-4 border-b border-[#0e142d] text-center font-medium text-blue-200/60"
                       >
                         {viewMode === "all" ? "Signal Date" : "Basket Lock Date"}
                       </th>
                       <th
                         colSpan={3}
-                        className="px-4 py-3 bg-muted text-muted-foreground border-b text-center font-medium"
+                        className="px-3 py-3 sm:px-6 sm:py-4 border-b border-[#0e142d] text-center font-medium text-blue-200/60"
                       >
                         Current
                       </th>
                     </tr>
-                    <tr>
-                      <th className="px-4 py-3 bg-muted text-muted-foreground border-b text-left font-medium">
+                    <tr className="border-b border-[#0e142d]">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">
                         Symbol
                       </th>
-                      <th className="px-4 py-3 bg-muted text-muted-foreground border-b text-left font-medium">Name</th>
-                      <th className="px-4 py-3 bg-primary/10 text-foreground border-b text-left font-medium">Date</th>
-                      <th className="px-4 py-3 bg-primary/10 text-foreground border-b text-left font-medium">Price</th>
-                      <th className="px-4 py-3 bg-primary/10 text-foreground border-b text-left font-medium">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Name</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Date</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Price</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">
                         Sentiment
                       </th>
-                      <th className="px-4 py-3 bg-muted text-muted-foreground border-b text-left font-medium">Price</th>
-                      <th className="px-4 py-3 bg-muted text-muted-foreground border-b text-left font-medium">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">Price</th>
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">
                         Change
                       </th>
-                      <th className="px-4 py-3 bg-muted text-muted-foreground border-b text-left font-medium">
+                      <th className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-blue-200/60">
                         Change %
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {performanceData.map((stock) => (
-                      <tr key={stock.symbol}>
-                        <td className="px-4 py-4 font-medium text-foreground">{stock.symbol}</td>
-                        <td className="px-4 py-4 font-medium text-foreground">{stock.name}</td>
-                        <td className="px-4 py-4 font-medium text-foreground">{stock.lockDate}</td>
-                        <td className="px-4 py-4 font-medium text-foreground">${stock.lockPrice.toFixed(2)}</td>
-                        <td className="px-4 py-4">
+                      <tr key={stock.symbol} className="border-b border-[#0e142d] hover:bg-[#192233]/50 transition-colors">
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{stock.symbol}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{stock.name}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{stock.lockDate}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">${stock.lockPrice.toFixed(2)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4">
                           {stock.lockSentiment ? (
                             <span
-                              className={`px-3 py-1 rounded-full text-xs font-medium inline-block
+                              className={`px-2 py-0.5 rounded-full text-xs font-medium inline-block
                                 ${
                                   stock.lockSentiment.toLowerCase() === "positive"
-                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border border-green-200 dark:border-green-800"
+                                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                                     : stock.lockSentiment.toLowerCase() === "negative"
-                                      ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 border border-red-200 dark:border-red-800"
+                                      ? "bg-red-500/20 text-red-400 border border-red-500/50"
                                       : stock.lockSentiment.toLowerCase() === "neutral"
-                                        ? "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
-                                        : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800" // For "Mixed" or "N/A"
+                                        ? "bg-amber-500/20 text-amber-400 border border-amber-500/50"
+                                        : "bg-gray-500/20 text-gray-400 border border-gray-500/50" // For "Mixed" or "N/A"
                                 }`}
                             >
                               {stock.lockSentiment}
                             </span>
                           ) : (
-                            <span className="text-muted-foreground text-xs">No data</span>
+                            <span className="text-blue-200/60 text-xs">No data</span>
                           )}
                         </td>
-                        <td className="px-4 py-4 font-medium text-foreground">${stock.currentPrice.toFixed(2)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">${stock.currentPrice.toFixed(2)}</td>
                         <td
-                          className={`px-4 py-4 font-medium ${stock.change >= 0 ? "text-green-600" : "text-red-600"}`}
+                          className={`px-3 py-3 sm:px-6 sm:py-4 font-medium ${stock.change >= 0 ? "text-emerald-400" : "text-red-400"}`}
                         >
                           {stock.change >= 0 ? (
                             <>
@@ -643,31 +642,31 @@ export default function PerformancePage() {
                             </>
                           )}
                         </td>
-                        <td className="px-4 py-4">
+                        <td className="px-3 py-3 sm:px-6 sm:py-4">
                           {stock.currentSentiment ? (
                             <span
-                              className={`px-3 py-1 rounded-full text-xs font-medium inline-block
+                              className={`px-2 py-0.5 rounded-full text-xs font-medium inline-block
                                 ${
                                   stock.currentSentiment.toLowerCase() === "positive"
-                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 border border-green-200 dark:border-green-800"
+                                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
                                     : stock.currentSentiment.toLowerCase() === "negative"
-                                      ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300 border border-red-200 dark:border-red-800"
+                                      ? "bg-red-500/20 text-red-400 border border-red-500/50"
                                       : stock.currentSentiment.toLowerCase() === "neutral"
-                                        ? "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
-                                        : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800" // For "Mixed" or "N/A"
+                                        ? "bg-amber-500/20 text-amber-400 border border-amber-500/50"
+                                        : "bg-gray-500/20 text-gray-400 border border-gray-500/50" // For "Mixed" or "N/A"
                                 }`}
                             >
                               {stock.currentSentiment}
                             </span>
                           ) : (
-                            <span className="text-muted-foreground text-xs">No data</span>
+                            <span className="text-blue-200/60 text-xs">No data</span>
                           )}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-                <div className="p-4 text-xs text-muted-foreground text-center border-t">
+                <div className="p-4 text-xs text-blue-200/60 text-center border-t border-[#0e142d]">
                   Stock data as of {lastUpdated}
                   {viewMode !== "all" && (
                     <div className="mt-1">
@@ -680,7 +679,6 @@ export default function PerformancePage() {
             )}
           </CardContent>
         </Card>
-      </div>
     </div>
   )
 }
