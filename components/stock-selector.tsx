@@ -176,7 +176,7 @@ export function StockSelector({
 
         <div className="flex flex-col md:flex-row gap-4 sm:gap-6 flex-1 overflow-hidden">
           {/* Left side - Available stocks */}
-          <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-[2] md:flex-1 flex flex-col min-h-0">
             <div className="flex items-center gap-2 mb-4">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-blue-200/60" />
@@ -235,7 +235,7 @@ export function StockSelector({
               <CardHeader className="p-4">
                 <CardTitle className="text-base text-white">Available Stocks</CardTitle>
               </CardHeader>
-              <ScrollArea className="flex-1 h-[400px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
+              <ScrollArea className="flex-1 h-[450px] md:h-[350px] lg:h-[400px]">
                 {loading ? (
                   <div className="flex justify-center items-center py-12">
                     <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
@@ -302,7 +302,7 @@ export function StockSelector({
           </div>
 
           {/* Right side - Selected stocks */}
-          <div className="w-full md:w-[300px] flex flex-col">
+          <div className="flex-1 md:w-[300px] flex flex-col max-h-[300px] md:max-h-none">
             <Card className="flex-1 bg-[#090e23] border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl">
               <CardHeader className="p-4">
                 <div className="flex items-center justify-between">
@@ -312,7 +312,7 @@ export function StockSelector({
                   </Badge>
                 </div>
               </CardHeader>
-              <ScrollArea className="h-[400px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
+              <ScrollArea className="h-[250px] md:h-[350px] lg:h-[400px]">
                 {selectedStocks.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-8 px-4 text-center text-blue-200/60">
                     <div className="rounded-full bg-[#192233] p-3 mb-3">
