@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Check, ChevronDown, Plus, Search, X, Loader2 } from "lucide-react"
+import { Check, ChevronDown, Plus, Search, X, Loader2, RefreshCw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
@@ -39,12 +39,26 @@ export function StockSelector({
   const [allStocksData, setAllStocksData] = useState<Stock[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [lastFetchTime, setLastFetchTime] = useState<number | null>(null)
+
+  // Cache duration: 30 minutes (stocks don't change frequently)
+  const CACHE_DURATION = 30 * 60 * 1000
 
   // Load stocks from CSV when dialog opens
   useEffect(() => {
     if (open) {
       setSelectedStocks(initialStocks)
-      loadStocks()
+      
+      // Only load stocks if we don't have cached data or cache is stale
+      const now = Date.now()
+      const isCacheFresh = lastFetchTime && allStocksData.length > 0 && (now - lastFetchTime) < CACHE_DURATION
+      
+      if (!isCacheFresh) {
+        console.log('Loading stocks (cache miss or stale)')
+        loadStocks()
+      } else {
+        console.log('Using cached stocks:', allStocksData.length)
+      }
     }
   }, [open, initialStocks])
 
@@ -63,8 +77,11 @@ export function StockSelector({
       const stocks = await getAllStocks()
       console.log('StockSelector: Loaded stocks:', stocks.length)
       setAllStocksData(stocks)
+      setLastFetchTime(Date.now()) // Update cache timestamp
       if (stocks.length === 0) {
         setError('No stocks loaded from CSV file. Please check console for details.')
+      } else {
+        console.log('Stocks cached for 30 minutes')
       }
     } catch (error) {
       console.error('StockSelector: Error loading stocks:', error)
@@ -133,15 +150,31 @@ export function StockSelector({
                   className="pl-10 bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                 />
               </div>
-              {error && (
-                <Button
-                  onClick={loadStocks}
-                  variant="outline"
-                  className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
-                >
-                  Retry
-                </Button>
-              )}
+              <div className="flex gap-2">
+                {lastFetchTime && (
+                  <Button
+                    onClick={() => {
+                      setLastFetchTime(null) // Clear cache
+                      loadStocks()
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
+                  >
+                    <RefreshCw className="h-3 w-3 mr-1" />
+                    Refresh
+                  </Button>
+                )}
+                {error && (
+                  <Button
+                    onClick={loadStocks}
+                    variant="outline"
+                    className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
+                  >
+                    Retry
+                  </Button>
+                )}
+              </div>
             </div>
 
             <Card className="flex-1 overflow-hidden bg-[#090e23] border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl">
