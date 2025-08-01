@@ -1042,7 +1042,7 @@ const SentimentDashboard = () => {
             <div className="mb-12">
               <div className="flex items-center justify-between mb-8">
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold text-white">Portfolio Configuration</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white">Portfolio Configuration</h2>
                   <p className="text-blue-100/80">Optimize your allocations with sentiment-driven insights</p>
                 </div>
                 <Button 
@@ -1065,13 +1065,13 @@ const SentimentDashboard = () => {
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
-                          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                          <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
                             <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                               <BarChart3 className="h-6 w-6 text-blue-200" />
                             </div>
                             Stock Allocation
                           </CardTitle>
-                          <CardDescription className="text-blue-100/80 text-base">
+                          <CardDescription className="text-blue-100/80 text-sm sm:text-base">
                             Optimize portfolio allocation with sentiment-driven insights and position locking
                           </CardDescription>
                         </div>
@@ -1108,7 +1108,7 @@ const SentimentDashboard = () => {
                       </div>
                     </CardHeader>
 
-                    <CardContent className="p-8">
+                    <CardContent className="p-4 sm:p-8">
                       {/* Grid layout with 3 cards per row */}
                       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
                         {stocks.map((stock, index) => {
@@ -1133,14 +1133,14 @@ const SentimentDashboard = () => {
                                                                   <div className="flex items-center justify-between">
                                     {/* Left side: Symbol and company name */}
                                     <div className="flex-1 min-w-0">
-                                      <div className="font-semibold text-white text-sm">{stock.symbol}</div>
+                                      <div className="font-semibold text-white text-xs sm:text-sm">{stock.symbol}</div>
                                       <div className="text-blue-100/70 text-xs truncate">{stock.name}</div>
                                     </div>
                                     
                                     {/* Right side: Percentage and lock */}
                                     <div className="flex items-center gap-2 flex-shrink-0">
                                       <div className="text-right">
-                                        <div className="font-bold text-white text-lg">{stock.allocation}%</div>
+                                        <div className="font-bold text-white text-base sm:text-lg">{stock.allocation}%</div>
                                       </div>
                                       <Button
                                         variant="ghost"
@@ -1153,9 +1153,9 @@ const SentimentDashboard = () => {
                                         disabled={basketLocked}
                                       >
                                         {stock.locked ? (
-                                          <Lock className="h-3 w-3 text-blue-200" />
+                                          <Lock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-200" />
                                         ) : (
-                                          <Unlock className="h-3 w-3 text-blue-200" />
+                                          <Unlock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-200" />
                                         )}
                                       </Button>
                                     </div>
@@ -1211,19 +1211,19 @@ const SentimentDashboard = () => {
                       <CardHeader className="pb-6">
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
-                            <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                            <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
                               <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                                 <Activity className="h-6 w-6 text-blue-200" />
                               </div>
                               Source Weighting
                             </CardTitle>
-                            <CardDescription className="text-blue-100/80 text-base">
+                            <CardDescription className="text-blue-100/80 text-sm sm:text-base">
                               Fine-tune data source influence on composite sentiment analytics
                             </CardDescription>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="p-8">
+                      <CardContent className="p-4 sm:p-8">
                         <div className="space-y-6">
                           <div>
                             <div className="flex justify-between mb-3">
@@ -1367,13 +1367,13 @@ const SentimentDashboard = () => {
                     <CardHeader className="pb-6">
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
-                          <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+                          <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
                             <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                               <BarChart3 className="h-6 w-6 text-blue-200" />
                             </div>
                             Basket Management
                           </CardTitle>
-                          <CardDescription className="text-blue-100/80 text-base">
+                          <CardDescription className="text-blue-100/80 text-sm sm:text-base">
                             Select an existing basket or create a new one to track your portfolio
                           </CardDescription>
                         </div>
@@ -1413,7 +1413,7 @@ const SentimentDashboard = () => {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="p-8">
+                    <CardContent className="p-4 sm:p-8">
                       <div className="flex flex-col sm:flex-row gap-3 w-full">
                         {/* Basket Dropdown */}
                         <div className="flex-1">

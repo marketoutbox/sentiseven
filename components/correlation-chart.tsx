@@ -113,19 +113,19 @@ export function CorrelationChart() {
       <CardHeader className="pb-6">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           <div className="space-y-3">
-            <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold text-white">
+            <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
                              <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
                 <InfoCircle className="h-6 w-6 text-blue-200" />
               </div>
               Sentiment-Price Correlation
             </CardTitle>
-            <CardDescription className="text-blue-100/80 text-base">
+            <CardDescription className="text-blue-100/80 text-sm sm:text-base">
               This table shows the relationship between the source of information and historical price
             </CardDescription>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-8">
+      <CardContent className="p-4 sm:p-8">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
