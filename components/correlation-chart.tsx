@@ -110,12 +110,12 @@ export function CorrelationChart() {
 
   return (
     <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
-      <CardHeader className="pb-6">
+      <CardHeader className="pb-6 px-3 pt-3 sm:px-8 sm:pt-8">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           <div className="space-y-3">
             <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
-                             <div className="p-2 bg-[#1e31dd]/40 rounded-xl">
-                <InfoCircle className="h-6 w-6 text-blue-200" />
+                             <div className="p-2 bg-white rounded-xl">
+                <InfoCircle className="h-6 w-6 text-[#1e31dd]" />
               </div>
               Sentiment-Price Correlation
             </CardTitle>
