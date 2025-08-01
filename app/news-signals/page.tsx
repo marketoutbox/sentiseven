@@ -314,40 +314,37 @@ export default function NewsSignalsPage() {
         </div>
         {/* Summary Stats Card */}
         <Card className="mb-8 bg-gradient-to-r from-[#1e31dd] via-[#245DFF] to-[#1e31dd] shadow-lg shadow-blue-900/30 border border-blue-500/20 backdrop-blur-sm rounded-3xl overflow-hidden">
-          <CardContent className="p-4 sm:p-6">
-            <div className="flex justify-between items-start px-4 sm:px-8">
-                <div className="flex flex-col">
-                  <span className="text-white text-xs sm:text-sm">Total Signals</span>
-                  <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.total}</span>
+          <CardContent className="px-3 sm:px-6 pb-4 sm:pb-6">
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+              {/* Total Signals */}
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Total Signals</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{summaryStats.total}</p>
+              </div>
+
+              {/* Win Rate */}
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Win Rate</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{summaryStats.winRate.toFixed(2)}%</p>
+              </div>
+
+              {/* Positive Signals */}
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Positive</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{summaryStats.positive}</p>
+              </div>
+
+              {/* Negative Signals */}
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Negative</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{summaryStats.negative}</p>
+              </div>
+
+              {/* Last Updated Badge */}
+              <div className="text-center px-1 flex items-center justify-center">
+                <div className="px-2 py-1 bg-white/10 rounded-full text-[9px] sm:text-xs font-medium text-white/90 backdrop-blur-sm leading-tight">
+                  Last updated: {summaryStats.lastUpdate}
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-white text-xs sm:text-sm">Positive/Negative Ratio</span>
-                  <span className="text-white text-xl sm:text-2xl font-bold">
-                    {summaryStats.negative > 0
-                      ? (summaryStats.positive / summaryStats.negative).toFixed(2)
-                      : summaryStats.positive > 0
-                        ? "∞"
-                        : "0"}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white text-xs sm:text-sm">Win Rate %</span>
-                  <span className="text-white text-xl sm:text-2xl font-bold">
-                    {summaryStats.winRate.toFixed(2)}%
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white text-xs sm:text-sm">Positive Signals</span>
-                  <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.positive}</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white text-xs sm:text-sm">Negative Signals</span>
-                  <span className="text-white text-xl sm:text-2xl font-bold">{summaryStats.negative}</span>
-                </div>
-            </div>
-            <div className="mt-4 flex justify-start">
-              <div className="px-3 py-1 bg-white/10 rounded-full text-xs font-medium text-white/90 backdrop-blur-sm">
-                Last updated: {summaryStats.lastUpdate}
               </div>
             </div>
           </CardContent>
