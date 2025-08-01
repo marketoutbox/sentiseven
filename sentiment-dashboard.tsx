@@ -1153,7 +1153,7 @@ const SentimentDashboard = () => {
                                         disabled={basketLocked}
                                       >
                                         {stock.locked ? (
-                                          <Lock className="h-2 w-2 sm:h-3 sm:w-3 text-[#1e31dd]" />
+                                          <Lock className="h-2 w-2 sm:h-3 sm:w-3 text-[#245cff]" />
                                         ) : (
                                           <Unlock className="h-2 w-2 sm:h-3 sm:w-3 text-blue-200" />
                                         )}
@@ -1180,12 +1180,7 @@ const SentimentDashboard = () => {
                                       />
                                     </div>
                                     
-                                    {stock.locked && (
-                                      <div className="flex items-center gap-1 text-xs text-blue-200">
-                                        <Lock className="h-3 w-3" />
-                                        <span>Position locked at {stock.allocation}%</span>
-                                      </div>
-                                    )}
+
                                   </div>
                               </div>
                             </div>
