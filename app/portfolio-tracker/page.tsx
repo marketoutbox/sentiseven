@@ -405,52 +405,52 @@ export default function PortfolioTracker() {
               </button>
             </div>
           </CardHeader>
-          <CardContent className="px-4 sm:px-6 pb-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+          <CardContent className="px-3 sm:px-6 pb-4 sm:pb-6">
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4 lg:gap-6">
               {/* Total Value */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Total Value</p>
-                <p className="text-lg sm:text-xl font-bold text-white">{formatCurrency(portfolioData.totalValue)}</p>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Total Value</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{formatCurrency(portfolioData.totalValue)}</p>
               </div>
 
               {/* Total P&L */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Total P&L</p>
-                <p className={`text-lg sm:text-xl font-bold ${portfolioData.totalPnL >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Total P&L</p>
+                <p className={`text-sm sm:text-xl font-bold leading-tight ${portfolioData.totalPnL >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
                   {portfolioData.totalPnL >= 0 ? '+' : ''}{formatCurrency(portfolioData.totalPnL)}
                 </p>
-                <p className={`text-xs ${portfolioData.totalPnL >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
+                <p className={`text-[9px] sm:text-xs leading-tight ${portfolioData.totalPnL >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
                   ({portfolioData.totalPnLPercent >= 0 ? '+' : ''}{portfolioData.totalPnLPercent.toFixed(2)}%)
                 </p>
               </div>
 
               {/* Today's Change */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Today</p>
-                <p className={`text-lg sm:text-xl font-bold ${portfolioData.todayChange >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Today</p>
+                <p className={`text-sm sm:text-xl font-bold leading-tight ${portfolioData.todayChange >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
                   {portfolioData.todayChange >= 0 ? '+' : ''}{formatCurrency(portfolioData.todayChange)}
                 </p>
-                <p className={`text-xs ${portfolioData.todayChange >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
+                <p className={`text-[9px] sm:text-xs leading-tight ${portfolioData.todayChange >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
                   ({portfolioData.todayChangePercent >= 0 ? '+' : ''}{portfolioData.todayChangePercent.toFixed(2)}%)
                 </p>
               </div>
 
               {/* Total Cost */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Total Cost</p>
-                <p className="text-lg sm:text-xl font-bold text-white">{formatCurrency(portfolioData.totalCost)}</p>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Total Cost</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{formatCurrency(portfolioData.totalCost)}</p>
               </div>
 
               {/* Baskets Count */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Baskets</p>
-                <p className="text-lg sm:text-xl font-bold text-white">{portfolioData.basketsCount}</p>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Baskets</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{portfolioData.basketsCount}</p>
               </div>
 
               {/* Total Stocks */}
-              <div className="text-center">
-                <p className="text-xs sm:text-sm text-white/80 mb-1">Total Stocks</p>
-                <p className="text-lg sm:text-xl font-bold text-white">{portfolioData.totalStocks}</p>
+              <div className="text-center px-1">
+                <p className="text-[10px] sm:text-sm text-white/80 mb-0.5 sm:mb-1 leading-tight">Total Stocks</p>
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{portfolioData.totalStocks}</p>
               </div>
             </div>
           </CardContent>
