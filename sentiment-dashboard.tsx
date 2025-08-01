@@ -650,22 +650,27 @@ const SentimentDashboard = () => {
 
   // Function to handle saving stocks from the stock selector
   const handleSaveStocks = (newStocks) => {
+    console.log('handleSaveStocks called with:', newStocks.length, 'stocks')
+    console.log('Current stocks count:', stocks.length)
     // If these are stocks from the StockAllocation component, just update them directly
     if (newStocks.length > 0 && newStocks[0].hasOwnProperty("allocation")) {
-      // Remove duplicates by id before setting
-      const uniqueStocks = newStocks.filter((stock, index, self) => index === self.findIndex((s) => s.id === stock.id))
+      // Remove duplicates by symbol before setting (CSV stocks use symbol, not id)
+      const uniqueStocks = newStocks.filter((stock, index, self) => 
+        index === self.findIndex((s) => (s.symbol || s.id) === (stock.symbol || stock.id))
+      )
       setStocks(uniqueStocks)
       return
     }
 
     // Otherwise, this is from the StockSelector - handle adding new stocks
-    const existingStockIds = stocks.map((stock) => stock.id)
-    const brandNewStocks = newStocks.filter((stock) => !existingStockIds.includes(stock.id))
-    const continuingStocks = newStocks.filter((stock) => existingStockIds.includes(stock.id))
+    // Use symbol for CSV stocks, fallback to id for legacy stocks
+    const existingStockIdentifiers = stocks.map((stock) => stock.symbol || stock.id)
+    const brandNewStocks = newStocks.filter((stock) => !existingStockIdentifiers.includes(stock.symbol || stock.id))
+    const continuingStocks = newStocks.filter((stock) => existingStockIdentifiers.includes(stock.symbol || stock.id))
 
     // Preserve allocations and locked status for existing stocks
     const updatedContinuingStocks = continuingStocks.map((newStock) => {
-      const existingStock = stocks.find((s) => s.id === newStock.id)
+      const existingStock = stocks.find((s) => (s.symbol || s.id) === (newStock.symbol || newStock.id))
       return {
         ...newStock,
         allocation: existingStock?.allocation || 0,
@@ -683,9 +688,10 @@ const SentimentDashboard = () => {
     // Combine continuing and new stocks, ensuring no duplicates
     const finalStocks = [...updatedContinuingStocks, ...updatedNewStocks]
     const uniqueFinalStocks = finalStocks.filter(
-      (stock, index, self) => index === self.findIndex((s) => s.id === stock.id),
+      (stock, index, self) => index === self.findIndex((s) => (s.symbol || s.id) === (stock.symbol || stock.id)),
     )
 
+    console.log('Final stocks to save:', uniqueFinalStocks.length)
     setStocks(uniqueFinalStocks)
   }
 
