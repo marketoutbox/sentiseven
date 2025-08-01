@@ -1243,19 +1243,13 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
-                                  style={{ width: `${weights.twitter * 100}%` }}
-                                />
-                              </div>
                               <Slider
                                 defaultValue={[weights.twitter]}
                                 value={[weights.twitter]}
                                 max={1}
                                 step={0.05}
                                 onValueChange={(value) => handleWeightChange("twitter", value)}
-                                className="absolute inset-0 z-10"
+                                className="[&>span[data-orientation='horizontal']]:bg-[#192233] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                                 disabled={basketLocked}
                               />
                             </div>
@@ -1284,19 +1278,13 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
-                                  style={{ width: `${weights.googleTrends * 100}%` }}
-                                />
-                              </div>
                               <Slider
                                 defaultValue={[weights.googleTrends]}
                                 value={[weights.googleTrends]}
                                 max={1}
                                 step={0.05}
                                 onValueChange={(value) => handleWeightChange("googleTrends", value)}
-                                className="absolute inset-0 z-10"
+                                className="[&>span[data-orientation='horizontal']]:bg-[#192233] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                                 disabled={basketLocked}
                               />
                             </div>
@@ -1325,19 +1313,13 @@ const SentimentDashboard = () => {
                               </div>
                             </div>
                             <div className="relative">
-                              <div className="h-2 bg-[#192233] rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-gradient-to-r bg-[#1e31dd] transition-all duration-300 shadow-lg"
-                                  style={{ width: `${weights.news * 100}%` }}
-                                />
-                              </div>
                               <Slider
                                 defaultValue={[weights.news]}
                                 value={[weights.news]}
                                 max={1}
                                 step={0.05}
                                 onValueChange={(value) => handleWeightChange("news", value)}
-                                className="absolute inset-0 z-10"
+                                className="[&>span[data-orientation='horizontal']]:bg-[#192233] [&>span[data-orientation='horizontal']>span]:bg-[#1e31dd]"
                                 disabled={basketLocked}
                               />
                             </div>
@@ -1660,25 +1642,11 @@ const SentimentDashboard = () => {
               </div>
             ) : null}
 
-            {/* Deep Space Footer */}
+            {/* Footer */}
             <div className="mt-16 pt-8 border-t border-blue-500/20 bg-[#090e23]/60 backdrop-blur-sm rounded-t-3xl">
-              <div className="text-center space-y-4">
-                <div className="flex items-center justify-center gap-6 text-sm">
-                  <div className="flex items-center gap-2 text-blue-300/80">
-                                          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-sm shadow-blue-400/50" />
-                    <span>Live Data Feed</span>
-                  </div>
-                  <div className="text-blue-400/50">•</div>
-                  <div className="text-blue-300/70">
-                    Last updated: {new Date().toLocaleTimeString()}
-                  </div>
-                  <div className="text-blue-400/50">•</div>
-                  <div className="text-blue-300/70">
-                    Refresh: 15min intervals
-                  </div>
-                </div>
+              <div className="text-center">
                 <p className="text-blue-200/60 text-sm">
-                  © 2024 Sentiment Analytics Pro. Advanced market intelligence platform.
+                  © 2024 Sentiment Analytics Pro. All rights reserved.
                 </p>
               </div>
             </div>
