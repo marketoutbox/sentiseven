@@ -449,6 +449,7 @@ export default function PerformancePage() {
                     onCheckedChange={(checked) => {
                       setSelectedModels((prev) => (checked ? [...prev, "google"] : prev.filter((m) => m !== "google")))
                     }}
+                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                   />
                   <label
                     htmlFor="google-switch"
@@ -466,6 +467,7 @@ export default function PerformancePage() {
                         checked ? [...prev, "twitter"] : prev.filter((m) => m !== "twitter"),
                       )
                     }}
+                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                   />
                   <label
                     htmlFor="twitter-switch"
@@ -481,6 +483,7 @@ export default function PerformancePage() {
                     onCheckedChange={(checked) => {
                       setSelectedModels((prev) => (checked ? [...prev, "news"] : prev.filter((m) => m !== "news")))
                     }}
+                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                   />
                   <label
                     htmlFor="news-switch"
