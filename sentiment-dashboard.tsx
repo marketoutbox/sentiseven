@@ -1066,8 +1066,8 @@ const SentimentDashboard = () => {
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
-                            <div className="p-2 bg-white rounded-xl">
-                              <BarChart3 className="h-6 w-6 text-[#1e31dd]" />
+                            <div className="p-2 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl">
+                              <BarChart3 className="h-6 w-6 text-white" />
                             </div>
                             Stock Allocation
                           </CardTitle>
@@ -1212,8 +1212,8 @@ const SentimentDashboard = () => {
                         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-3">
                             <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
-                              <div className="p-2 bg-white rounded-xl">
-                                <Activity className="h-6 w-6 text-[#1e31dd]" />
+                              <div className="p-2 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl">
+                                <Activity className="h-6 w-6 text-white" />
                               </div>
                               Source Weighting
                             </CardTitle>
@@ -1368,8 +1368,8 @@ const SentimentDashboard = () => {
                       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="space-y-3">
                           <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
-                            <div className="p-2 bg-white rounded-xl">
-                              <BarChart3 className="h-6 w-6 text-[#1e31dd]" />
+                            <div className="p-2 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl">
+                              <BarChart3 className="h-6 w-6 text-white" />
                             </div>
                             Basket Management
                           </CardTitle>
