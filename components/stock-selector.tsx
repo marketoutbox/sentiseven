@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Check, ChevronDown, Plus, Search, X } from "lucide-react"
+import { Check, ChevronDown, Plus, Search, X, Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
@@ -19,11 +19,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-// Import stock data from the separate file
-import { allStocks, getSectors } from "@/data/stocks"
-
-// Get all sectors
-const sectors = getSectors()
+// Import stock data from CSV
+import { getAllStocks, searchStocks as searchStocksCSV, type Stock } from "@/lib/csv-stocks"
 
 export function StockSelector({
   open,
@@ -38,37 +35,52 @@ export function StockSelector({
 }) {
   const [selectedStocks, setSelectedStocks] = useState(initialStocks)
   const [searchTerm, setSearchTerm] = useState("")
-  const [sectorFilter, setSectorFilter] = useState<string | null>(null)
+  const [allStocksData, setAllStocksData] = useState<Stock[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  // Reset selected stocks when dialog opens
+  // Load stocks from CSV when dialog opens
   useEffect(() => {
     if (open) {
       setSelectedStocks(initialStocks)
+      loadStocks()
     }
   }, [open, initialStocks])
 
-  // Filter stocks based on search term and sector
-  const filteredStocks = allStocks.filter((stock) => {
+  const loadStocks = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const stocks = await getAllStocks()
+      setAllStocksData(stocks)
+    } catch (error) {
+      console.error('Error loading stocks:', error)
+      setError('Failed to load stocks. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Filter stocks based on search term
+  const filteredStocks = allStocksData.filter((stock) => {
     const matchesSearch =
       stock.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
       stock.name.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesSector = !sectorFilter || stock.sector === sectorFilter
-
-    return matchesSearch && matchesSector
+    return matchesSearch
   })
 
   // Check if a stock is selected
-  const isSelected = (stockId: number) => {
-    return selectedStocks.some((stock) => stock.id === stockId)
+  const isSelected = (stockSymbol: string) => {
+    return selectedStocks.some((stock) => stock.symbol === stockSymbol)
   }
 
   // Toggle stock selection
-  const toggleStock = (stock) => {
-    if (isSelected(stock.id)) {
-      setSelectedStocks(selectedStocks.filter((s) => s.id !== stock.id))
+  const toggleStock = (stock: Stock) => {
+    if (isSelected(stock.symbol)) {
+      setSelectedStocks(selectedStocks.filter((s) => s.symbol !== stock.symbol))
     } else {
-      setSelectedStocks([...selectedStocks, stock])
+      setSelectedStocks([...selectedStocks, { ...stock, allocation: 0, locked: false }])
     }
   }
 
@@ -108,43 +120,15 @@ export function StockSelector({
                   className="pl-10 bg-[#192233] border-[#0e142d] text-white placeholder:text-blue-200/60 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl"
                 />
               </div>
-
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="flex items-center gap-1 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
-                  >
-                    {sectorFilter || "All Sectors"}
-                    <ChevronDown className="h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0 bg-[#090e23] border-[#0e142d] rounded-xl" align="end">
-                  <Command className="bg-[#090e23]">
-                    <CommandList>
-                      <CommandGroup>
-                        <CommandItem
-                          onSelect={() => setSectorFilter(null)}
-                          className="flex items-center gap-2 text-white hover:bg-[#192233]"
-                        >
-                          {!sectorFilter && <Check className="h-4 w-4" />}
-                          <span className={!sectorFilter ? "font-medium" : ""}>All Sectors</span>
-                        </CommandItem>
-                        {sectors.map((sector) => (
-                          <CommandItem
-                            key={sector}
-                            onSelect={() => setSectorFilter(sector)}
-                            className="flex items-center gap-2 text-white hover:bg-[#192233]"
-                          >
-                            {sectorFilter === sector && <Check className="h-4 w-4" />}
-                            <span className={sectorFilter === sector ? "font-medium" : ""}>{sector}</span>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+              {error && (
+                <Button
+                  onClick={loadStocks}
+                  variant="outline"
+                  className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl"
+                >
+                  Retry
+                </Button>
+              )}
             </div>
 
             <Card className="flex-1 overflow-hidden bg-[#090e23] border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl">
@@ -152,52 +136,67 @@ export function StockSelector({
                 <CardTitle className="text-base text-white">Available Stocks</CardTitle>
               </CardHeader>
               <ScrollArea className="flex-1 h-[300px]">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-[#0e142d]">
-                      <TableHead className="w-[80px] text-blue-200/60">Symbol</TableHead>
-                      <TableHead className="text-blue-200/60">Name</TableHead>
-                      <TableHead className="hidden md:table-cell text-blue-200/60">Sector</TableHead>
-                      <TableHead className="text-right text-blue-200/60">Price</TableHead>
-                      <TableHead className="w-[100px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredStocks.length === 0 ? (
-                      <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-blue-200/60">
-                          No stocks found matching your criteria
-                        </TableCell>
+                {loading ? (
+                  <div className="flex justify-center items-center py-12">
+                    <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
+                    <span className="ml-2 text-blue-200/60">Loading stocks...</span>
+                  </div>
+                ) : error ? (
+                  <div className="flex flex-col justify-center items-center py-12">
+                    <p className="text-red-400 mb-4">{error}</p>
+                    <Button
+                      onClick={loadStocks}
+                      className="bg-[#1e31dd] hover:bg-[#245DFF] text-white px-6 py-2 rounded-xl transition-colors"
+                    >
+                      Retry
+                    </Button>
+                  </div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-[#0e142d]">
+                        <TableHead className="w-[80px] text-blue-200/60">Symbol</TableHead>
+                        <TableHead className="text-blue-200/60">Company</TableHead>
+                        <TableHead className="text-right text-blue-200/60">Price</TableHead>
+                        <TableHead className="w-[100px]"></TableHead>
                       </TableRow>
-                    ) : (
-                      filteredStocks.map((stock) => (
-                        <TableRow key={stock.id} className="group border-[#0e142d] hover:bg-[#192233]/50">
-                          <TableCell className="font-medium text-white">{stock.symbol}</TableCell>
-                          <TableCell className="text-white">{stock.name}</TableCell>
-                          <TableCell className="hidden md:table-cell text-blue-200/60">{stock.sector}</TableCell>
-                          <TableCell className="text-right">
-                            <span className={stock.change >= 0 ? "text-emerald-400" : "text-red-400"}>
-                              ${stock.price.toFixed(2)}
-                            </span>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              size="sm"
-                              className={`w-full transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20 ${
-                                isSelected(stock.id)
-                                  ? "bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white"
-                                  : "bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white"
-                              }`}
-                              onClick={() => toggleStock(stock)}
-                            >
-                              {isSelected(stock.id) ? "Remove" : "Add"}
-                            </Button>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredStocks.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-center py-6 text-blue-200/60">
+                            No stocks found matching your search
                           </TableCell>
                         </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
+                      ) : (
+                        filteredStocks.map((stock) => (
+                          <TableRow key={stock.symbol} className="group border-[#0e142d] hover:bg-[#192233]/50">
+                            <TableCell className="font-medium text-white">{stock.symbol}</TableCell>
+                            <TableCell className="text-white">{stock.name}</TableCell>
+                            <TableCell className="text-right">
+                              <span className={stock.change && stock.change >= 0 ? "text-emerald-400" : "text-red-400"}>
+                                ${stock.price?.toFixed(2) || '0.00'}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                className={`w-full transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20 ${
+                                  isSelected(stock.symbol)
+                                    ? "bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white"
+                                    : "bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white"
+                                }`}
+                                onClick={() => toggleStock(stock)}
+                              >
+                                {isSelected(stock.symbol) ? "Remove" : "Add"}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                )}
               </ScrollArea>
             </Card>
           </div>
@@ -226,7 +225,7 @@ export function StockSelector({
                   <div className="p-4 space-y-2">
                     {selectedStocks.map((stock) => (
                       <div
-                        key={stock.id}
+                        key={stock.symbol}
                         className="flex items-center justify-between p-3 rounded-xl bg-gradient-to-br from-[#040517] to-[#030514] border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40"
                       >
                         <div>
