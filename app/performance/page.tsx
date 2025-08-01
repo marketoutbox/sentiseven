@@ -465,7 +465,8 @@ export default function PerformancePage() {
         {/* Main Content Card */}
         <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardHeader className="pb-4 px-4 sm:px-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex flex-col gap-4">
+              {/* Title and Description */}
               <div>
                 <CardTitle className="text-lg sm:text-xl font-bold text-white">Stocks Performance Table</CardTitle>
                 <CardDescription className="text-sm text-blue-100/80">
@@ -479,73 +480,80 @@ export default function PerformancePage() {
                   )}
                 </CardDescription>
               </div>
-              <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="google-switch"
-                    checked={selectedModels.includes("google")}
-                    onCheckedChange={(checked) => {
-                      setSelectedModels((prev) => (checked ? [...prev, "google"] : prev.filter((m) => m !== "google")))
-                    }}
-                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
-                  />
-                  <label
-                    htmlFor="google-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
-                  >
-                    GTrends
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="twitter-switch"
-                    checked={selectedModels.includes("twitter")}
-                    onCheckedChange={(checked) => {
-                      setSelectedModels((prev) =>
-                        checked ? [...prev, "twitter"] : prev.filter((m) => m !== "twitter"),
-                      )
-                    }}
-                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
-                  />
-                  <label
-                    htmlFor="twitter-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
-                  >
-                    Twitter
-                  </label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="news-switch"
-                    checked={selectedModels.includes("news")}
-                    onCheckedChange={(checked) => {
-                      setSelectedModels((prev) => (checked ? [...prev, "news"] : prev.filter((m) => m !== "news")))
-                    }}
-                    className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
-                  />
-                  <label
-                    htmlFor="news-switch"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
-                  >
-                    News
-                  </label>
+              
+              {/* Toggle Switches and Refresh Button */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="google-switch"
+                      checked={selectedModels.includes("google")}
+                      onCheckedChange={(checked) => {
+                        setSelectedModels((prev) => (checked ? [...prev, "google"] : prev.filter((m) => m !== "google")))
+                      }}
+                      className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
+                    />
+                    <label
+                      htmlFor="google-switch"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+                    >
+                      GTrends
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="twitter-switch"
+                      checked={selectedModels.includes("twitter")}
+                      onCheckedChange={(checked) => {
+                        setSelectedModels((prev) =>
+                          checked ? [...prev, "twitter"] : prev.filter((m) => m !== "twitter"),
+                        )
+                      }}
+                      className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
+                    />
+                    <label
+                      htmlFor="twitter-switch"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+                    >
+                      Twitter
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="news-switch"
+                      checked={selectedModels.includes("news")}
+                      onCheckedChange={(checked) => {
+                        setSelectedModels((prev) => (checked ? [...prev, "news"] : prev.filter((m) => m !== "news")))
+                      }}
+                      className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
+                    />
+                    <label
+                      htmlFor="news-switch"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white"
+                    >
+                      News
+                    </label>
+                  </div>
                 </div>
                 
-                {/* Manual Refresh Button */}
+                {/* Manual Refresh Button - Hidden on mobile */}
                 <Button 
                   onClick={() => {
                     setLastFetchTime(null) // Clear cache to force refresh
                   }}
                   variant="outline" 
-                  className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3"
+                  className="hidden sm:flex bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3"
                   title="Refresh data"
                 >
                   <Loader2 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                 </Button>
               </div>
+              
+              {/* All Stocks Dropdown - Moved to separate row */}
+              <div className="flex justify-center sm:justify-start">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl">
+                  <Button variant="outline" className="flex items-center gap-2 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl w-full sm:w-auto max-w-xs">
                     <span>
                       {viewMode === "all"
                         ? "All Stocks"
@@ -596,6 +604,7 @@ export default function PerformancePage() {
                   {!user && <DropdownMenuItem disabled>Login required</DropdownMenuItem>}
                 </DropdownMenuContent>
               </DropdownMenu>
+              </div>
             </div>
           </CardHeader>
 
