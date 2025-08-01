@@ -1649,7 +1649,7 @@ const SentimentDashboard = () => {
             ) : null}
 
             {/* Footer */}
-            <div className="mt-16 pt-8">
+            <div className="mt-8 pt-4">
               <div className="text-center">
                 <p className="text-blue-200/60 text-sm">
                   © 2024 Sentiment Analytics Pro. All rights reserved.
