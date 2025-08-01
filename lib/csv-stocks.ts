@@ -42,26 +42,43 @@ const getCurrentPricesBatch = async (symbols: string[]): Promise<Record<string, 
 // Function to parse CSV content
 const parseCSV = (csvContent: string): Stock[] => {
   const lines = csvContent.trim().split('\n')
-  const header = lines[0]
+  const header = lines[0].trim()
+  
+  console.log('CSV Header found:', JSON.stringify(header))
+  console.log('CSV Header length:', header.length)
+  console.log('Expected header:', JSON.stringify('symbol,company'))
   
   if (header !== 'symbol,company') {
-    console.error('Invalid CSV format. Expected: symbol,company')
-    return []
+    console.error('Invalid CSV format. Expected: symbol,company, but got:', JSON.stringify(header))
+    // Let's be more flexible and try to continue if it's close
+    if (!header.toLowerCase().includes('symbol') || !header.toLowerCase().includes('company')) {
+      return []
+    }
+    console.warn('Header mismatch but contains expected fields, continuing...')
   }
 
   const stocks: Stock[] = []
+  console.log('Total CSV lines:', lines.length)
+  
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i].trim()
     if (line) {
-      const [symbol, name] = line.split(',')
-      if (symbol && name) {
+      const parts = line.split(',')
+      const symbol = parts[0]?.trim()
+      const name = parts.slice(1).join(',').trim() // Handle commas in company names
+      
+      if (symbol && name && symbol !== '' && name !== '') {
         stocks.push({
-          symbol: symbol.trim(),
-          name: name.trim(),
+          symbol: symbol,
+          name: name,
         })
+      } else {
+        console.warn(`Skipping invalid line ${i}: "${line}"`)
       }
     }
   }
+  
+  console.log('Successfully parsed stocks:', stocks.length)
 
   return stocks
 }
@@ -85,6 +102,7 @@ export const loadStocksFromCSV = async (includePrices = false): Promise<Stock[]>
 
     const csvContent = await response.text()
     console.log('CSV content loaded, length:', csvContent.length)
+    console.log('First 100 characters of CSV:', JSON.stringify(csvContent.substring(0, 100)))
     const stocks = parseCSV(csvContent)
     console.log('Parsed stocks count:', stocks.length)
 
