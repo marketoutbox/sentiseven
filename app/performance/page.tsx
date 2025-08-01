@@ -679,6 +679,15 @@ export default function PerformancePage() {
             )}
           </CardContent>
         </Card>
-    </div>
-  )
-}
+
+        {/* Footer */}
+        <div className="mt-16 pt-8">
+          <div className="text-center">
+            <p className="text-blue-200/60 text-sm">
+              © 2024 Sentiment Analytics Pro. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }

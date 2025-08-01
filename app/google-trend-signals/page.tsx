@@ -521,51 +521,15 @@ export default function GoogleTrendSignalsPage() {
             )}
           </CardContent>
         </Card>
-        {/* Signal Source Comparison */}
-        <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
-          <CardHeader className="p-4 sm:p-6">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200/60" />
-              <CardTitle className="text-lg sm:text-xl text-white">Signal Source Comparison</CardTitle>
-            </div>
-            <CardDescription className="text-sm sm:text-base text-blue-100/80">
-              Compare Google Trends with Twitter and News signals
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4 sm:p-6">
-            <div className="h-[250px] sm:h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={comparisonData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#0e142d" />
-                  <XAxis
-                    dataKey="symbol"
-                    stroke="#b0b8c4"
-                    className="fill-blue-200/60 text-xs sm:text-sm"
-                  />
-                  <YAxis
-                    stroke="#b0b8c4"
-                    className="fill-blue-200/60 text-xs sm:text-sm"
-                    domain={[-1, 1]}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#090e23",
-                      borderColor: "#0e142d",
-                      borderRadius: "0.75rem",
-                      color: "#ffffff",
-                      fontSize: "0.875rem",
-                    }}
-                    formatter={(value) => [value.toFixed(2), "Sentiment Score"]}
-                  />
-                  <Legend wrapperStyle={{ fontSize: "0.75rem", color: "#b0b8c4" }} />
-                  <Bar dataKey="googleTrends" name="Google Trends" fill="#10b981" />
-                  <Bar dataKey="twitter" name="Twitter" fill="#3b82f6" />
-                  <Bar dataKey="news" name="News" fill="#f59e0b" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-    </div>
+
+        {/* Footer */}
+        <div className="mt-16 pt-8">
+          <div className="text-center">
+            <p className="text-blue-200/60 text-sm">
+              © 2024 Sentiment Analytics Pro. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
   )
 }
