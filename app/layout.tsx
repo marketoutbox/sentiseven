@@ -88,6 +88,14 @@ export default function RootLayout({
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
                               <Link 
+                                href="/portfolio-tracker" 
+                                className="text-white hover:bg-[#192233] transition-colors w-full flex items-center px-3 py-2"
+                              >
+                                Portfolio Tracker
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link 
                                 href="/performance" 
                                 className="text-white hover:bg-[#192233] transition-colors w-full flex items-center px-3 py-2"
                               >
@@ -140,6 +148,13 @@ export default function RootLayout({
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
+
+                      <Link
+                        href="/portfolio-tracker"
+                        className="text-white hover:text-blue-200 transition-colors whitespace-nowrap"
+                      >
+                        Portfolio
+                      </Link>
 
                       <Link
                         href="/performance"
