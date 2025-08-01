@@ -196,7 +196,7 @@ export default function PerformancePage() {
             return false // If no models are selected, no stocks should appear
           }
 
-          let firstSentiment: string | null = null
+          // Check if stock has signals in ALL selected models
           for (const model of selectedModels) {
             let signal: StockSignal | undefined
 
@@ -209,14 +209,14 @@ export default function PerformancePage() {
               return false
             }
 
-            // Check for sentiment consistency
-            if (firstSentiment === null) {
-              firstSentiment = signal.sentiment
-            } else if (signal.sentiment !== firstSentiment) {
-              return false // Sentiments are not consistent across selected models
+            // Validate that sentiment exists and is not empty (case insensitive check)
+            const sentiment = signal.sentiment?.toLowerCase().trim()
+            if (!sentiment || !['positive', 'negative', 'neutral'].includes(sentiment)) {
+              return false
             }
           }
-          return true // Stock has signals in all selected models, and sentiments are consistent
+          
+          return true // Stock has valid signals in ALL selected models (sentiments can be different)
         })
 
         let basketLockDate: string | null = null
@@ -305,21 +305,34 @@ export default function PerformancePage() {
             let lockSentiment: string | null = null
             let currentSentiment: string | null = null
 
-            // Determine the consistent sentiment for display
+            // Determine sentiment display based on selected models
             let sentimentForDisplay: string | null = null
             if (selectedModels.length > 0) {
-              // Since the stock has passed the filter, we know sentiments are consistent.
-              // Just pick the sentiment from the first available selected model.
+              // Collect sentiments from all selected models
+              const sentiments: string[] = []
               for (const model of selectedModels) {
                 let signal: StockSignal | undefined
                 if (model === "google") signal = googleSignal
                 else if (model === "twitter") signal = twitterSignal
                 else if (model === "news") signal = newsSignal
 
-                if (signal) {
-                  sentimentForDisplay = signal.sentiment
-                  break // Found a sentiment, and we know they are all consistent
+                if (signal && signal.sentiment) {
+                  sentiments.push(signal.sentiment.toLowerCase())
                 }
+              }
+
+              // Create a summary of sentiments
+              if (sentiments.length > 0) {
+                const uniqueSentiments = [...new Set(sentiments)]
+                if (uniqueSentiments.length === 1) {
+                  // All models have same sentiment
+                  sentimentForDisplay = uniqueSentiments[0]
+                } else {
+                  // Different sentiments across models - show summary
+                  sentimentForDisplay = uniqueSentiments.join("/")
+                }
+              } else {
+                sentimentForDisplay = "N/A"
               }
             } else {
               sentimentForDisplay = "N/A" // No models selected
@@ -354,8 +367,8 @@ export default function PerformancePage() {
               lockDate = formatDate(mostRecentDate.toISOString())
               // Use the entry_price from the signal for "All Stocks" view
               lockPrice = Number.parseFloat(mostRecentSignal?.entry_price.toString() || "0")
-              lockSentiment = sentimentForDisplay // Use the consistent sentiment
-              currentSentiment = sentimentForDisplay // Use the consistent sentiment
+              lockSentiment = sentimentForDisplay // Use the sentiment summary
+              currentSentiment = sentimentForDisplay // Use the sentiment summary
             }
 
             // Get current price using the pre-fetched batch map
