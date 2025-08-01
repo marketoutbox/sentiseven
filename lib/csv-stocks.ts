@@ -76,13 +76,17 @@ export const loadStocksFromCSV = async (includePrices = false): Promise<Stock[]>
     }
 
     // Fetch CSV file
-    const response = await fetch('/data/list.csv')
+    console.log('Fetching CSV file from /list.csv...')
+    const response = await fetch('/list.csv')
     if (!response.ok) {
-      throw new Error('Failed to fetch stock list')
+      console.error('Failed to fetch CSV file:', response.status, response.statusText)
+      throw new Error(`Failed to fetch stock list: ${response.status} ${response.statusText}`)
     }
 
     const csvContent = await response.text()
+    console.log('CSV content loaded, length:', csvContent.length)
     const stocks = parseCSV(csvContent)
+    console.log('Parsed stocks count:', stocks.length)
 
     if (includePrices && stocks.length > 0) {
       // Fetch current prices for all stocks
