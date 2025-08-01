@@ -125,7 +125,7 @@ export function CorrelationChart() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-4 sm:p-8">
+      <CardContent className="p-3 sm:p-8">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-blue-400" />

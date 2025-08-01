@@ -1108,7 +1108,7 @@ const SentimentDashboard = () => {
                       </div>
                     </CardHeader>
 
-                    <CardContent className="p-4 sm:p-8">
+                    <CardContent className="p-3 sm:p-8">
                       {/* Grid layout with 3 cards per row */}
                       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
                         {stocks.map((stock, index) => {
@@ -1123,7 +1123,7 @@ const SentimentDashboard = () => {
                           return (
                             <div 
                               key={stock.id} 
-                              className={`relative w-full p-3 ${bgColor} rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40`}
+                              className={`relative w-full p-2 sm:p-3 ${bgColor} rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40`}
                             >
                               {/* Subtle hover effect overlay */}
                               <div className="absolute inset-0 bg-[#040517]/0 group-hover:bg-[#040517]/30 rounded-xl transition-all duration-300" />
@@ -1140,7 +1140,7 @@ const SentimentDashboard = () => {
                                     {/* Right side: Percentage and lock */}
                                     <div className="flex items-center gap-2 flex-shrink-0">
                                       <div className="text-right">
-                                        <div className="font-bold text-white text-base sm:text-lg">{stock.allocation}%</div>
+                                        <div className="font-bold text-white text-sm sm:text-lg">{stock.allocation}%</div>
                                       </div>
                                       <Button
                                         variant="ghost"
@@ -1153,9 +1153,9 @@ const SentimentDashboard = () => {
                                         disabled={basketLocked}
                                       >
                                         {stock.locked ? (
-                                          <Lock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-200" />
+                                          <Lock className="h-2 w-2 sm:h-3 sm:w-3 text-blue-200" />
                                         ) : (
-                                          <Unlock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-200" />
+                                          <Unlock className="h-2 w-2 sm:h-3 sm:w-3 text-blue-200" />
                                         )}
                                       </Button>
                                     </div>
@@ -1163,7 +1163,7 @@ const SentimentDashboard = () => {
 
                                                                   {/* Enhanced Blue Gradient Slider */}
                                   <div className="mt-3 space-y-2">
-                                    <div className="flex items-center justify-between text-xs text-blue-100/80">
+                                    <div className="hidden sm:flex items-center justify-between text-xs text-blue-100/80">
                                       <span>Allocation</span>
                                       <span>{stock.locked ? "Locked" : "Adjustable"}</span>
                                     </div>
@@ -1223,7 +1223,7 @@ const SentimentDashboard = () => {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="p-4 sm:p-8">
+                      <CardContent className="p-3 sm:p-8">
                         <div className="space-y-6">
                           <div>
                             <div className="flex justify-between mb-3">
@@ -1413,7 +1413,7 @@ const SentimentDashboard = () => {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="p-4 sm:p-8">
+                    <CardContent className="p-3 sm:p-8">
                       <div className="flex flex-col sm:flex-row gap-3 w-full">
                         {/* Basket Dropdown */}
                         <div className="flex-1">
