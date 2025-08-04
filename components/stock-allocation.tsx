@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { Lock, Unlock } from "lucide-react"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,6 +48,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
   const [localStocks, setLocalStocks] = useState<Stock[]>([])
   const [totalAllocation, setTotalAllocation] = useState<number>(0)
   const [error, setError] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   // Reset local stocks when the dialog opens or stocks prop changes
   useEffect(() => {
@@ -54,6 +56,18 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
       setLocalStocks(stocks.map((stock) => ({ ...stock })))
     }
   }, [stocks, open])
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Calculate total allocation whenever local stocks change
   useEffect(() => {
@@ -197,14 +211,14 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
               onClick={resetAllocations}
               className="bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20"
             >
-              Reset Equal
+              Set Equal
             </Button>
             <Button
               size="sm"
               onClick={distributeRemaining}
               className="bg-gradient-to-b from-[#181c35] to-[#272c47] hover:from-[#1a1e37] hover:to-[#292e49] text-white hover:text-white transition-all duration-300 rounded-xl shadow-sm shadow-blue-900/20"
             >
-              Distribute Remaining
+              Distribute
             </Button>
           </div>
         </div>
@@ -213,7 +227,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
           {localStocks.map((stock) => (
             <div key={stock.id} className="grid grid-cols-12 items-center gap-4">
               <Label htmlFor={`stock-${stock.id}`} className="col-span-3 truncate text-white font-medium">
-                {stock.symbol ? `${stock.symbol} - ${stock.name}` : stock.name}
+                {stock.symbol ? `${stock.symbol}${isMobile ? '' : ` - ${stock.name}`}` : stock.name}
               </Label>
               <div className="col-span-2">
                 <Input
@@ -244,7 +258,7 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
                 />
               </div>
               <div className="col-span-3 flex items-center justify-end gap-2">
-                <span className="text-sm text-blue-200/60">{stock.locked ? "Locked" : "Unlocked"}</span>
+                {stock.locked ? <Lock className="h-4 w-4 text-blue-400" /> : <Unlock className="h-4 w-4 text-blue-200/60" />}
                 <Switch 
                   checked={stock.locked} 
                   onCheckedChange={() => handleLockChange(stock.id)}
