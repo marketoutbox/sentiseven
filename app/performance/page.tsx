@@ -468,7 +468,7 @@ export default function PerformancePage() {
             <div className="flex flex-col gap-4">
               {/* Toggle Switches and Refresh Button */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2 sm:space-x-4">
+                <div className="flex items-center space-x-2 sm:space-x-4 bg-[#192233] border border-[#0e142d] rounded-xl px-4 py-2">
                   <div className="flex items-center space-x-2">
                     <Switch
                       id="google-switch"
@@ -521,82 +521,83 @@ export default function PerformancePage() {
                   </div>
                 </div>
                 
-                {/* Manual Refresh Button - Hidden on mobile */}
+                {/* All Stocks Dropdown - Now positioned next to toggles */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="flex items-center gap-2 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3">
+                      <span>
+                        {viewMode === "all"
+                          ? "All Stocks"
+                          : userBaskets.find((b) => b.id === viewMode)?.name || "Unknown Basket"}
+                      </span>
+                      <Badge variant="secondary" className="ml-2 bg-[#1e31dd]/20 text-blue-200 border-[#1e31dd]/50">
+                        {performanceData.length} stocks
+                      </Badge>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="bg-[#090e23] border-[#0e142d] rounded-xl">
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setViewMode("all")
+                        setSelectedBasketId(null)
+                      }}
+                      className="text-white hover:bg-[#192233]"
+                    >
+                      All Stocks
+                    </DropdownMenuItem>
+                    {userBaskets.length > 0 && (
+                      <>
+                        <DropdownMenuSeparator className="bg-[#0e142d]" />
+                        {userBaskets.map((basket) => (
+                          <DropdownMenuItem
+                            key={basket.id}
+                            onClick={() => {
+                              setViewMode(basket.id!)
+                              setSelectedBasketId(basket.id!)
+                            }}
+                            className="text-white hover:bg-[#192233]"
+                          >
+                            {basket.name}
+                            <span className="ml-2 text-xs text-blue-200/60">
+                              (Locked {basket.locked_at ? new Date(basket.locked_at).toLocaleDateString() : ""})
+                            </span>
+                          </DropdownMenuItem>
+                        ))}
+                      </>
+                    )}
+                    {userBaskets.length === 0 && user && (
+                      <DropdownMenuItem disabled className="text-blue-200/60">
+                        No locked baskets
+                        <span className="ml-2 text-xs text-muted-foreground">(Create and lock a basket first)</span>
+                      </DropdownMenuItem>
+                    )}
+                    {!user && <DropdownMenuItem disabled>Login required</DropdownMenuItem>}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              
+              {/* Last Updated Info and Refresh Button */}
+              <div className="flex items-center justify-between">
+                {lastFetchTime && (
+                  <div className="text-xs text-blue-200/60 text-center sm:text-left">
+                    Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
+                  </div>
+                )}
+                {/* Manual Refresh Button */}
                 <Button 
                   onClick={() => {
                     setLastFetchTime(null) // Clear cache to force refresh
                   }}
                   variant="outline" 
-                  className="hidden sm:flex bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3"
+                  className="bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl px-3"
                   title="Refresh data"
                 >
                   <Loader2 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                 </Button>
               </div>
               
-              {/* Last Updated Info */}
-              {lastFetchTime && (
-                <div className="text-xs text-blue-200/60 text-center sm:text-right">
-                  Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
-                </div>
-              )}
-              
-              {/* All Stocks Dropdown - Moved to separate row */}
-              <div className="flex justify-center sm:justify-start">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2 bg-[#192233] border-[#0e142d] text-white hover:bg-[#1a2536] rounded-xl w-full sm:w-auto max-w-xs">
-                    <span>
-                      {viewMode === "all"
-                        ? "All Stocks"
-                        : userBaskets.find((b) => b.id === viewMode)?.name || "Unknown Basket"}
-                    </span>
-                    <Badge variant="secondary" className="ml-2 bg-[#1e31dd]/20 text-blue-200 border-[#1e31dd]/50">
-                      {performanceData.length} stocks
-                    </Badge>
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-[#090e23] border-[#0e142d] rounded-xl">
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setViewMode("all")
-                      setSelectedBasketId(null)
-                    }}
-                    className="text-white hover:bg-[#192233]"
-                  >
-                    All Stocks
-                  </DropdownMenuItem>
-                  {userBaskets.length > 0 && (
-                    <>
-                      <DropdownMenuSeparator className="bg-[#0e142d]" />
-                      {userBaskets.map((basket) => (
-                        <DropdownMenuItem
-                          key={basket.id}
-                          onClick={() => {
-                            setViewMode(basket.id!)
-                            setSelectedBasketId(basket.id!)
-                          }}
-                          className="text-white hover:bg-[#192233]"
-                        >
-                          {basket.name}
-                          <span className="ml-2 text-xs text-blue-200/60">
-                            (Locked {basket.locked_at ? new Date(basket.locked_at).toLocaleDateString() : ""})
-                          </span>
-                        </DropdownMenuItem>
-                      ))}
-                    </>
-                  )}
-                  {userBaskets.length === 0 && user && (
-                    <DropdownMenuItem disabled className="text-blue-200/60">
-                      No locked baskets
-                      <span className="ml-2 text-xs text-muted-foreground">(Create and lock a basket first)</span>
-                    </DropdownMenuItem>
-                  )}
-                  {!user && <DropdownMenuItem disabled>Login required</DropdownMenuItem>}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              </div>
+
             </div>
           </CardHeader>
 
