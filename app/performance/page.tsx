@@ -213,8 +213,10 @@ export default function PerformancePage() {
           ...Array.from(newsSignalsMap.keys()),
         ])
 
+        console.log("Filtering stocks with selected models:", selectedModels)
         const stocksWithSignals = [...allUniqueSymbols].filter((symbol) => {
           if (selectedModels.length === 0) {
+            console.log("No models selected, filtering out all stocks")
             return false // If no models are selected, no stocks should appear
           }
 
@@ -427,6 +429,7 @@ export default function PerformancePage() {
         // Sort by symbol
         processedData.sort((a, b) => a.symbol.localeCompare(b.symbol))
 
+        console.log(`Final result: ${processedData.length} stocks after filtering with models:`, selectedModels)
         setPerformanceData(processedData)
         setLastUpdated(new Date().toLocaleDateString())
         setLastFetchTime(Date.now()) // Set cache timestamp
@@ -475,6 +478,8 @@ export default function PerformancePage() {
                       checked={selectedModels.includes("google")}
                       onCheckedChange={(checked) => {
                         setSelectedModels((prev) => (checked ? [...prev, "google"] : prev.filter((m) => m !== "google")))
+                        setLastFetchTime(null) // Clear cache to force refresh with new filters
+                        console.log("Google toggle changed, cache cleared")
                       }}
                       className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                     />
@@ -493,6 +498,8 @@ export default function PerformancePage() {
                         setSelectedModels((prev) =>
                           checked ? [...prev, "twitter"] : prev.filter((m) => m !== "twitter"),
                         )
+                        setLastFetchTime(null) // Clear cache to force refresh with new filters
+                        console.log("Twitter toggle changed, cache cleared")
                       }}
                       className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                     />
@@ -509,6 +516,8 @@ export default function PerformancePage() {
                       checked={selectedModels.includes("news")}
                       onCheckedChange={(checked) => {
                         setSelectedModels((prev) => (checked ? [...prev, "news"] : prev.filter((m) => m !== "news")))
+                        setLastFetchTime(null) // Clear cache to force refresh with new filters
+                        console.log("News toggle changed, cache cleared")
                       }}
                       className="data-[state=unchecked]:bg-gradient-to-br data-[state=unchecked]:from-[#040517] data-[state=unchecked]:to-[#030514] data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-[#040517] data-[state=checked]:to-[#030514] border-[#030514]/60 [&>span]:data-[state=unchecked]:bg-[#192233] [&>span]:data-[state=checked]:bg-[#1e31dd]"
                     />
