@@ -466,21 +466,6 @@ export default function PerformancePage() {
         <Card className="mb-8 bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
           <CardHeader className="pb-4 px-4 sm:px-6">
             <div className="flex flex-col gap-4">
-              {/* Title and Description */}
-              <div>
-                <CardTitle className="text-lg sm:text-xl font-bold text-white">Stocks Performance Table</CardTitle>
-                <CardDescription className="text-sm text-blue-100/80">
-                  {viewMode === "all"
-                    ? "Performance data for stocks matching selected signal models"
-                    : "Performance data from basket lock date to current date, matching selected signal models"}
-                  {lastFetchTime && (
-                    <span className="block text-xs text-blue-200/60 mt-1">
-                      Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
-                    </span>
-                  )}
-                </CardDescription>
-              </div>
-              
               {/* Toggle Switches and Refresh Button */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2 sm:space-x-4">
@@ -547,6 +532,14 @@ export default function PerformancePage() {
                 >
                   <Loader2 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                 </Button>
+              </div>
+              
+              {/* Last Updated Info */}
+              {lastFetchTime && (
+                <div className="text-xs text-blue-200/60 text-center sm:text-right">
+                  Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
+                </div>
+              )}
               </div>
               
               {/* All Stocks Dropdown - Moved to separate row */}
