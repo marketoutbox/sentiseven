@@ -540,7 +540,6 @@ export default function PerformancePage() {
                   Last updated: {new Date(lastFetchTime).toLocaleTimeString()} • Auto-refresh: 5min
                 </div>
               )}
-              </div>
               
               {/* All Stocks Dropdown - Moved to separate row */}
               <div className="flex justify-center sm:justify-start">
