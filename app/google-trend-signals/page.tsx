@@ -2,11 +2,12 @@
 
 import { useEffect, useState, useRef } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2, ChevronDown, ChevronUp, Search, Calendar } from "lucide-react"
+import { Loader2, ChevronDown, ChevronUp, Search, Calendar, ExternalLink } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from "recharts"
+import { useRouter } from "next/navigation"
 
 interface GTrendSignal {
   date: string
@@ -28,6 +29,7 @@ const capitalizeSentiment = (sentiment: string | undefined | null): string => {
 }
 
 export default function GoogleTrendSignalsPage() {
+  const router = useRouter()
   const [data, setData] = useState<GTrendSignal[]>([])
   const [loading, setLoading] = useState(true)
   const [expandedRows, setExpandedRows] = useState({})
@@ -99,6 +101,11 @@ export default function GoogleTrendSignalsPage() {
     } catch (e) {
       return dateString // Return original if parsing fails
     }
+  }
+
+  // Function to handle stock symbol clicks
+  const handleStockClick = (symbol: string) => {
+    router.push(`/stock/${symbol}`)
   }
 
   useEffect(() => {
@@ -488,7 +495,15 @@ export default function GoogleTrendSignalsPage() {
                       return (
                         <tr key={i} className="border-b border-[#0e142d] hover:bg-[#192233]/50 transition-colors">
                           <td className="px-3 py-3 sm:px-6 sm:py-4 text-white">{row.date}</td>
-                          <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{row.comp_symbol}</td>
+                          <td className="px-3 py-3 sm:px-6 sm:py-4">
+                            <button
+                              onClick={() => handleStockClick(row.comp_symbol)}
+                              className="flex items-center gap-2 font-medium text-blue-400 hover:text-blue-300 transition-colors group"
+                            >
+                              <span>{row.comp_symbol}</span>
+                              <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </button>
+                          </td>
                           <td className="px-3 py-3 sm:px-6 sm:py-4 max-w-[150px] sm:max-w-xs truncate text-white">
                             {row.analyzed_keywords}
                           </td>

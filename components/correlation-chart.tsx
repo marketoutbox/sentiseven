@@ -1,193 +1,206 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { InfoIcon as InfoCircle, Loader2 } from "lucide-react" // Added Loader2 for loading state
+import {
+  ComposedChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine
+} from "recharts"
+import { Card } from "@/components/ui/card"
 
-export function CorrelationChart() {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [dynamicSourceCorrelationData, setDynamicSourceCorrelationData] = useState([])
+interface CorrelationDataPoint {
+  date: string
+  sentiment: number
+  price: number
+}
 
-  useEffect(() => {
-    const fetchSignalSummaries = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const response = await fetch("/api/signal-summaries")
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const summaries = await response.json()
+interface CorrelationChartProps {
+  data: CorrelationDataPoint[]
+  title: string
+  type: 'current' | 'historical'
+}
 
-        // Initial structure for correlation data, impact will be dynamic
-        const updatedData = [
-          {
-            name: "GTrends",
-            correlation: 0.92, // This correlation value is still hardcoded as it's separate from win rate impact
-            color: "#10b981", // emerald-500
-            winRate: 0,
-          },
-          {
-            name: "Twitter",
-            correlation: 0.65,
-            color: "#f59e0b", // amber-500
-            winRate: 0,
-          },
-          {
-            name: "Composite",
-            correlation: 0.58,
-            color: "#3b82f6", // blue-500
-            winRate: 0,
-          },
-          {
-            name: "News",
-            correlation: 0.15,
-            color: "#ef4444", // red-500
-            winRate: 0,
-          },
-        ]
+export function CorrelationChart({ data, title, type }: CorrelationChartProps) {
+  // Process data for better visualization
+  const processedData = data.map((point, index) => ({
+    ...point,
+    // Normalize sentiment to 0-100 scale for better bar visualization
+    sentimentNormalized: ((point.sentiment + 1) * 50), // Convert from -1,1 to 0,100
+    // Normalize price to 0-100 scale
+    priceNormalized: ((point.price - Math.min(...data.map(d => d.price))) / 
+                     (Math.max(...data.map(d => d.price)) - Math.min(...data.map(d => d.price)))) * 100,
+    // Create a simple index for X-axis
+    index: index
+  }))
 
-        let totalWinRate = 0
-        let countForComposite = 0
+  // Custom tooltip
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const dataPoint = processedData[label]
+      return (
+        <Card className="bg-[#090e23] border border-[#0e142d] p-3 shadow-lg">
+          <div className="text-white space-y-2">
+            <p className="font-semibold">{dataPoint?.date || `Point ${label}`}</p>
+            <div className="space-y-1">
+              <p className="text-emerald-400">
+                Sentiment: {dataPoint?.sentiment.toFixed(3)}
+              </p>
+              <p className="text-blue-400">
+                Price: ${dataPoint?.price.toFixed(2)}
+              </p>
+            </div>
+          </div>
+        </Card>
+      )
+    }
+    return null
+  }
 
-        summaries.forEach((summary) => {
-          const winRate = summary.win_rate_percent || 0 // Default to 0 if null/undefined
-          if (summary.signal_type === "google_trends") {
-            const index = updatedData.findIndex((d) => d.name === "GTrends")
-            if (index !== -1) {
-              updatedData[index].winRate = winRate
-              totalWinRate += winRate
-              countForComposite++
-            }
-          } else if (summary.signal_type === "twitter") {
-            const index = updatedData.findIndex((d) => d.name === "Twitter")
-            if (index !== -1) {
-              updatedData[index].winRate = winRate
-              totalWinRate += winRate
-              countForComposite++
-            }
-          } else if (summary.signal_type === "news") {
-            const index = updatedData.findIndex((d) => d.name === "News")
-            if (index !== -1) {
-              updatedData[index].winRate = winRate
-              totalWinRate += winRate
-              countForComposite++
-            }
-          }
-        })
-
-        // Calculate composite win rate
-        const compositeIndex = updatedData.findIndex((d) => d.name === "Composite")
-        if (compositeIndex !== -1 && countForComposite > 0) {
-          updatedData[compositeIndex].winRate = totalWinRate / countForComposite
-        }
-
-        setDynamicSourceCorrelationData(updatedData)
-      } catch (err: any) {
-        console.error("Error fetching signal summaries for correlation chart:", err)
-        setError(err.message || "Failed to load correlation data.")
-      } finally {
-        setLoading(false)
+  // Custom axis tick for X-axis
+  const CustomXAxisTick = ({ x, y, payload }: any) => {
+    if (type === 'current') {
+      // For current data, show dates
+      const dataPoint = processedData[payload.value]
+      if (dataPoint) {
+        const date = new Date(dataPoint.date)
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`
+        return (
+          <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={16} textAnchor="middle" fill="#94a3b8" fontSize={10}>
+              {formattedDate}
+            </text>
+          </g>
+        )
       }
     }
-
-    fetchSignalSummaries()
-  }, []) // Empty dependency array to run once on mount
-
-  // Helper function to get the width percentage based on win rate value
-  const getWinRateWidthPercentage = (winRate: number) => {
-    return `${Math.min(winRate, 100)}%` // Ensure it doesn't exceed 100%
+    
+    // For historical data, show month labels
+    if (payload.value % 30 === 0) {
+      const dataPoint = processedData[payload.value]
+      if (dataPoint) {
+        const date = new Date(dataPoint.date)
+        const monthName = date.toLocaleDateString('en-US', { month: 'short' })
+        return (
+          <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={16} textAnchor="middle" fill="#94a3b8" fontSize={10}>
+              {monthName}
+            </text>
+          </g>
+        )
+      }
+    }
+    
+    return null
   }
 
-  // NEW: Helper function to get the impact text based on win rate
-  const getWinRateImpactText = (winRate: number) => {
-    if (winRate >= 76) return "Very Strong"
-    if (winRate >= 51) return "Strong"
-    if (winRate >= 26) return "Moderate"
-    return "Weak"
-  }
+  // Custom Y-axis tick for sentiment
+  const CustomSentimentYAxisTick = ({ x, y, payload }: any) => (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dx={-10} textAnchor="end" fill="#94a3b8" fontSize={10}>
+        {((payload.value / 50) - 1).toFixed(1)}
+      </text>
+    </g>
+  )
+
+  // Custom Y-axis tick for price
+  const CustomPriceYAxisTick = ({ x, y, payload }: any) => (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dx={-10} textAnchor="end" fill="#94a3b8" fontSize={10}>
+        ${payload.value.toFixed(0)}
+      </text>
+    </g>
+  )
 
   return (
-    <Card className="bg-[#090e23] backdrop-blur-xl border border-[#0e142d] shadow-lg shadow-[#030516]/30 rounded-3xl overflow-hidden">
-      <CardHeader className="pb-6 px-3 pt-3 sm:px-8 sm:pt-8">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-          <div className="space-y-3">
-            <CardTitle className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-bold text-white">
-                             <div className="p-2 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl">
-                <InfoCircle className="h-6 w-6 text-white" />
-              </div>
-              Sentiment-Price Correlation
-            </CardTitle>
-            <CardDescription className="text-blue-100/80 text-sm sm:text-base">
-              This table shows the relationship between the source of information and historical price
-            </CardDescription>
-          </div>
+    <div className="w-full h-full">
+      {/* Chart Title */}
+      <div className="text-center mb-4">
+        <h3 className="text-sm font-medium text-white">{title}</h3>
+        <p className="text-xs text-blue-200/60">
+          {type === 'current' ? '30-day correlation analysis' : '1-year historical correlation'}
+        </p>
+      </div>
+
+      {/* Chart Container */}
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={processedData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.3} />
+          
+          {/* X-axis */}
+          <XAxis 
+            dataKey="index" 
+            tick={<CustomXAxisTick />}
+            interval={type === 'current' ? Math.ceil(processedData.length / 7) : Math.ceil(processedData.length / 12)}
+          />
+          
+          {/* Left Y-axis for sentiment (bars) */}
+          <YAxis 
+            yAxisId="left"
+            orientation="left"
+            tick={<CustomSentimentYAxisTick />}
+            domain={[0, 100]}
+            width={40}
+          />
+          
+          {/* Right Y-axis for price (line) */}
+          <YAxis 
+            yAxisId="right"
+            orientation="right"
+            tick={<CustomPriceYAxisTick />}
+            domain={['dataMin', 'dataMax']}
+            width={50}
+          />
+          
+          <Tooltip content={<CustomTooltip />} />
+          
+          {/* Reference line for neutral sentiment */}
+          <ReferenceLine y={50} yAxisId="left" stroke="#64748b" strokeDasharray="3 3" opacity={0.5} />
+          
+          {/* Sentiment bars */}
+          <Bar
+            yAxisId="left"
+            dataKey="sentimentNormalized"
+            fill="#1e31dd"
+            opacity={0.6}
+            radius={[2, 2, 0, 0]}
+          />
+          
+          {/* Price line */}
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="price"
+            stroke="#10b981"
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 4, fill: "#10b981", stroke: "#ffffff", strokeWidth: 2 }}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+
+      {/* Chart Legend */}
+      <div className="mt-4 flex items-center justify-center gap-6 text-xs">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-[#1e31dd] rounded-sm opacity-60"></div>
+          <span className="text-blue-200/80">Sentiment</span>
         </div>
-      </CardHeader>
-      <CardContent className="p-3 sm:p-8">
-        {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-            <span className="ml-2 text-blue-100/80">Loading correlation data...</span>
-          </div>
-        ) : error ? (
-          <div className="p-4 bg-red-500/10 text-red-300 border border-red-500/20 rounded-xl">{error}</div>
-        ) : (
-          <div className="space-y-6">
-            {/* Header row */}
-            <div className="grid grid-cols-2 gap-4 py-2 text-sm font-medium text-blue-100/80">
-              <div>Source</div>
-              <div className="flex items-center justify-end">
-                Correlation Impact / Win Rate %
-                <InfoCircle className="ml-1 h-4 w-4" />
-              </div>
-            </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-[#10b981] rounded-sm"></div>
+          <span className="text-emerald-200/80">Price</span>
+        </div>
+      </div>
 
-            {/* Divider */}
-            <div className="h-px bg-blue-800/40"></div>
-
-            {/* Source rows in a 2x2 grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 xl:gap-6">
-              {dynamicSourceCorrelationData.map((source, index) => (
-                <div key={index} className="relative w-full p-3 bg-gradient-to-br from-[#040517] to-[#030514] rounded-xl border border-[#030514]/60 hover:border-blue-500/60 transition-all duration-300 group hover:shadow-lg hover:shadow-[#030516]/40">
-                  {/* Subtle hover effect overlay */}
-                  <div className="absolute inset-0 bg-[#040517]/0 group-hover:bg-[#040517]/30 rounded-xl transition-all duration-300" />
-                  
-                  <div className="relative space-y-2">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-sm font-medium text-white">{source.name}</div>
-                      <div className="flex items-center justify-end text-xs font-medium" style={{ color: source.color }}>
-                        {getWinRateImpactText(source.winRate)} {/* Dynamically set impact text */}
-                      </div>
-                    </div>
-
-                    {/* Scale labels ABOVE progress bar */}
-                    <div className="grid grid-cols-4 text-xs text-blue-200/70 mb-1">
-                      <div className="text-left">Weak</div>
-                      <div className="text-center">Moderate</div>
-                      <div className="text-center">Strong</div>
-                      <div className="text-right">Very Strong</div>
-                    </div>
-
-                    {/* Progress bar container (relative for absolute children) */}
-                    <div className="relative h-2 w-full rounded-full bg-[#192233]">
-                      {/* Progress bar fill with gradient */}
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: getWinRateWidthPercentage(source.winRate),
-                          background: `linear-gradient(to right, ${source.color}20, ${source.color})`,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {/* Chart Info */}
+      <div className="mt-2 text-center">
+        <div className="text-xs text-blue-200/60">
+          {processedData.length} data points • {type === 'current' ? 'Daily' : 'Monthly'} intervals
+        </div>
+      </div>
+    </div>
   )
 }

@@ -112,11 +112,11 @@ const SentimentDashboard = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   // Sample sentiment data
-  const sentimentData = {
-    "1d": generateSentimentData(1),
-    "1w": generateSentimentData(7),
-    "1m": generateSentimentData(30),
-  }
+  const [sentimentData, setSentimentData] = useState({
+    "1d": [],
+    "1w": [],
+    "1m": [],
+  })
 
   // State for stock selector dialog
   const [isStockSelectorOpen, setIsStockSelectorOpen] = useState(false)
@@ -143,6 +143,15 @@ const SentimentDashboard = () => {
       loadMostRecentBasket()
     }
   }, [user])
+
+  // Generate sentiment data after component mounts
+  useEffect(() => {
+    setSentimentData({
+      "1d": generateSentimentData(1),
+      "1w": generateSentimentData(7),
+      "1m": generateSentimentData(30),
+    })
+  }, [])
 
   // Load all user baskets
   const loadUserBaskets = async () => {
@@ -650,7 +659,7 @@ const SentimentDashboard = () => {
   // Function to handle saving stocks from the stock selector
   const handleSaveStocks = (newStocks) => {
     console.log('handleSaveStocks called with:', newStocks.length, 'stocks')
-    console.log('Current stocks count:', stocks.length)
+    console.log('Current stocks count:', (stocks || []).length)
     // If these are stocks from the StockAllocation component, just update them directly
     if (newStocks.length > 0 && newStocks[0].hasOwnProperty("allocation")) {
       // Remove duplicates by symbol before setting (CSV stocks use symbol, not id)
@@ -663,13 +672,13 @@ const SentimentDashboard = () => {
 
     // Otherwise, this is from the StockSelector - handle adding new stocks
     // Use symbol for CSV stocks, fallback to id for legacy stocks
-    const existingStockIdentifiers = stocks.map((stock) => stock.symbol || stock.id)
+    const existingStockIdentifiers = (stocks || []).map((stock) => stock.symbol || stock.id)
     const brandNewStocks = newStocks.filter((stock) => !existingStockIdentifiers.includes(stock.symbol || stock.id))
     const continuingStocks = newStocks.filter((stock) => existingStockIdentifiers.includes(stock.symbol || stock.id))
 
     // Preserve allocations and locked status for existing stocks
     const updatedContinuingStocks = continuingStocks.map((newStock) => {
-      const existingStock = stocks.find((s) => (s.symbol || s.id) === (newStock.symbol || newStock.id))
+      const existingStock = (stocks || []).find((s) => (s.symbol || s.id) === (newStock.symbol || newStock.id))
       return {
         ...newStock,
         allocation: existingStock?.allocation || 0,
@@ -696,6 +705,9 @@ const SentimentDashboard = () => {
 
   // Generate weighted composite sentiment
   const calculateWeightedSentiment = () => {
+    if (!sentimentData || !sentimentData[timePeriod] || sentimentData[timePeriod].length === 0) {
+      return []
+    }
     return sentimentData[timePeriod].map((day) => {
       const weightedSentiment =
         day.twitterSentiment * weights.twitter +
@@ -786,14 +798,23 @@ const SentimentDashboard = () => {
     setWeights(newWeights)
   }
 
-  const weightedData = calculateWeightedSentiment()
+  const weightedData = calculateWeightedSentiment() || []
+
+  // Don't render until sentiment data is loaded
+  if (sentimentData["1d"].length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#010310] to-[#030516] flex items-center justify-center">
+        <div className="text-white text-xl">Loading sentiment data...</div>
+      </div>
+    )
+  }
 
   // Function to handle clicking on a stock
   const handleStockClick = (stock) => {
     if (!stock) return // Guard clause to prevent clicking on undefined stock
 
     // Find the full stock data with price
-    const stockWithPrice = stockPerformanceData.find((s) => s.id === stock.id) || {
+    const stockWithPrice = (stockPerformanceData || []).find((s) => s.id === stock.id) || {
       ...stock,
       price: 100, // Default price if not found
       change: 0, // Default change if not found
@@ -805,14 +826,14 @@ const SentimentDashboard = () => {
 
   // Function to toggle lock status of a stock
   const handleToggleLock = (stockId) => {
-    const updatedStocks = stocks.map((stock) => (stock.id === stockId ? { ...stock, locked: !stock.locked } : stock))
+    const updatedStocks = (stocks || []).map((stock) => (stock.id === stockId ? { ...stock, locked: !stock.locked } : stock))
     setStocks(updatedStocks)
   }
 
   // Function to reset allocations to equal distribution
   const handleResetAllocations = () => {
     // Create a copy of stocks
-    const updatedStocks = [...stocks]
+    const updatedStocks = [...(stocks || [])]
 
     // Calculate total allocation of locked stocks
     const lockedStocks = updatedStocks.filter((stock) => stock.locked)
@@ -854,7 +875,7 @@ const SentimentDashboard = () => {
   // Function to update stock allocation using slider
   const handleAllocationChange = (stockId, newAllocation) => {
     // Create a copy of stocks
-    const updatedStocks = [...stocks]
+    const updatedStocks = [...(stocks || [])]
 
     // Find the stock to update
     const stockIndex = updatedStocks.findIndex((s) => s.id === stockId)
@@ -905,9 +926,9 @@ const SentimentDashboard = () => {
   }
 
   // Generate stock performance data
-  const stockPerformanceData = stocks.map((stock) => {
+  const stockPerformanceData = (stocks || []).map((stock) => {
     const basePerformance = Math.random() * 10 - 5 // Random between -5% and +5%
-    const compositeSentiment = weightedData[weightedData.length - 1].compositeSentiment
+    const compositeSentiment = weightedData.length > 0 ? weightedData[weightedData.length - 1].compositeSentiment : 0
     const sentimentImpact = compositeSentiment > 0 ? compositeSentiment * 2 : compositeSentiment
     const performance = Number.parseFloat((basePerformance + sentimentImpact).toFixed(2))
 
@@ -920,10 +941,10 @@ const SentimentDashboard = () => {
       price,
       change,
       performance,
-      twitterSentiment: weightedData[weightedData.length - 1].twitterSentiment,
-      googleTrendsSentiment: weightedData[weightedData.length - 1].googleTrendsSentiment,
-      newsSentiment: weightedData[weightedData.length - 1].compositeSentiment,
-      compositeSentiment: weightedData[weightedData.length - 1].compositeSentiment,
+      twitterSentiment: weightedData.length > 0 ? weightedData[weightedData.length - 1].twitterSentiment : 0,
+      googleTrendsSentiment: weightedData.length > 0 ? weightedData[weightedData.length - 1].googleTrendsSentiment : 0,
+      newsSentiment: weightedData.length > 0 ? weightedData[weightedData.length - 1].compositeSentiment : 0,
+      compositeSentiment: weightedData.length > 0 ? weightedData[weightedData.length - 1].compositeSentiment : 0,
     }
   })
 
@@ -949,7 +970,7 @@ const SentimentDashboard = () => {
 
   // Get overall sentiment status
   const getOverallSentiment = () => {
-    const latestComposite = weightedData[weightedData.length - 1].compositeSentiment
+    const latestComposite = weightedData.length > 0 ? weightedData[weightedData.length - 1].compositeSentiment : 0
 
     if (latestComposite > 0.5) return { text: "Very Positive", color: "bg-emerald-500" }
     if (latestComposite > 0.2) return { text: "Positive", color: "bg-emerald-400" }
@@ -1116,8 +1137,8 @@ const SentimentDashboard = () => {
                     <CardContent className="p-3 sm:p-8">
                       {/* Grid layout with 3 cards per row */}
                       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-6">
-                        {stocks.map((stock, index) => {
-                          const stockData = stockPerformanceData.find((s) => s.id === stock.id) || stock
+                        {(stocks || []).map((stock, index) => {
+                                                      const stockData = (stockPerformanceData || []).find((s) => s.id === stock.id) || stock
                           const performanceColor = stockData.compositeSentiment > 0.3 
                             ? "text-emerald-400" 
                             : stockData.compositeSentiment > -0.3 
@@ -1196,9 +1217,9 @@ const SentimentDashboard = () => {
 
                     <CardFooter className="flex justify-center border-t border-blue-800/30 pt-6">
                       <div className="text-blue-100/90">
-                        <span className="font-semibold text-white">{stocks.filter((s) => s.locked).length}</span>
+                        <span className="font-semibold text-white">{(stocks || []).filter((s) => s.locked).length}</span>
                         <span className="text-blue-100/70"> of </span>
-                        <span className="font-semibold text-white">{stocks.length}</span>
+                        <span className="font-semibold text-white">{(stocks || []).length}</span>
                         <span className="text-blue-100/70"> positions locked</span>
                       </div>
                     </CardFooter>
@@ -1445,7 +1466,7 @@ const SentimentDashboard = () => {
                             </div>
                             <div>
                               <span className="text-blue-200/60">Stocks:</span>
-                              <span className="font-medium ml-1 text-white">{stocks.length}</span>
+                              <span className="font-medium ml-1 text-white">{(stocks || []).length}</span>
                             </div>
                             <div>
                               <span className="text-blue-200/60">Status:</span>
@@ -1492,7 +1513,7 @@ const SentimentDashboard = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                             <div className="text-center p-3 bg-[#192233] rounded-xl border border-[#0e142d]">
                               <div className="text-lg font-bold text-white">
-                                {stocks.reduce((sum, stock) => sum + stock.allocation, 0)}%
+                                {(stocks || []).reduce((sum, stock) => sum + stock.allocation, 0)}%
                               </div>
                               <div className="text-xs text-blue-200/60">Total Allocation</div>
                             </div>
@@ -1501,7 +1522,7 @@ const SentimentDashboard = () => {
                               <div className="text-xs text-blue-200/60">Performance Since Lock</div>
                             </div>
                             <div className="text-center p-3 bg-[#192233] rounded-xl border border-[#0e142d]">
-                              <div className="text-lg font-bold text-white">{stocks.length}</div>
+                              <div className="text-lg font-bold text-white">{(stocks || []).length}</div>
                               <div className="text-xs text-blue-200/60">Stocks in Basket</div>
                             </div>
                           </div>
