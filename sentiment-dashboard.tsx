@@ -2,6 +2,7 @@
 // FORCE DEPLOY: 2025-01-30T22:45:00Z - Mobile Optimization Applied
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
@@ -62,6 +63,7 @@ const SentimentDashboard = () => {
   // Auth context
   const { user } = useAuth()
   const { toast } = useToast()
+  const router = useRouter()
 
   // State for time period and source weights
   const [timePeriod, setTimePeriod] = useState("1w")
@@ -813,15 +815,8 @@ const SentimentDashboard = () => {
   const handleStockClick = (stock) => {
     if (!stock) return // Guard clause to prevent clicking on undefined stock
 
-    // Find the full stock data with price
-    const stockWithPrice = (stockPerformanceData || []).find((s) => s.id === stock.id) || {
-      ...stock,
-      price: 100, // Default price if not found
-      change: 0, // Default change if not found
-      performance: 0,
-    }
-
-    setSelectedStock(stockWithPrice)
+    // Navigate to stock detail page
+    router.push(`/stock/${stock.symbol}`)
   }
 
   // Function to toggle lock status of a stock
@@ -1159,7 +1154,12 @@ const SentimentDashboard = () => {
                                                                   <div className="flex items-center justify-between">
                                     {/* Left side: Symbol and company name */}
                                     <div className="flex-1 min-w-0">
-                                      <div className="font-semibold text-white text-xs sm:text-sm">{stock.symbol}</div>
+                                      <div 
+                                        className="font-semibold text-white text-xs sm:text-sm cursor-pointer hover:text-blue-300 transition-colors duration-200"
+                                        onClick={() => handleStockClick(stock)}
+                                      >
+                                        {stock.symbol}
+                                      </div>
                                       <div className="hidden sm:block text-blue-100/70 text-xs truncate">{stock.name}</div>
                                     </div>
                                     
