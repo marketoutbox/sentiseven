@@ -227,7 +227,18 @@ const StockAllocation: React.FC<StockAllocationProps> = ({
           {localStocks.map((stock) => (
             <div key={stock.id} className="grid grid-cols-12 items-center gap-4">
               <Label htmlFor={`stock-${stock.id}`} className="col-span-3 truncate text-white font-medium">
-                {stock.symbol ? `${stock.symbol}${isMobile ? '' : ` - ${stock.name}`}` : stock.name}
+                {stock.symbol ? (
+                  <div 
+                    className="cursor-pointer hover:text-blue-300 transition-colors flex items-center gap-1"
+                    onClick={() => window.location.href = `/stock/${stock.symbol}`}
+                  >
+                    {stock.symbol}
+                    <span className="text-blue-400 text-xs opacity-60">→</span>
+                    {!isMobile && ` - ${stock.name}`}
+                  </div>
+                ) : (
+                  stock.name
+                )}
               </Label>
               <div className="col-span-2">
                 <Input

@@ -1138,7 +1138,13 @@ const SentimentDashboard = () => {
                                                                   <div className="flex items-center justify-between">
                                     {/* Left side: Symbol and company name */}
                                     <div className="flex-1 min-w-0">
-                                      <div className="font-semibold text-white text-xs sm:text-sm">{stock.symbol}</div>
+                                      <div 
+                                        className="font-semibold text-white text-xs sm:text-sm cursor-pointer hover:text-blue-300 transition-colors flex items-center gap-1"
+                                        onClick={() => window.location.href = `/stock/${stock.symbol}`}
+                                      >
+                                        {stock.symbol}
+                                        <span className="text-blue-400 text-xs opacity-60">→</span>
+                                      </div>
                                       <div className="hidden sm:block text-blue-100/70 text-xs truncate">{stock.name}</div>
                                     </div>
                                     
