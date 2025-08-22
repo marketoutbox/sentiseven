@@ -79,8 +79,8 @@ export function CorrelationChart({ data, title, type }: CorrelationChartProps) {
       }
     }
     
-    // For historical data, show month labels
-    if (payload.value % 30 === 0) {
+    // For historical data, show month labels more frequently
+    if (payload.value % 15 === 0) {
       const dataPoint = processedData[payload.value]
       if (dataPoint) {
         const date = new Date(dataPoint.date)
@@ -124,18 +124,25 @@ export function CorrelationChart({ data, title, type }: CorrelationChartProps) {
         <p className="text-xs text-blue-200/60">
           {type === 'current' ? '30-day correlation analysis' : '1-year historical correlation'}
         </p>
+        {type === 'historical' && (
+          <div className="mt-2 flex items-center justify-center gap-2 text-xs text-blue-300/80">
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <span>Scroll horizontally to explore full timeline</span>
+          </div>
+        )}
       </div>
 
       {/* Chart Container */}
-      <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={processedData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <div className={`w-full h-full ${type === 'historical' ? 'overflow-x-auto' : ''}`}>
+        <ResponsiveContainer width={type === 'historical' ? Math.max(800, processedData.length * 3) : '100%'} height="100%">
+          <ComposedChart data={processedData} margin={{ top: 5, right: 30, left: 20, bottom: type === 'historical' ? 20 : 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.3} />
           
           {/* X-axis */}
           <XAxis 
             dataKey="index" 
             tick={<CustomXAxisTick />}
-            interval={type === 'current' ? Math.ceil(processedData.length / 7) : Math.ceil(processedData.length / 12)}
+            interval={type === 'current' ? Math.ceil(processedData.length / 7) : Math.ceil(processedData.length / 20)}
           />
           
           {/* Left Y-axis for sentiment (bars) */}
@@ -181,7 +188,8 @@ export function CorrelationChart({ data, title, type }: CorrelationChartProps) {
             activeDot={{ r: 4, fill: "#10b981", stroke: "#ffffff", strokeWidth: 2 }}
           />
         </ComposedChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
+      </div>
 
       {/* Chart Legend */}
       <div className="mt-4 flex items-center justify-center gap-6 text-xs">
@@ -199,6 +207,11 @@ export function CorrelationChart({ data, title, type }: CorrelationChartProps) {
       <div className="mt-2 text-center">
         <div className="text-xs text-blue-200/60">
           {processedData.length} data points • {type === 'current' ? 'Daily' : 'Monthly'} intervals
+          {type === 'historical' && (
+            <span className="block mt-1 text-blue-300/80">
+              💡 Scroll horizontally to view all data
+            </span>
+          )}
         </div>
       </div>
     </div>

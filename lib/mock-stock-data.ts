@@ -42,23 +42,26 @@ export function generateMockStockData(symbol: string) {
 
 // Generate mock sentiment data
 export function generateMockSentimentData(symbol: string) {
-  const baseSentiment = Math.random() * 0.6 - 0.3 // Random baseline between -0.3 and 0.3
+  // Generate more diverse sentiment values to avoid all neutral
+  const twitterSentiment = Math.random() * 1.4 - 0.7 // -0.7 to 0.7
+  const newsSentiment = Math.random() * 1.4 - 0.7 // -0.7 to 0.7
+  const googleSentiment = Math.random() * 1.4 - 0.7 // -0.7 to 0.7
   
   return {
     twitter: {
-      sentiment: Number((baseSentiment + (Math.random() - 0.5) * 0.2).toFixed(3)),
+      sentiment: Number(twitterSentiment.toFixed(3)),
       volume: Math.floor(Math.random() * 10000) + 1000,
       mentions: Math.floor(Math.random() * 5000) + 500,
       trending: Math.random() > 0.5
     },
     news: {
-      sentiment: Number((baseSentiment + (Math.random() - 0.5) * 0.3).toFixed(3)),
+      sentiment: Number(newsSentiment.toFixed(3)),
       articles: Math.floor(Math.random() * 100) + 10,
       sources: Math.floor(Math.random() * 20) + 5,
       impact: Math.random() > 0.6 ? 'high' : 'medium'
     },
     googleTrends: {
-      sentiment: Number((baseSentiment + (Math.random() - 0.5) * 0.25).toFixed(3)),
+      sentiment: Number(googleSentiment.toFixed(3)),
       searchVolume: Math.floor(Math.random() * 100) + 10,
       trend: Math.random() > 0.5 ? 'rising' : 'falling',
       keywords: ['earnings', 'dividend', 'growth', 'innovation'].slice(0, Math.floor(Math.random() * 3) + 1)

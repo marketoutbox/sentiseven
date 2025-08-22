@@ -144,7 +144,7 @@ export function StockPriceChart({ data }: StockPriceChartProps) {
       <div className="w-full h-full min-h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           {chartType === 'area' ? (
-            <AreaChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <AreaChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
               <defs>
                 <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#1e31dd" stopOpacity={0.8}/>
@@ -159,6 +159,10 @@ export function StockPriceChart({ data }: StockPriceChartProps) {
                   const date = new Date(value)
                   return `${date.getMonth() + 1}/${date.getDate()}`
                 }}
+                interval={Math.ceil(filteredData.length / 8)}
+                angle={-45}
+                textAnchor="end"
+                height={60}
               />
               <YAxis 
                 domain={yDomain}
@@ -177,7 +181,7 @@ export function StockPriceChart({ data }: StockPriceChartProps) {
               />
             </AreaChart>
           ) : (
-            <LineChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <LineChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 60 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.3} />
               <XAxis 
                 dataKey="date" 
@@ -186,6 +190,10 @@ export function StockPriceChart({ data }: StockPriceChartProps) {
                   const date = new Date(value)
                   return `${date.getMonth() + 1}/${date.getDate()}`
                 }}
+                interval={Math.ceil(filteredData.length / 8)}
+                angle={-45}
+                textAnchor="end"
+                height={60}
               />
               <YAxis 
                 domain={yDomain}
